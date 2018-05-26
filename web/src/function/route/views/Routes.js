@@ -84,14 +84,13 @@ class Routes extends Component {
   componentWillUpdate() {}
   componentDIdUpdate() {}
   render() {
-    return (<div>
-      <Switch>
-        <LoginPage exact="exact" path="/LoginPage"/>
-        <NavbarPage  path="/NavbarPage"/>
-        <ErrorPage exact="exact" path="/ErrorPage"/>
-        <LoginPage exact="exact" path="/"/>
-      </Switch>
-    </div>);
+    return (<Switch>
+      <LoginPage path="/LoginPage" exact="exact"/>
+      <NavbarPage path="/NavbarPage"/>
+      <ErrorPage path="/ErrorPage" exact="exact"/>
+      <LoginPage path="/" exact="exact"/>
+      <ErrorPage path="/*"/>
+    </Switch>);
   }
 
 }

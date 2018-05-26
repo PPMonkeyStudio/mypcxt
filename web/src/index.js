@@ -6,10 +6,11 @@ import {BrowserRouter} from 'react-router-dom';
 //
 //
 import './css/bootstrap.min.css';
-import './css/navbar/chartist-custom.css';
-import './css/navbar/main.css';
-import './css/navbar/font-awesome.min.css';
-import './css/navbar/style.css';
+import './css/mycss.css';
+// import './css/navbar/chartist-custom.css';
+// import './css/navbar/main.css';
+// import './css/navbar/font-awesome.min.css';
+// import './css/navbar/style.css';
 //
 //
 //

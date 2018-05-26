@@ -26,9 +26,6 @@ const PanelStyle = {
   margin: " 100px auto",
   padding: "20px 30px 40px 30px"
 };
-const ImageStyle = {
-  height: "40px"
-};
 const TitleStyle = {
   margin: "10px auto 30px",
   textAlign: "center",
@@ -49,8 +46,10 @@ function passwordChange(event) {
 const LoginPage = ({login}) => {
   return (<div>
     <Panel style={PanelStyle}>
-      <Image src={require('../../../img/logo.png')} style={ImageStyle}/>
-      <div style={TitleStyle}>公安民意评测系统</div>
+      <Image src={require('../../../img/logo.png')} style={{
+          height: "40px"
+        }}/>
+      <div style={TitleStyle}>公安业务评测分析系统</div>
       <FormGroup>
         <FormControl type="text" placeholder="账号" onChange={accountChange}/>
       </FormGroup>
