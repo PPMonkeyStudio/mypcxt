@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-5-26 12:06:09 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.pphgzs.domain.DO.pypcxt_user" table="PYPCXT_USER">
+        <id name="pypcxt_user_id" type="java.lang.String">
+            <column name="PYPCXT_USER_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="user_account" type="java.lang.String">
+            <column name="USER_ACCOUNT" />
+        </property>
+        <property name="user_password" type="java.lang.String">
+            <column name="USER_PASSWORD" />
+        </property>
+        <property name="user_name" type="java.lang.String">
+            <column name="USER_NAME" />
+        </property>
+        <property name="user_Jurisdiction_evaluate" type="java.lang.String">
+            <column name="USER_JURISDICTION_EVALUATE" />
+        </property>
+        <property name="user_Jurisdiction_statistics" type="java.lang.String">
+            <column name="USER_JURISDICTION_STATISTICS" />
+        </property>
+        <property name="user_gmt_create" type="java.lang.String">
+            <column name="USER_GMT_CREATE" />
+        </property>
+        <property name="user_gmt_modified" type="java.lang.String">
+            <column name="USER_GMT_MODIFIED" />
+        </property>
+    </class>
+</hibernate-mapping>

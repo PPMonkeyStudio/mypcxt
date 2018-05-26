@@ -8,7 +8,7 @@ export default(state = [], action) => {
       {
         const newState = Object.assign({}, state);
         //
-        newState["currentUser"]["account"] = action.account;
+        // newState["currentUser"]["account"] = action.account;
         return newState;
       }
     case LOGIN_FAIL:

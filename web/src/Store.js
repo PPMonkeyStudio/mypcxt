@@ -12,9 +12,24 @@ const initialState = {
   //当前用户
   'LoginReducer': {
     'currentUser': {
-      'account': '',
-      'password': '',
-      'type': ''
+      'type': 'none',
+      'pypcxt_user': {
+        'pypcxt_user_id': '',
+        'user_account': '',
+        'user_password': '',
+        'user_name': '',
+        'user_Jurisdiction_evaluate': '',
+        'user_Jurisdiction_statistics': '',
+        'user_gmt_create': '',
+        'user_gmt_modified': ''
+      },
+      'pypcxt_admin': {
+        'pypcxt_admin_id': '',
+        'admin_account': '',
+        'admin_password': '',
+        'admin_gmt_create': '',
+        'admin_gmt_modified': ''
+      }
     }
   },
   //当前路由

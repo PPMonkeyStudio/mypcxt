@@ -38,20 +38,16 @@ const TitleStyle = {
 //
 //
 function accountChange(event) {
-  loginState = {
-    account: event.target.value
-  };
+  loginState.account = event.target.value;
 }
 //
 function passwordChange(event) {
-  loginState = {
-    password: event.target.value
-  };
+  loginState.password = event.target.value;
 }
 
 //展示组件
 function LoginPage({login}) {
-  return (<div> 
+  return (<div>
     <Panel style={PanelStyle}>
       <Image src={require('../../../img/logo.png')} style={ImageStyle}/>
       <div style={TitleStyle}>公安民意评测系统</div>
