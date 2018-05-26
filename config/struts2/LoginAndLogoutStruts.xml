@@ -3,7 +3,7 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
-	<package name="LoginAndLogout" namespace="/LoginAndLogout"
+	<package name="LoginAndLogout" namespace="/loginAndLogout"
 		extends="struts-default">
 		<action name="*" class="com.pphgzs.action.LoginAndLogoutAction"
 			method="{1}">

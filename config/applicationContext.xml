@@ -25,7 +25,7 @@
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>		
-		<property name="mappingLocations" value="classpath:com/bysjglxt/domain/DO/*.hbm.xml"></property>
+		<property name="mappingLocations" value="classpath:com/pphgzs/domain/DO/*.hbm.xml"></property>
 	</bean>
 	
 	
@@ -45,7 +45,7 @@
 	
 	<!-- 配置事务切入点，再把事务属性和事务切入点关联起来 -->
 	<aop:config>
-		<aop:pointcut expression="execution(* com.bysjglxt.service.*.*(..))" id="txPointcut"/>
+		<aop:pointcut expression="execution(* com.pphgzs.service.*.*(..))" id="txPointcut"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
 	</aop:config>
 </beans>

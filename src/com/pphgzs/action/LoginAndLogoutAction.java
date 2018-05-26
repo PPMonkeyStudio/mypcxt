@@ -24,7 +24,7 @@ public class LoginAndLogoutAction extends ActionSupport implements ServletRespon
 
 	public void login() {
 		System.out.println(account);
-		System.out.println();
+		System.out.println(password);
 		Object userOrAdmin = loginAndLogoutService.login(account, password);
 		System.out.println(userOrAdmin.getClass());
 		if (userOrAdmin != null) {
