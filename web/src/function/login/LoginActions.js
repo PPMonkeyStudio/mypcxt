@@ -16,7 +16,7 @@ export const login = (account, password) => {
     formData.append("password", password);
     console.debug(formData);
 
-    fetch('/mypcxt/LoginAndLogout/login', {
+    fetch('/mypcxt/LoginAndLogout/a_login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

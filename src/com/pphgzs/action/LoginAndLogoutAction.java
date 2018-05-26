@@ -9,6 +9,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.opensymphony.xwork2.ActionSupport;
 import com.pphgzs.service.LoginAndLogoutService;
 
+@SuppressWarnings("serial")
 public class LoginAndLogoutAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
 
 	private LoginAndLogoutService loginAndLogoutService;
@@ -23,6 +24,7 @@ public class LoginAndLogoutAction extends ActionSupport implements ServletRespon
 
 	public void login() {
 		System.out.println(account);
+		System.out.println();
 		Object userOrAdmin = loginAndLogoutService.login(account, password);
 		System.out.println(userOrAdmin.getClass());
 		if (userOrAdmin != null) {
