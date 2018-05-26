@@ -29,11 +29,11 @@ export const login = (account, password) => {
           if(responseJson===1){
             //用户
             dispatch(login_success(account, password));
-            dispatch(RouteActions.updateStoreCurrentURL("/BoxPage"));
+            dispatch(RouteActions.updateStoreCurrentURL("/NavbarPage/IndexPage"));
           }else if(responseJson===2){
             //管理员
             dispatch(login_success(account, password));
-            dispatch(RouteActions.updateStoreCurrentURL("/BoxPage"));
+            dispatch(RouteActions.updateStoreCurrentURL("/NavbarPage/IndexPage"));
           }else{
             //登录失败
             alert("登录失败");

@@ -14,10 +14,10 @@ import PropTypes from 'prop-types'
 //
 //
 import store from '../../../Store.js';
-import LoginPage from '../../login/views/LoginPage.js'
-import BoxPage from '../../route/views/BoxPage.js';
-import ErrorPage from '../../route/views/ErrorPage.js';
 import * as RouteActions from '../RouteActions.js';
+import LoginPage from '../../login/views/LoginPage.js'
+import ErrorPage from './ErrorPage.js';
+import NavbarPage from './NavbarPage.js';
 //
 //
 //
@@ -85,17 +85,11 @@ class Routes extends Component {
   componentDIdUpdate() {}
   render() {
     return (<div>
-      {/* <Link to="/LoginPage">LoginPage</Link>
-      <br/>
-      <Link to="/BoxPage">BoxPage</Link>
-      <br/>
-      <Link to="/ErrorPage">ErrorPage</Link>
-      <br/> */}
       <Switch>
-        <Route path="/LoginPage" component={LoginPage}/>
-        <Route path="/BoxPage" component={BoxPage}/>
-        <Route path="/ErrorPage" component={ErrorPage}/>
-        <Route path="/" component={LoginPage}/>
+        <LoginPage exact="exact" path="/LoginPage"/>
+        <NavbarPage  path="/NavbarPage"/>
+        <ErrorPage exact="exact" path="/ErrorPage"/>
+        <LoginPage exact="exact" path="/"/>
       </Switch>
     </div>);
   }

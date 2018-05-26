@@ -1,13 +1,34 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import {
+  Route,
+  Switch,
+  Link,
+  BrowserRouter,
+  Router,
+  Redirect,
+  withRouter
+} from 'react-router-dom';
 //
 //
 //
-function NavbarPage =() => {
-  return (<div>
-    NavbarPage
-  </div>);
+import IndexPage from './IndexPage.js';
+
+//
+//
+//
+const NavbarPage = () => {
+  return (<nav>
+    <ul>
+      <li>
+        <Link to="/LoginPage">LoginPage</Link>
+      </li>
+      <li>
+        <Link to="/NavbarPage/IndexPage">IndexPage</Link>
+      </li>
+    </ul>
+    <IndexPage path="/IndexPage"></IndexPage>
+  </nav>);
 };
 
 function mapStateToProps(state, ownProps) {
@@ -15,11 +36,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-  return {
-    login: () => {
-      dispatch(LoginActions.login(loginState.account, loginState.password));
-    }
-  }
+  return {}
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavbarPage));
