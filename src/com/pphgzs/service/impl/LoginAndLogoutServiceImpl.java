@@ -1,8 +1,8 @@
 package com.pphgzs.service.impl;
 
 import com.pphgzs.dao.LoginAndLogoutDao;
-import com.pphgzs.domain.DO.pypcxt_admin;
-import com.pphgzs.domain.DO.pypcxt_user;
+import com.pphgzs.domain.DO.mypcxt_admin;
+import com.pphgzs.domain.DO.mypcxt_user;
 import com.pphgzs.service.LoginAndLogoutService;
 
 public class LoginAndLogoutServiceImpl implements LoginAndLogoutService {
@@ -21,13 +21,13 @@ public class LoginAndLogoutServiceImpl implements LoginAndLogoutService {
 		/*
 		 * 查询用户
 		 */
-		pypcxt_user user = loginAndLogoutDao.getUserByAccount(account);
+		mypcxt_user user = loginAndLogoutDao.getUserByAccount(account);
 
 		if (user == null) {
 			/*
 			 * 查询管理员
 			 */
-			pypcxt_admin admin = loginAndLogoutDao.getAdminByAccount(account);
+			mypcxt_admin admin = loginAndLogoutDao.getAdminByAccount(account);
 
 			if (admin == null) {
 				return null;

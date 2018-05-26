@@ -1,7 +1,7 @@
 package com.pphgzs.dao;
 
-import com.pphgzs.domain.DO.pypcxt_admin;
-import com.pphgzs.domain.DO.pypcxt_user;
+import com.pphgzs.domain.DO.mypcxt_admin;
+import com.pphgzs.domain.DO.mypcxt_user;
 
 public interface LoginAndLogoutDao {
 	/**
@@ -9,9 +9,9 @@ public interface LoginAndLogoutDao {
 	 * @param account
 	 * @return
 	 */
-	public pypcxt_user getUserByAccount(String account);
+	public mypcxt_user getUserByAccount(String account);
 
-	public pypcxt_admin getAdminByAccount(String account);
+	public mypcxt_admin getAdminByAccount(String account);
 	/*
 	 * 
 	 */

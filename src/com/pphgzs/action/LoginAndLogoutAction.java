@@ -1,11 +1,14 @@
 package com.pphgzs.action;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.pphgzs.service.LoginAndLogoutService;
 
@@ -22,28 +25,61 @@ public class LoginAndLogoutAction extends ActionSupport implements ServletRespon
 	private String account;
 	private String password;
 
-	public void login() {
-		System.out.println(account);
-		System.out.println(password);
+	public void login() throws IOException {
+		http_response.setContentType("text/html;charset=utf-8");
+		/*
+		 * 
+		 */
 		Object userOrAdmin = loginAndLogoutService.login(account, password);
-		System.out.println(userOrAdmin.getClass());
 		if (userOrAdmin != null) {
-			if (userOrAdmin.getClass().equals("com.pphgzs.domain.DO.pypcxt_user")) {
-
-			} else if (userOrAdmin.getClass().equals("com.pphgzs.domain.DO.pypcxt_admin")) {
-
+			System.out.println(userOrAdmin.getClass().toString());
+			if (userOrAdmin.getClass().toString().equals("class com.pphgzs.domain.DO.mypcxt_user")) {
+				/*
+				 * 用户权限
+				 */
+				ActionContext.getContext().getSession().remove("currentUser.type");
+				ActionContext.getContext().getSession().put("currentUser.type", "user");
+				ActionContext.getContext().getSession().put("currentUser.pypcxt_user", userOrAdmin);
+				http_response.getWriter().write("1");
+			} else if (userOrAdmin.getClass().toString().equals("class com.pphgzs.domain.DO.mypcxt_admin")) {
+				/*
+				 * 管理员权限
+				 */
+				ActionContext.getContext().getSession().remove("currentUser.type");
+				ActionContext.getContext().getSession().put("currentUser.type", "admin");
+				ActionContext.getContext().getSession().put("currentUser.pypcxt_admin", userOrAdmin);
+				http_response.getWriter().write("2");
 			} else {
-
+				http_response.getWriter().write("-1");
 			}
+		} else {
+			http_response.getWriter().write("-1");
 		}
-
+		/*
+		 * 
+		 */
 	}
 
 	public void logout() {
+		http_response.setContentType("text/html;charset=utf-8");
+		/*
+		 * 
+		 */
 
+		/*
+		 * 
+		 */
 	}
 
 	public void getSession() {
+		http_response.setContentType("text/html;charset=utf-8");
+		/*
+		 * 
+		 */
+
+		/*
+		 * 
+		 */
 	}
 
 	/*

@@ -46,7 +46,7 @@ function passwordChange(event) {
 }
 
 //展示组件
-function LoginPage({login}) {
+const LoginPage = ({login}) => {
   return (<div>
     <Panel style={PanelStyle}>
       <Image src={require('../../../img/logo.png')} style={ImageStyle}/>

@@ -4,10 +4,10 @@ import {withRouter} from 'react-router-dom';
 //
 //
 //
-const successPage = () => {
+const BoxPage = () => {
   return (<div>
-    success
+    BoxPage
   </div>);
 };
 
-export default withRouter(connect()(successPage));
+export default withRouter(connect()(BoxPage));

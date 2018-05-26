@@ -15,7 +15,7 @@ import PropTypes from 'prop-types'
 //
 import store from '../../../Store.js';
 import LoginPage from '../../login/views/LoginPage.js'
-import SuccessPage from '../../route/views/SuccessPage.js';
+import BoxPage from '../../route/views/BoxPage.js';
 import ErrorPage from '../../route/views/ErrorPage.js';
 import * as RouteActions from '../RouteActions.js';
 //
@@ -85,17 +85,17 @@ class Routes extends Component {
   componentDIdUpdate() {}
   render() {
     return (<div>
-      <Link to="/LoginPage">LoginPage</Link>
+      {/* <Link to="/LoginPage">LoginPage</Link>
       <br/>
-      <Link to="/SuccessPage">SuccessPage</Link>
+      <Link to="/BoxPage">BoxPage</Link>
       <br/>
       <Link to="/ErrorPage">ErrorPage</Link>
-      <br/>
+      <br/> */}
       <Switch>
         <Route path="/LoginPage" component={LoginPage}/>
-        <Route path="/SuccessPage" component={SuccessPage}/>
+        <Route path="/BoxPage" component={BoxPage}/>
         <Route path="/ErrorPage" component={ErrorPage}/>
-        <Route path="/" component={ErrorPage}/>
+        <Route path="/" component={LoginPage}/>
       </Switch>
     </div>);
   }

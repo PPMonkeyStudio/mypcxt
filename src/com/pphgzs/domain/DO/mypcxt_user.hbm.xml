@@ -3,9 +3,9 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2018-5-26 12:06:09 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="com.pphgzs.domain.DO.pypcxt_user" table="PYPCXT_USER">
-        <id name="pypcxt_user_id" type="java.lang.String">
-            <column name="PYPCXT_USER_ID" />
+    <class name="com.pphgzs.domain.DO.mypcxt_user" table="MYPCXT_USER">
+        <id name="mypcxt_user_id" type="java.lang.String">
+            <column name="MYPCXT_USER_ID" />
             <generator class="assigned" />
         </id>
         <property name="user_account" type="java.lang.String">

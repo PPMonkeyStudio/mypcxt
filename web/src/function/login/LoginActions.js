@@ -14,14 +14,10 @@ export const login = (account, password) => {
     let formData = new FormData();
     formData.append("account", account);
     formData.append("password", password);
-    console.debug(formData);
 
-    fetch('/mypcxt/LoginAndLogout/a_login', {
+    fetch('/mypcxt/LoginAndLogout/login', {
       method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
+      headers: {},
       body: formData
     }).then((response) => {
       if (response.status === 200) {
@@ -30,10 +26,17 @@ export const login = (account, password) => {
           //
           //
           console.debug(responseJson);
-          if (account === '123') {
+          if(responseJson===1){
+            //用户
             dispatch(login_success(account, password));
-            dispatch(RouteActions.updateStoreCurrentURL("/SuccessPage"));
-          } else {
+            dispatch(RouteActions.updateStoreCurrentURL("/BoxPage"));
+          }else if(responseJson===2){
+            //管理员
+            dispatch(login_success(account, password));
+            dispatch(RouteActions.updateStoreCurrentURL("/BoxPage"));
+          }else{
+            //登录失败
+            alert("登录失败");
             dispatch(login_fail());
           }
           //
