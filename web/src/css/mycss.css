@@ -1,37 +1,5 @@
-table {
-  text-align: center;
-  margin: 20px 0;
-}
 
-table thead tr th {
-  text-align: center;
-}
 
-th {
-  vertical-align: middle !important;
-}
-
-td {
-  line-height: 33px !important;
-  vertical-align: middle !important;
-}
-
-td i {
-  line-height: 33px !important;
-}
-
-td label input {
-  height: 33px !important;
-}
-
-table select {
-  text-align: center !important;
-}
-
-td button i {
-  line-height: 20px !important;
-}
-
-td .label {
-  line-height: 33px !important;
+.ant-layout-header {
+  background: #fff !important;
 }

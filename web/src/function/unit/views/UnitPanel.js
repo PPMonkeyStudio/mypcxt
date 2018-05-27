@@ -1,61 +1,63 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {
-  Panel,
-  ButtonToolbar,
-  Button,
-  FormGroup,
-  FormControl,
-  Image,
-  Jumbotron,
-  Table,
-  Tabs,
-  Tab,
-  Checkbox
-} from 'react-bootstrap';
+// import {
+//   ButtonToolbar,
+//   FormGroup,
+//   FormControl,
+//   Image,
+//   Jumbotron,
+//   Table,
+//   Tab
+// } from 'react-bootstrap';
 import store from '../../../Store.js';
-/**
- *
- * @type {[type]}
- */
-
+import {
+  Button,
+  Menu,
+  Layout,
+  Breadcrumb,
+  Tabs,
+  Icon,
+  Table,
+  Checkbox,
+  Modal,
+  Form,
+  Input
+} from 'antd';
+//
+//
+//
 import * as UnitActions from '../UnitActions.js';
+//
+//
+//
+const FormItem = Form.Item;
+//
+////
+////
 /**
   *
   * @type {[type]}
   */
-const title_Panel = (<h3>面板sss标题</h3>);
 
-function Tr_Unit({num, unit_name, unit_gmt_create, unit_gmt_modified}) {
-  return (<tr>
-    <td>{num}</td>
-    <td>{unit_name}</td>
-    <td>{unit_gmt_create}</td>
-    <td>{unit_gmt_modified}</td>
-    <td>
-      <Button>修改</Button>
-    </td>
-    <td>
-      <Checkbox inline="inline">&nbsp;</Checkbox>
-    </td>
-  </tr>);
-}
-
-const Tbody_Unit = () => {
-  let unit_List = store.getState()["UnitReducer"]["unitVO"]["unit_List"];
-  return (<tbody>
-    {
-      (unit_List.map((mypcxt_unit, index) => {
-        /**
-         * key必不可少
-         */
-        return (<Tr_Unit key={index} num={++index} unit_name={mypcxt_unit.unit_name} unit_gmt_create={mypcxt_unit.unit_gmt_create} unit_gmt_modified={mypcxt_unit.unit_gmt_modified}/>);
-      }))
-    }
-  </tbody>);
-}
-
+const UnitTableColumns = [
+  {
+    align: "center",
+    title: '单位名称',
+    dataIndex: 'unit_name',
+    key: 'unit_name'
+  }, {
+    align: "center",
+    title: '创建时间',
+    dataIndex: 'unit_gmt_create',
+    key: 'unit_gmt_create'
+  }, {
+    align: "center",
+    title: '修改时间',
+    dataIndex: 'unit_gmt_modified',
+    key: 'unit_gmt_modified'
+  }
+];
 /**
  * [UnitPage description]
  * @extends Component
@@ -64,16 +66,19 @@ class UnitPanel extends Component {
   constructor(props, context) {
     super(props, context);
     this.storeChanged = this.storeChanged.bind(this);
-    // this.getStoreCurrentURL = this.getStoreCurrentURL.bind(this);
-
+    this.addUnitModal = this.addUnitModal.bind(this);
+    this.addUnitOk = this.addUnitOk.bind(this);
+    this.addUnitCancel = this.addUnitCancel.bind(this);
+    this.state = {
+      addUnitModalVisible: false
+    }
   }
-
-  componentWillMount() {}
 
   componentDidMount() {
     store.subscribe(this.storeChanged);
     store.dispatch(UnitActions.getUnitVO());
   }
+
   storeChanged() {
     //setState是异步的
     let unitVO = store.getState()["unitVO"];
@@ -81,61 +86,54 @@ class UnitPanel extends Component {
     this.forceUpdate();
     //
   }
+  /**
+   * 打开模态框
+   * @method addUnitModal
+   */
+  addUnitModal = () => {
+    this.setState({addUnitModalVisible: true});
+  }
+
+  addUnitOk = () => {
+    this.setState({addUnitModalVisible: false});
+  }
+
+  addUnitCancel = () => {
+    this.setState({addUnitModalVisible: false});
+  }
+
   render() {
-    return (<Panel style={{
-        margin: "20px 0 0 0"
-      }}>
-      <div className="panel-heading">
-        <h3 className="panel-title">单位列表</h3>
+    return (<div>
+      <div style={{
+          height: "34px",
+          margin: "0 0 20px 0"
+        }}>
+        <Button onClick={this.addUnitModal}>
+          <Icon type="plus"/>
+          &nbsp;新增一个单位
+        </Button>
+        <Modal title="新增一个单位" visible={this.state.addUnitModalVisible} onOk={this.addUnitOk} onCancel={this.addUnitCancel} okText="确认添加" cancelText="取消">
+          <Form>
+            <FormItem label="单位名称">
+              <Input/>
+            </FormItem>
+          </Form>
+        </Modal>
       </div>
-      {/************************************************/}
-      {/************************************************/}
-      {/************************************************/}
-      <div class="panel-body">
-        <div style={{
-            height: " 34px"
+      <Table size="small" columns={UnitTableColumns} dataSource={store.getState()["UnitReducer"]["unitVO"]["unit_List"]}/>
+      <div style={{
+          height: "34px",
+          margin: "0 0 20px 0"
+        }}>
+        <Button type="danger" style={{
+            float: "right",
+            margin: "0 10px"
           }}>
-          <Button>
-            <i class="fa fa-plus-square"></i>
-            &nbsp;新增一个单位
-          </Button>
-        </div>
-        <Table hover="hover">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>单位名称</th>
-              <th>创建时间</th>
-              <th>修改时间</th>
-              <th>操作</th>
-              <th style={{
-                  width: "100px"
-                }}>
-                <Checkbox inline="inline">
-                  全选
-                </Checkbox>
-              </th>
-            </tr>
-          </thead>
-          <Tbody_Unit/>
-        </Table>
-        <div style={{
-            height: "34px",
-            margin: "0 0 20px 0"
-          }}>
-          <Button bsStyle="danger" style={{
-              float: "right",
-              margin: "0 10px"
-            }}>
-            <i class="fa fa-trash-o"></i>
-            &nbsp;删除所选
-          </Button>
-        </div>
+          <Icon type="delete"/>
+          &nbsp;删除所选
+        </Button>
       </div>
-      {/************************************************/}
-      {/************************************************/}
-      {/************************************************/}
-    </Panel>);
+    </div>);
   }
 }
 

@@ -1,18 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {
-  Panel,
-  ButtonToolbar,
-  Button,
-  FormGroup,
-  FormControl,
-  Image
-} from 'react-bootstrap';
+// import {Image} from 'react-bootstrap';
 import {withRouter} from 'react-router-dom';
+import {Button, Layout, Input, Card} from 'antd';
 //
 //
 //
 import * as LoginActions from '../LoginActions.js';
+//
+//
+//
+const {Header, Content, Footer} = Layout;
 //
 //
 //
@@ -23,7 +21,7 @@ let loginState = {
 //
 const PanelStyle = {
   width: "550px",
-  margin: " 100px auto",
+  margin: " 100px auto calc( 100vh - 550px )",
   padding: "20px 30px 40px 30px"
 };
 const TitleStyle = {
@@ -44,22 +42,30 @@ function passwordChange(event) {
 
 //展示组件
 const LoginPage = ({login}) => {
-  return (<div>
-    <Panel style={PanelStyle}>
-      <Image src={require('../../../img/logo.png')} style={{
+  return (<Layout style={{
+      height: "100%"
+    }}>
+    <Card style={PanelStyle}>
+      <img src={require('../../../img/logo.png')} style={{
           height: "40px"
         }}/>
       <div style={TitleStyle}>公安业务评测分析系统</div>
-      <FormGroup>
-        <FormControl type="text" placeholder="账号" onChange={accountChange}/>
-      </FormGroup>
-      <FormGroup>
-        <FormControl type="password" placeholder="密码" onChange={passwordChange}/>
-      </FormGroup>
+      <Input type="text" placeholder="账号" onChange={accountChange} style={{
+          margin: "10px 0"
+        }}/>
+
+      <Input type="password" placeholder="密码" onChange={passwordChange} style={{
+          margin: "10px 0 20px"
+        }}/>
       <br/>
-      <Button className="btn-block" bsStyle="primary" onClick={login}>登录</Button>
-    </Panel>
-  </div>);
+      <Button className="btn-block" type="primary" onClick={login}>登录</Button>
+    </Card>
+    <Footer style={{
+        textAlign: 'center'
+      }}>
+      萍乡市公安局业务评测系统 ©2016 Created by 萍乡学院信息与计算机工程学院
+    </Footer>
+  </Layout>);
 }
 
 function mapStateToProps(state, ownProps) {

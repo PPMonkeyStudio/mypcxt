@@ -9,22 +9,27 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom';
-import {
-  Panel,
-  ButtonToolbar,
-  Button,
-  FormGroup,
-  FormControl,
-  Image,
-  Jumbotron,
-  Navbar,
-  Nav,
-  NavItem,
-  NavDropdown,
-  MenuItem,
-  Well
-} from 'react-bootstrap';
+// import {
+//   Panel,
+//   ButtonToolbar,
+//   FormGroup,
+//   FormControl,
+//   Image,
+//   Jumbotron,
+//   Navbar,
+//   Nav,
+//   NavItem,
+//   NavDropdown,
+//   MenuItem,
+//   Well
+// } from 'react-bootstrap';
 import PropTypes from 'prop-types'
+/**
+ * antd
+ * @type {[type]}
+ */
+import {Button, Menu, Layout, Breadcrumb} from 'antd';
+
 //
 //
 //
@@ -35,7 +40,9 @@ import ManagePage from '../../manage/views/ManagePage.js';
 //
 //
 //
-
+const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
+const {Header, Content, Footer} = Layout;
 //
 //
 const title_my = (<span>
@@ -60,82 +67,64 @@ class NavbarPage extends Component {
   }
 
   render() {
-    return (<div>
-      {/************************************************/}
-
-      <Navbar fixedTop="true" fluid="true" style={{
-          padding: "0 5%"
+    return (<Layout >
+      <Header style={{
+          position: 'fixed',
+          width: '100%'
         }}>
-        <Navbar.Header >
-          <Navbar.Brand>
-            <Link to="/NavbarPage/IndexPage">
-              公安业务评测系统
-            </Link>
-          </Navbar.Brand>
-
-        </Navbar.Header>
-        <Nav >
-          {/************************************************/}
-          <NavItem onClick={() => {
+        <div style={{
+            margin: "0 50px 0 0",
+            float: "left"
+          }}>公安业务评测系统</div>
+        <Menu mode="horizontal" style={{
+            lineHeight: '64px'
+          }}>
+          <Menu.Item key="1" onClick={() => {
               this.context.router.history.push("/NavbarPage/IndexPage");
-            }}>
-            首页
-          </NavItem>
-          {/************************************************/}
-          <NavDropdown title="评测">
-            <MenuItem >
-              <Link to="#">
-                <Navbar.Link href="#">统计</Navbar.Link>
-              </Link>
-            </MenuItem>
-            <MenuItem >
-              <Link to="#">
-                <Navbar.Link href="#">统计</Navbar.Link>
-              </Link>
-            </MenuItem>
-          </NavDropdown>
-          {/************************************************/}
-          <NavItem onClick={() => {
-              this.context.router.history.push("#");
-            }}>
-            统计
-          </NavItem>
-          {/************************************************/}
-          <NavItem onClick={() => {
+            }}>首页</Menu.Item>
+          <Menu.Item key="2">业务评测</Menu.Item>
+          <Menu.Item key="3">数据统计</Menu.Item>
+          <Menu.Item key="4" onClick={() => {
               this.context.router.history.push("/NavbarPage/ManagePage");
-            }}>
-            管理
-          </NavItem>
+            }}>管理</Menu.Item>
+          <Menu.Item key="5" style={{
+              float: "right"
+            }}>管理员</Menu.Item>
+        </Menu>
+      </Header>
+      <Content style={{
+          padding: '0 50px',
+          margin: "64px 0 0 0"
+        }}>
+
+        <Breadcrumb path="/NavbarPage/ManagePage" style={{
+            margin: '30px 0'
+          }}>
+          <Breadcrumb.Item>首页</Breadcrumb.Item>
+          <Breadcrumb.Item path="/NavbarPage/ManagePage">管理</Breadcrumb.Item>
+          <Switch>
+            <Breadcrumb.Item path="/NavbarPage/ManagePage/UnitPanel">
+              单位管理
+            </Breadcrumb.Item>
+            <Breadcrumb.Item path="/NavbarPage/ManagePage">
+              管理
+            </Breadcrumb.Item>
+          </Switch>
+        </Breadcrumb>
+
+        <Switch>
           {/************************************************/}
-        </Nav>
-        {/************************************************/}
-        <Nav pullRight="pullRight">
-          <NavDropdown title={title_my}>
-            <MenuItem>
-              <Link to="#">
-                <i class="lnr lnr-lock"></i>&nbsp;
-                <Navbar.Link href="#">
-                  修改密码</Navbar.Link>
-              </Link>
-            </MenuItem>
-            <MenuItem >
-              <Link to="/LoginPage">
-                <i class="lnr lnr-exit"></i>&nbsp;
-                <Navbar.Link>
-                  退出账户</Navbar.Link>
-              </Link>
-            </MenuItem>
-          </NavDropdown>
-        </Nav>
-        {/************************************************/}
-      </Navbar>
-      {/************************************************/}
-      {/************************************************/}
-      {/************************************************/}
-      <Route path="/NavbarPage/ManagePage" component={ManagePage}></Route >
-      <Route path="/NavbarPage/IndexPage" component={IndexPage}></Route >
-      {/************************************************/}
-    </div>);
+          <Route path="/NavbarPage/ManagePage" component={ManagePage}></Route >
+          <Route path="/NavbarPage/IndexPage" component={IndexPage}></Route >
+          {/************************************************/}
+        </Switch>
+      </Content>
+      <Footer style={{
+          textAlign: 'center'
+        }}>
+        萍乡市公安局业务评测系统 ©2016 Created by 萍乡学院信息与计算机工程学院
+      </Footer>
+    </Layout>);
   }
 
 }

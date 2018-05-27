@@ -18,6 +18,7 @@ import * as RouteActions from '../RouteActions.js';
 import LoginPage from '../../login/views/LoginPage.js'
 import ErrorPage from './ErrorPage.js';
 import NavbarPage from './NavbarPage.js';
+import IndexPage from './IndexPage.js';
 //
 //
 //
@@ -82,6 +83,7 @@ class Routes extends Component {
       <LoginPage path="/LoginPage" exact="exact"/>
       <NavbarPage path="/NavbarPage"/>
       <ErrorPage path="/ErrorPage" exact="exact"/>
+      <IndexPage path="/IndexPage" exact="exact"/>
       <LoginPage path="/" exact="exact"/>
       <ErrorPage path="/*"/>
     </Switch>);
