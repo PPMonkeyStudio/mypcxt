@@ -96,22 +96,25 @@ class NavbarPage extends Component {
           padding: '0 50px',
           margin: "64px 0 0 0"
         }}>
-
-        <Breadcrumb path="/NavbarPage/ManagePage" style={{
-            margin: '30px 0'
-          }}>
-          <Breadcrumb.Item>首页</Breadcrumb.Item>
-          <Breadcrumb.Item path="/NavbarPage/ManagePage">管理</Breadcrumb.Item>
-          <Switch>
-            <Breadcrumb.Item path="/NavbarPage/ManagePage/UnitPanel">
-              单位管理
-            </Breadcrumb.Item>
-            <Breadcrumb.Item path="/NavbarPage/ManagePage">
-              管理
-            </Breadcrumb.Item>
-          </Switch>
-        </Breadcrumb>
-
+        <Switch>
+          <Breadcrumb path="/NavbarPage/ManagePage" style={{
+              margin: '30px 0'
+            }}>
+            <Breadcrumb.Item>首页</Breadcrumb.Item>
+            <Breadcrumb.Item>管理</Breadcrumb.Item>
+            <Switch>
+              <Breadcrumb.Item path="/NavbarPage/ManagePage/UnitPanel">
+                单位管理
+              </Breadcrumb.Item>
+              <Breadcrumb.Item path="/NavbarPage/ManagePage/UserPanel">
+                人员管理
+              </Breadcrumb.Item>
+              <Breadcrumb.Item path="/NavbarPage/ManagePage/ServicePanel">
+                业务管理
+              </Breadcrumb.Item>
+            </Switch>
+          </Breadcrumb>
+        </Switch>
         <Switch>
           {/************************************************/}
           <Route path="/NavbarPage/ManagePage" component={ManagePage}></Route >
