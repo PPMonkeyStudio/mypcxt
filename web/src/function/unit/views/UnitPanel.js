@@ -33,9 +33,11 @@ function Table_One_Unit({num, unit_name, unit_gmt_create, unit_gmt_modified}) {
     <td>{unit_name}</td>
     <td>{unit_gmt_create}</td>
     <td>{unit_gmt_modified}</td>
-    <td>操作</td>
     <td>
-      <Checkbox inline="inline">.</Checkbox>
+      <Button>修改</Button>
+    </td>
+    <td>
+      <Checkbox inline="inline">&nbsp;</Checkbox>
     </td>
   </tr>);
 }
@@ -55,56 +57,10 @@ const Table_All_Unit = () => {
 }
 
 /**
-   * [panel_my description]
-   * @type {[type]}
-   */
-const panel_my = (<Panel style={{
-    margin: "20px 0 0 0"
-  }}>
-  <div className="panel-heading">
-    <h3 className="panel-title">单位列表</h3>
-  </div>
-  {/************************************************/}
-  {/************************************************/}
-  {/************************************************/}
-  <div class="panel-body">
-    <Table hover="hover" className="Table_1">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>单位名称</th>
-          <th>创建时间</th>
-          <th>修改时间</th>
-          <th>操作</th>
-          <th>
-            <Checkbox inline="inline">
-              全选
-            </Checkbox>
-          </th>
-        </tr>
-      </thead>
-      <Table_All_Unit/>
-    </Table>
-  </div>
-  {/************************************************/}
-  {/************************************************/}
-  {/************************************************/}
-</Panel>);
-
-
-
-
-
-/**
- * [Tabs_my description]
- * @type {[type]}
+ * [UnitPage description]
+ * @extends Component
  */
-const Tabs_my = (<Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
-  <Tab eventKey={1} title="单位">{panel_my}</Tab>
-  <Tab eventKey={2} title="人员">Tab 2 content</Tab>
-</Tabs>);/** * [UnitPage description] * @method UnitPage */
-
-class UnitPage extends Component {
+class UnitPanel extends Component {
   constructor(props, context) {
     super(props, context);
     this.storeChanged = this.storeChanged.bind(this);
@@ -138,24 +94,39 @@ class UnitPage extends Component {
     //
   }
   render() {
-    return (<div style={{
-        margin: "71px 0 0 0",
-        float: "left",
-        width: "100%",
-        height: "100%"
+    return (<Panel style={{
+        margin: "20px 0 0 0"
       }}>
+      <div className="panel-heading">
+        <h3 className="panel-title">单位列表</h3>
+      </div>
       {/************************************************/}
       {/************************************************/}
       {/************************************************/}
-      <div style={{
-          width: "95%",
-          margin: "20px auto"
-        }}>{Tabs_my}</div>
+      <div class="panel-body">
+        <Table hover="hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>单位名称</th>
+              <th>创建时间</th>
+              <th>修改时间</th>
+              <th>操作</th>
+              <th>
+                <Checkbox inline="inline">
+                  全选
+                </Checkbox>
+              </th>
+            </tr>
+          </thead>
+          <Table_All_Unit/>
+        </Table>
+      </div>
       {/************************************************/}
       {/************************************************/}
       {/************************************************/}
-    </div>);
+    </Panel>);
   }
 }
 
-export default UnitPage;
+export default UnitPanel;

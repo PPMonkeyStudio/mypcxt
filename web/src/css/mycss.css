@@ -1,8 +1,33 @@
-.Table_1 {
+table {
   text-align: center;
   margin: 20px 0;
 }
 
-.Table_1 thead tr th {
+table thead tr th {
   text-align: center;
+}
+
+th {
+  vertical-align: middle !important;
+}
+
+td {
+  line-height: 33px !important;
+  vertical-align: middle !important;
+}
+
+td i {
+  line-height: 33px !important;
+}
+
+table select {
+  text-align: center !important;
+}
+
+td button i {
+  line-height: 20px !important;
+}
+
+td .label {
+  line-height: 33px !important;
 }

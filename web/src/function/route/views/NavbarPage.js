@@ -28,7 +28,8 @@ import {
 //
 //
 import IndexPage from './IndexPage.js';
-import UnitPage from '../../unit/views/UnitPage.js';
+import ManagePage from '../../manage/views/ManagePage.js';
+
 //
 //
 //
@@ -37,7 +38,8 @@ import UnitPage from '../../unit/views/UnitPage.js';
 //
 const title_my = (<span>
   <i class="fa fa-user-circle"></i>
-  管理员</span>);
+  &nbsp;管理员
+</span>);
 const NavbarPage = () => {
   return (<div>
     {/************************************************/}
@@ -48,6 +50,7 @@ const NavbarPage = () => {
             公安业务评测系统
           </Link>
         </Navbar.Brand>
+
       </Navbar.Header>
       <Nav >
         {/************************************************/}
@@ -76,55 +79,26 @@ const NavbarPage = () => {
           </Link>
         </NavItem>
         {/************************************************/}
-        <NavDropdown title="管理">
-          <MenuItem >
-            <Link to="/NavbarPage/UnitPage">
-              <Navbar.Link href="#">单位管理</Navbar.Link>
-            </Link>
-          </MenuItem>
-          <MenuItem >
-            <Link to="#">
-              <Navbar.Link href="#">人员管理</Navbar.Link>
-            </Link>
-          </MenuItem>
-          <MenuItem divider="divider"/>
-          <MenuItem >
-            <Link to="#">
-              <Navbar.Link href="#">问卷管理</Navbar.Link>
-            </Link>
-          </MenuItem>
-          <MenuItem >
-            <Link to="#">
-              <Navbar.Link href="#">业务管理</Navbar.Link>
-            </Link>
-          </MenuItem>
-          <MenuItem divider="divider"/>
-          <MenuItem >
-            <Link to="#">
-              <Navbar.Link href="#">统计</Navbar.Link>
-            </Link>
-          </MenuItem>
-          <MenuItem >
-            <Link to="#">
-              <Navbar.Link href="#">统计</Navbar.Link>
-            </Link>
-          </MenuItem>
-        </NavDropdown>
+        <NavItem >
+          <Link to="/NavbarPage/ManagePage">
+            <Navbar.Link href="#">管理</Navbar.Link>
+          </Link>
+        </NavItem>
+        {/************************************************/}
       </Nav>
       {/************************************************/}
       <Nav pullRight="pullRight">
         <NavDropdown title={title_my}>
           <MenuItem>
             <Link to="#">
-              <i class="lnr lnr-lock"></i>
+              <i class="lnr lnr-lock"></i>&nbsp;
               <Navbar.Link href="#">
                 修改密码</Navbar.Link>
             </Link>
           </MenuItem>
-          <MenuItem divider="divider"/>
           <MenuItem >
             <Link to="/LoginPage">
-              <i class="lnr lnr-exit"></i>
+              <i class="lnr lnr-exit"></i>&nbsp;
               <Navbar.Link href="#">
                 退出账户</Navbar.Link>
             </Link>
@@ -136,7 +110,7 @@ const NavbarPage = () => {
     {/************************************************/}
     {/************************************************/}
     {/************************************************/}
-    <Route path="/NavbarPage/UnitPage" component={UnitPage}></Route >
+    <Route path="/NavbarPage/ManagePage" component={ManagePage}></Route >
     <Route path="/NavbarPage/IndexPage" component={IndexPage}></Route >
     {/************************************************/}
   </div>);
