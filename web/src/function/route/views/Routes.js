@@ -46,7 +46,6 @@ class Routes extends Component {
     store.dispatch(RouteActions.updateStoreCurrentURL(this.context.router.history.location.pathname));
   }
 
-
   //store中的路径改变引起
   storeChanged() {
     //setState是异步的

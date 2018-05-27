@@ -27,7 +27,7 @@ import * as UnitActions from '../UnitActions.js';
   */
 const title_Panel = (<h3>面板sss标题</h3>);
 
-function Table_One_Unit({num, unit_name, unit_gmt_create, unit_gmt_modified}) {
+function Tr_Unit({num, unit_name, unit_gmt_create, unit_gmt_modified}) {
   return (<tr>
     <td>{num}</td>
     <td>{unit_name}</td>
@@ -42,7 +42,7 @@ function Table_One_Unit({num, unit_name, unit_gmt_create, unit_gmt_modified}) {
   </tr>);
 }
 
-const Table_All_Unit = () => {
+const Tbody_Unit = () => {
   let unit_List = store.getState()["UnitReducer"]["unitVO"]["unit_List"];
   return (<tbody>
     {
@@ -50,7 +50,7 @@ const Table_All_Unit = () => {
         /**
          * key必不可少
          */
-        return (<Table_One_Unit key={index} num={++index} unit_name={mypcxt_unit.unit_name} unit_gmt_create={mypcxt_unit.unit_gmt_create} unit_gmt_modified={mypcxt_unit.unit_gmt_modified}/>);
+        return (<Tr_Unit key={index} num={++index} unit_name={mypcxt_unit.unit_name} unit_gmt_create={mypcxt_unit.unit_gmt_create} unit_gmt_modified={mypcxt_unit.unit_gmt_modified}/>);
       }))
     }
   </tbody>);
@@ -66,12 +66,6 @@ class UnitPanel extends Component {
     this.storeChanged = this.storeChanged.bind(this);
     // this.getStoreCurrentURL = this.getStoreCurrentURL.bind(this);
 
-    this.state = {
-      'unitVO': {
-        'unit_List': [],
-        'totalRecords': 0
-      }
-    };
   }
 
   componentWillMount() {}
@@ -84,13 +78,7 @@ class UnitPanel extends Component {
     //setState是异步的
     let unitVO = store.getState()["unitVO"];
 
-    this.setState({
-      unitVO: unitVO
-    }, () => {
-      //回调方法
-      //改变路由
-
-    })
+    this.forceUpdate();
     //
   }
   render() {
@@ -104,6 +92,14 @@ class UnitPanel extends Component {
       {/************************************************/}
       {/************************************************/}
       <div class="panel-body">
+        <div style={{
+            height: " 34px"
+          }}>
+          <Button>
+            <i class="fa fa-plus-square"></i>
+            &nbsp;新增一个单位
+          </Button>
+        </div>
         <Table hover="hover">
           <thead>
             <tr>
@@ -112,15 +108,29 @@ class UnitPanel extends Component {
               <th>创建时间</th>
               <th>修改时间</th>
               <th>操作</th>
-              <th>
+              <th style={{
+                  width: "100px"
+                }}>
                 <Checkbox inline="inline">
                   全选
                 </Checkbox>
               </th>
             </tr>
           </thead>
-          <Table_All_Unit/>
+          <Tbody_Unit/>
         </Table>
+        <div style={{
+            height: "34px",
+            margin: "0 0 20px 0"
+          }}>
+          <Button bsStyle="danger" style={{
+              float: "right",
+              margin: "0 10px"
+            }}>
+            <i class="fa fa-trash-o"></i>
+            &nbsp;删除所选
+          </Button>
+        </div>
       </div>
       {/************************************************/}
       {/************************************************/}
@@ -129,4 +139,4 @@ class UnitPanel extends Component {
   }
 }
 
-export default UnitPanel;
+export default withRouter(UnitPanel);

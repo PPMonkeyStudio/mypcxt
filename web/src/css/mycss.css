@@ -20,6 +20,10 @@ td i {
   line-height: 33px !important;
 }
 
+td label input {
+  height: 33px !important;
+}
+
 table select {
   text-align: center !important;
 }
