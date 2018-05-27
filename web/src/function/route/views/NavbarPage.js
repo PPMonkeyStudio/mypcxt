@@ -28,100 +28,120 @@ import {
 //
 //
 import IndexPage from './IndexPage.js';
-
+import UnitPage from '../../unit/views/UnitPage.js';
 //
 //
 //
-const noStyleLink = {
-  color: "ffffff"
-};
 //
 //
 //
+const title_my = (<span>
+  <i class="fa fa-user-circle"></i>
+  管理员</span>);
 const NavbarPage = () => {
   return (<div>
     {/************************************************/}
     <Navbar fixedTop="true">
       <Navbar.Header>
         <Navbar.Brand>
-          {/* <Image src={require('../../../img/logo.png')} style={{
-              height: "40px"
-            }}/> */
-          }
           <Link to="/NavbarPage/IndexPage">
             公安业务评测系统
           </Link>
         </Navbar.Brand>
       </Navbar.Header>
-      <Nav style={{
-          width: "calc(100% - 174px)"
-        }}>
+      <Nav >
         {/************************************************/}
-        <NavItem eventKey={1}>
-          <Link to="/NavbarPage/IndexPage" style={{
-              color: "000000"
-            }}>
-            首页
+        <NavItem >
+          <Link to="/NavbarPage/IndexPage">
+            <Navbar.Link href="#">首页</Navbar.Link>
           </Link>
         </NavItem>
         {/************************************************/}
-        <NavDropdown eventKey={2} title="评测">
-          <MenuItem eventKey={2.1}>
-            <Link to="#">人员管理</Link>
-          </MenuItem>
-          <MenuItem eventKey={2.1}>
-            <Link to="#">单位管理</Link>
-          </MenuItem>
-        </NavDropdown>
-        {/************************************************/}
-        <NavItem eventKey={3}>
-          <Link to="#">统计
-          </Link>
-        </NavItem>
-        {/************************************************/}
-        <NavDropdown eventKey={4} title="管理">
-          <MenuItem eventKey={2.1}>
-            <Link to="#">人员管理</Link>
-          </MenuItem>
-          <MenuItem eventKey={2.1}>
-            <Link to="#">单位管理</Link>
-          </MenuItem>
-          <MenuItem divider="divider"/>
-          <MenuItem eventKey={2.1}>
-            <Link to="#">问题管理</Link>
-          </MenuItem>
-          <MenuItem eventKey={2.1}>
-            <Link to="#">单位管理</Link>
-          </MenuItem>
-          <MenuItem divider="divider"/>
-          <MenuItem eventKey={2.1}>
-            <Link to="#">人员管理</Link>
-          </MenuItem>
-          <MenuItem eventKey={2.1}>
-            <Link to="#">单位管理</Link>
-          </MenuItem>
-        </NavDropdown>
-        {/************************************************/}
-        <NavDropdown eventKey={3} title="管理员" style={{
-            float: "right"
-          }}>
-          <MenuItem eventKey={3.1}>
+        <NavDropdown title="评测">
+          <MenuItem >
             <Link to="#">
-              <i class="lnr lnr-lock"></i>修改密码</Link>
+              <Navbar.Link href="#">统计</Navbar.Link>
+            </Link>
           </MenuItem>
-          <MenuItem divider="divider"/>
-          <MenuItem eventKey={3.2}>
-            <Link to="/LoginPage">
-              <i class="lnr lnr-exit"></i>退出</Link>
+          <MenuItem >
+            <Link to="#">
+              <Navbar.Link href="#">统计</Navbar.Link>
+            </Link>
           </MenuItem>
         </NavDropdown>
         {/************************************************/}
+        <NavItem >
+          <Link to="#">
+            <Navbar.Link href="#">统计</Navbar.Link>
+          </Link>
+        </NavItem>
+        {/************************************************/}
+        <NavDropdown title="管理">
+          <MenuItem >
+            <Link to="/NavbarPage/UnitPage">
+              <Navbar.Link href="#">单位管理</Navbar.Link>
+            </Link>
+          </MenuItem>
+          <MenuItem >
+            <Link to="#">
+              <Navbar.Link href="#">人员管理</Navbar.Link>
+            </Link>
+          </MenuItem>
+          <MenuItem divider="divider"/>
+          <MenuItem >
+            <Link to="#">
+              <Navbar.Link href="#">问卷管理</Navbar.Link>
+            </Link>
+          </MenuItem>
+          <MenuItem >
+            <Link to="#">
+              <Navbar.Link href="#">业务管理</Navbar.Link>
+            </Link>
+          </MenuItem>
+          <MenuItem divider="divider"/>
+          <MenuItem >
+            <Link to="#">
+              <Navbar.Link href="#">统计</Navbar.Link>
+            </Link>
+          </MenuItem>
+          <MenuItem >
+            <Link to="#">
+              <Navbar.Link href="#">统计</Navbar.Link>
+            </Link>
+          </MenuItem>
+        </NavDropdown>
       </Nav>
+      {/************************************************/}
+      <Nav pullRight="pullRight">
+        <NavDropdown title={title_my}>
+          <MenuItem>
+            <Link to="#">
+              <i class="lnr lnr-lock"></i>
+              <Navbar.Link href="#">
+                修改密码</Navbar.Link>
+            </Link>
+          </MenuItem>
+          <MenuItem divider="divider"/>
+          <MenuItem >
+            <Link to="/LoginPage">
+              <i class="lnr lnr-exit"></i>
+              <Navbar.Link href="#">
+                退出账户</Navbar.Link>
+            </Link>
+          </MenuItem>
+        </NavDropdown>
+      </Nav>
+      {/************************************************/}
     </Navbar>
     {/************************************************/}
-    <IndexPage path="/IndexPage"></IndexPage>
+    {/************************************************/}
+    {/************************************************/}
+    <Route path="/NavbarPage/UnitPage" component={UnitPage}></Route >
+    <Route path="/NavbarPage/IndexPage" component={IndexPage}></Route >
+    {/************************************************/}
   </div>);
 };
+
 function mapStateToProps(state, ownProps) {
   return {}
 }

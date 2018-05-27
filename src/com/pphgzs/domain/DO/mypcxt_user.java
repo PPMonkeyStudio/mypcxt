@@ -12,10 +12,11 @@ public class mypcxt_user {
 
 	@Override
 	public String toString() {
-		return "mypcxt_user [\nmypcxt_user_id=" + mypcxt_user_id + ",\nuser_account=" + user_account
-				+ ",\nuser_password=" + user_password + ",\nuser_name=" + user_name + ",\nuser_Jurisdiction_evaluate="
-				+ user_Jurisdiction_evaluate + ",\nuser_Jurisdiction_statistics=" + user_Jurisdiction_statistics
-				+ ",\nuser_gmt_create=" + user_gmt_create + ",\nuser_gmt_modified=" + user_gmt_modified + "\n]";
+		return "mypcxt_user 【\nmypcxt_user_id=" + mypcxt_user_id + ", \nuser_account=" + user_account
+				+ ", \nuser_password=" + user_password + ", \nuser_name=" + user_name
+				+ ", \nuser_Jurisdiction_evaluate=" + user_Jurisdiction_evaluate + ", \nuser_Jurisdiction_statistics="
+				+ user_Jurisdiction_statistics + ", \nuser_gmt_create=" + user_gmt_create + ", \nuser_gmt_modified="
+				+ user_gmt_modified + "\n】";
 	}
 
 	public String getMypcxt_user_id() {

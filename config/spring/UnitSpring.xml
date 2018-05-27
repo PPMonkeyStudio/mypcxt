@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="unitAction" class="com.pphgzs.action.UnitAction"
+		scope="prototype">
+		<property name="unitService" ref="unitService"></property>
+	</bean>
+
+	<bean id="unitService" class="com.pphgzs.service.impl.UnitServiceImpl">
+		<property name="unitDao" ref="unitDao"></property>
+	</bean>
+
+	<bean id="unitDao" class="com.pphgzs.dao.impl.UnitDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+</beans>

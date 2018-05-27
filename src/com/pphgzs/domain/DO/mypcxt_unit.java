@@ -9,8 +9,8 @@ public class mypcxt_unit {
 
 	@Override
 	public String toString() {
-		return "mypcxt_unit [\nmypcxt_unit_id=" + mypcxt_unit_id + ",\nunit_name=" + unit_name + ",\nunit_gmt_create="
-				+ unit_gmt_create + ",\nunit_gmt_modified=" + unit_gmt_modified + "\n]";
+		return "mypcxt_unit 【\nmypcxt_unit_id=" + mypcxt_unit_id + ", \nunit_name=" + unit_name + ", \nunit_gmt_create="
+				+ unit_gmt_create + ", \nunit_gmt_modified=" + unit_gmt_modified + "\n】";
 	}
 
 	public String getMypcxt_unit_id() {

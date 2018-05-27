@@ -5,11 +5,15 @@ import thunkMiddleware from 'redux-thunk'
 //
 import LoginReducer from './function/login/LoginReducer.js';
 import RouteReducer from './function/route/RouteReducer.js';
+import UnitReducer from './function/unit/UnitReducer.js';
+
 //
 //
 //
 const initialState = {
-  //当前用户
+  /**
+   * 当前登录状态
+   */
   'LoginReducer': {
     'currentUser': {
       'type': 'none',
@@ -32,9 +36,22 @@ const initialState = {
       }
     }
   },
-  //当前路由
+  /**
+   * 当前路由
+   * @type {Array}
+   */
   'RouteReducer': {
     'currentURL': ''
+  },
+  /**
+   * 所有单位
+   * @type {Array}
+   */
+  'UnitReducer': {
+    'unitVO': {
+      'unit_List': [],
+      'totalRecords': 0
+    }
   }
 
 };
@@ -43,7 +60,7 @@ const middlewares = [thunkMiddleware];
 
 const storeEnhancers = compose(applyMiddleware(...middlewares));
 
-const reducer = combineReducers({LoginReducer: LoginReducer, RouteReducer: RouteReducer});
+const reducer = combineReducers({LoginReducer: LoginReducer, RouteReducer: RouteReducer, UnitReducer: UnitReducer});
 
 const store = createStore(reducer, initialState, storeEnhancers);
 

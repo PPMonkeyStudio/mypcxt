@@ -25,7 +25,7 @@ class Routes extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.storeURLChanged = this.storeURLChanged.bind(this);
+    this.storeChanged = this.storeChanged.bind(this);
     // this.getStoreCurrentURL = this.getStoreCurrentURL.bind(this);
 
     this.state = {
@@ -41,19 +41,14 @@ class Routes extends Component {
 
   componentDidMount() {
     //先挂载监听
-    store.subscribe(this.storeURLChanged);
+    store.subscribe(this.storeChanged);
     //组件装载时，同步当前URL至store
     store.dispatch(RouteActions.updateStoreCurrentURL(this.context.router.history.location.pathname));
   }
 
-  //获取StoreCurrentURL
-  // getStoreCurrentURL() {
-  //   console.debug("getStoreCurrentURL:" + store.getState()["currentURL"]);
-  //   return (store.getState()["currentURL"]);
-  // }
 
   //store中的路径改变引起
-  storeURLChanged() {
+  storeChanged() {
     //setState是异步的
     let currentURL = store.getState()["RouteReducer"]["currentURL"];
     this.setState({

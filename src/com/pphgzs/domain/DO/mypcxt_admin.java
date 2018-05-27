@@ -9,9 +9,9 @@ public class mypcxt_admin {
 
 	@Override
 	public String toString() {
-		return "mypcxt_admin [\nmypcxt_admin_id=" + mypcxt_admin_id + ",\nadmin_account=" + admin_account
-				+ ",\nadmin_password=" + admin_password + ",\nadmin_gmt_create=" + admin_gmt_create
-				+ ",\nadmin_gmt_modified=" + admin_gmt_modified + "\n]";
+		return "mypcxt_admin 【\nmypcxt_admin_id=" + mypcxt_admin_id + ", \nadmin_account=" + admin_account
+				+ ", \nadmin_password=" + admin_password + ", \nadmin_gmt_create=" + admin_gmt_create
+				+ ", \nadmin_gmt_modified=" + admin_gmt_modified + "\n】";
 	}
 
 	public String getMypcxt_admin_id() {
