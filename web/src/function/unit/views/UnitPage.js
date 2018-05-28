@@ -20,9 +20,13 @@ import {
   Icon,
   Table,
   Checkbox,
+  InputNumber,
   Modal,
   Form,
-  Input
+  Input,
+  Popconfirm,
+  Divider,
+  Tooltip
 } from 'antd';
 //
 //
@@ -40,15 +44,15 @@ const {Column, ColumnGroup} = Table;
   *
   * @type {[type]}
   */
-const rowSelection = {
-  onChange: (selectedRowKeys, selectedRows) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  },
-  getCheckboxProps: record => ({
-    disabled: record.name === 'Disabled User', // Column configuration not to be checked
-    name: record.name
-  })
-};
+// const rowSelection = {
+//   onChange: (selectedRowKeys, selectedRows) => {
+//     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+//   },
+//   getCheckboxProps: record => ({
+//     disabled: record.name === 'Disabled User',  Column configuration not to be checked
+//     name: record.name
+//   })
+// };
 let addUnitModelState = {
   addUnit_unitName: ""
 };
@@ -66,6 +70,7 @@ class UnitPage extends Component {
     this.addUnitCancel = this.addUnitCancel.bind(this);
     this.addUnitCancel = this.addUnitCancel.bind(this);
     this.addUnit_UnitName_Channge = this.addUnit_UnitName_Channge.bind(this);
+    this.deleteUnit = this.deleteUnit.bind(this);
 
     this.state = {
       'unitVO': {
@@ -73,8 +78,10 @@ class UnitPage extends Component {
         'totalRecords': 0
       },
       'addUnitModalVisible': false,
-      'unitTableLoading': false
+      'unitTableLoading': false,
+      'editingKey': '',
     }
+
   }
 
   componentDidMount() {
@@ -125,7 +132,11 @@ class UnitPage extends Component {
     store.dispatch(UnitActions.setAddUnitModalVisible(false));
   }
 
+  deleteUnit = (mypcxt_unit_id) => {
+    store.dispatch(UnitActions.deleteUnit(mypcxt_unit_id));
+  }
   render() {
+
     return (<div>
       <div style={{
           height: "34px",
@@ -143,25 +154,65 @@ class UnitPage extends Component {
           </Form>
         </Modal>
       </div>
-      <Table rowSelection={rowSelection} size="small" dataSource={this.state.unitVO.unit_List} loading={this.state.unitTableLoading} bordered="true" title={() => (<h2>单位列表</h2>)} footer={() => (<div>
-          <div>
-            <Button type="danger">
-              <Icon type="delete"/>
-              &nbsp;删除所选
-            </Button>
-          </div>
+      <Table rowClassName="editable-row" size="small" dataSource={this.state.unitVO.unit_List} loading={this.state.unitTableLoading} bordered="true" title={() => (<h2>单位列表</h2>)} footer={() => (<div>
           <div style={{
               margin: "0 auto 10px",
               width: "200px",
               textAlign: "center"
             }}>共{this.state.unitVO.totalRecords}条记录</div>
         </div>)}>
-        <Column title="单位名称" dataIndex="unit_name" key="1" align="center"/>
+        <Column title="单位名称" dataIndex="unit_name" key="1" align="center" render={(text, record) => {
+            return (<EditableCell value={text} mypcxt_unit_id={record.mypcxt_unit_id}/>);
+          }}/>
         <Column title="创建时间" dataIndex="unit_gmt_create" key="2" align="center"/>
         <Column title="修改时间" dataIndex="unit_gmt_modified" key="3" align="center"/>
+        <Column title="操作" key="4" align="center" render={(text, record) => (<div>
+            <Popconfirm title="确认删除吗?删除后，将删除所有此单位的数据及记录，无法恢复，是否继续？" okText="确认删除" cancelText="放弃" okType="danger" onConfirm={() => this.deleteUnit(record.mypcxt_unit_id)}>
+              <Tooltip title="删除">
+                <a>
+                  <Icon type="delete"/>
+                </a>
+              </Tooltip>
+            </Popconfirm>
+          </div>)}/>
       </Table>
     </div>);
   }
 }
 
+class EditableCell extends React.Component {
+  state = {
+    mypcxt_unit_id:this.props.mypcxt_unit_id,
+    value: this.props.value,
+    editable: false
+  }
+  check = () => {
+    this.setState({editable: false});
+    if (this.props.onChange) {
+      this.props.onChange(this.state.value);
+    }
+  }
+  edit = () => {
+    this.setState({editable: true});
+  }
+  render() {
+    const {value, editable,} = this.state;
+    return (<div className="editable-cell">
+      {
+        editable
+          ? (<Input value={value} onPressEnter={this.check} suffix={<Icon
+            type = "check"
+            className = "editable-cell-icon-check"
+            onClick = {
+              this.check
+            }
+            />}/>)
+          : (<div>
+            {value || ' '}
+            <Icon type="edit" className="editable-cell-icon" onClick={this.edit}/>
+          </div>)
+      }
+    </div>);
+  }
+}
 export default withRouter(UnitPage);

@@ -56,6 +56,13 @@ public class UnitAction extends ActionSupport implements ServletResponseAware, S
 
 	}
 
+	public void deleteUnit() throws IOException {
+		unitService.deleteUnit(unit);
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write("1");
+
+	}
+
 	/*
 	 * 
 	 */

@@ -61,4 +61,13 @@ public class UnitDaoImpl implements UnitDao {
 		return unit;
 	}
 
+	@Override
+	public void deleteUnit(mypcxt_unit unit) {
+		Session session = getSession();
+		String hql = "delete from mypcxt_unit where mypcxt_unit_id='" + unit.getMypcxt_unit_id() + "'";
+		Query query = session.createQuery(hql);
+		query.executeUpdate();
+
+	}
+
 }

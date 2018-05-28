@@ -7,28 +7,14 @@ import {
   BrowserRouter,
   Router,
   Redirect,
-  withRouter
+  withRouter,
 } from 'react-router-dom';
-// import {
-//   Panel,
-//   ButtonToolbar,
-//   FormGroup,
-//   FormControl,
-//   Image,
-//   Jumbotron,
-//   Navbar,
-//   Nav,
-//   NavItem,
-//   NavDropdown,
-//   MenuItem,
-//   Well
-// } from 'react-bootstrap';
 import PropTypes from 'prop-types'
 /**
  * antd
  * @type {[type]}
  */
-import {Button, Menu, Layout, Breadcrumb} from 'antd';
+import {Button, Menu, Layout, Breadcrumb, Icon} from 'antd';
 
 //
 //
@@ -42,7 +28,7 @@ import ManagePage from '../../manage/views/ManagePage.js';
 //
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
-const {Header, Content, Footer} = Layout;
+const {Header, Content, Footer,} = Layout;
 //
 //
 const title_my = (<span>
@@ -70,31 +56,31 @@ class NavbarPage extends Component {
     return (<Layout >
       <Header style={{
           position: 'fixed',
-          width: '100%'
+          width: '100%',
         }}>
         <div style={{
             margin: "0 50px 0 0",
-            float: "left"
+            float: "left",
           }}>公安业务评测系统</div>
         <Menu mode="horizontal" style={{
             lineHeight: '64px'
           }}>
           <Menu.Item key="1" onClick={() => {
               this.context.router.history.push("/NavbarPage/IndexPage");
-            }}>首页</Menu.Item>
-          <Menu.Item key="2">业务评测</Menu.Item>
-          <Menu.Item key="3">数据统计</Menu.Item>
+            }}><Icon type="home"/>首页</Menu.Item>
+          <Menu.Item key="2"><Icon type="global"/>业务评测</Menu.Item>
+          <Menu.Item key="3"><Icon type="pie-chart"/>数据统计</Menu.Item>
           <Menu.Item key="4" onClick={() => {
               this.context.router.history.push("/NavbarPage/ManagePage");
-            }}>管理</Menu.Item>
+            }}><Icon type="setting"/>管理</Menu.Item>
           <Menu.Item key="5" style={{
               float: "right"
-            }}>管理员</Menu.Item>
+            }}><Icon type="user"/>管理员</Menu.Item>
         </Menu>
       </Header>
       <Content style={{
           padding: '0 50px',
-          margin: "64px 0 0 0"
+          margin: "64px 0 0 0",
         }}>
         <Switch>
           <Breadcrumb path="/NavbarPage/ManagePage" style={{

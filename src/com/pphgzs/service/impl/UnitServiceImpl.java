@@ -49,4 +49,10 @@ public class UnitServiceImpl implements UnitService {
 
 	}
 
+	@Override
+	public void deleteUnit(mypcxt_unit unit) {
+		unitDao.deleteUnit(unit);
+
+	}
+
 }

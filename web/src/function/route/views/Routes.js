@@ -49,7 +49,6 @@ class Routes extends Component {
 
   //store中的路径改变引起
   storeChanged() {
-    //setState是异步的
     let currentURL = store.getState()["RouteReducer"]["currentURL"];
     this.setState({
       currentURL: currentURL
@@ -72,9 +71,6 @@ class Routes extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return true;
-  }
 
   componentWillUpdate() {}
   componentDIdUpdate() {}

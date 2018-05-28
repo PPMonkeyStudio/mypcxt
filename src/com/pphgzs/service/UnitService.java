@@ -9,4 +9,6 @@ public interface UnitService {
 
 	public boolean saveUnit(mypcxt_unit unit);
 
+	public void deleteUnit(mypcxt_unit unit);
+
 }
