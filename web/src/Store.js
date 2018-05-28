@@ -52,7 +52,8 @@ const initialState = {
       'unit_List': [],
       'totalRecords': 0
     },
-    'addUnitModalVisible': false
+    'addUnitModalVisible': false,
+    'unitTableLoading':false
   }
 };
 

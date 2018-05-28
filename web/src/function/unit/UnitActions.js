@@ -1,13 +1,20 @@
-import {UPDATE_UNITREDUCER_UNITVO, SET_ADDUNITMODALVISIBLE} from './UnitActionTypes.js';
+import {UPDATE_UNITREDUCER_UNITVO, SET_ADDUNITMODALVISIBLE, SET_UNITTABLELOADING} from './UnitActionTypes.js';
 //
 //
 //
 export const updateUnitVO = (unitVO) => ({type: UPDATE_UNITREDUCER_UNITVO, unitVO: unitVO})
 export const setAddUnitModalVisible = (addUnitModalVisible) => ({type: SET_ADDUNITMODALVISIBLE, addUnitModalVisible: addUnitModalVisible})
+export const setUnitTableLoading = (unitTableLoading) => ({type: SET_UNITTABLELOADING, unitTableLoading: unitTableLoading})
 
 export const getUnitVO = () => {
   return(dispatch) => {
-
+    //
+    //
+    //
+    dispatch(setUnitTableLoading(true));
+    //
+    //
+    //
     fetch('/mypcxt/Unit/getUnitVO', {
       method: 'POST',
       headers: {}
@@ -18,6 +25,7 @@ export const getUnitVO = () => {
           //
           //
           dispatch(updateUnitVO(responseJson));
+          dispatch(setUnitTableLoading(false));
           //
           //
           //

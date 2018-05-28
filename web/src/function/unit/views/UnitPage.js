@@ -32,6 +32,7 @@ import * as UnitActions from '../UnitActions.js';
 //
 //
 const FormItem = Form.Item;
+const {Column, ColumnGroup} = Table;
 //
 ////
 ////
@@ -39,26 +40,15 @@ const FormItem = Form.Item;
   *
   * @type {[type]}
   */
-
-const UnitTableColumns = [
-  {
-    align: "center",
-    title: '单位名称',
-    dataIndex: 'unit_name',
-    key: 'unit_name'
-  }, {
-    align: "center",
-    title: '创建时间',
-    dataIndex: 'unit_gmt_create',
-    key: 'unit_gmt_create'
-  }, {
-    align: "center",
-    title: '修改时间',
-    dataIndex: 'unit_gmt_modified',
-    key: 'unit_gmt_modified'
-  }
-];
-
+const rowSelection = {
+  onChange: (selectedRowKeys, selectedRows) => {
+    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  },
+  getCheckboxProps: record => ({
+    disabled: record.name === 'Disabled User', // Column configuration not to be checked
+    name: record.name
+  })
+};
 let addUnitModelState = {
   addUnit_unitName: ""
 };
@@ -82,12 +72,16 @@ class UnitPage extends Component {
         'unit_List': [],
         'totalRecords': 0
       },
-      'addUnitModalVisible': false
+      'addUnitModalVisible': false,
+      'unitTableLoading': false
     }
   }
 
   componentDidMount() {
     store.subscribe(this.storeChanged);
+    //
+    //加载数据
+    //
     store.dispatch(UnitActions.getUnitVO());
   }
 
@@ -101,6 +95,11 @@ class UnitPage extends Component {
     if (this.state.addUnitModalVisible !== store.getState()["UnitReducer"]["addUnitModalVisible"]) {
       this.setState({
         addUnitModalVisible: store.getState()["UnitReducer"]["addUnitModalVisible"]
+      });
+    }
+    if (this.state.unitTableLoading !== store.getState()["UnitReducer"]["unitTableLoading"]) {
+      this.setState({
+        unitTableLoading: store.getState()["UnitReducer"]["unitTableLoading"]
       });
     }
   }
@@ -127,7 +126,6 @@ class UnitPage extends Component {
   }
 
   render() {
-
     return (<div>
       <div style={{
           height: "34px",
@@ -137,12 +135,6 @@ class UnitPage extends Component {
           <Icon type="plus"/>
           &nbsp;新增一个单位
         </Button>
-        <Button type="danger" style={{
-            float: "right"
-          }}>
-          <Icon type="delete"/>
-          &nbsp;删除所选
-        </Button>
         <Modal title="新增一个单位" visible={this.state.addUnitModalVisible} onOk={this.addUnitOk} onCancel={this.addUnitCancel} okText="确认添加" cancelText="取消">
           <Form >
             <FormItem label="单位名称">
@@ -151,7 +143,23 @@ class UnitPage extends Component {
           </Form>
         </Modal>
       </div>
-      <Table size="small" columns={UnitTableColumns} dataSource={this.state.unitVO.unit_List}/>
+      <Table rowSelection={rowSelection} size="small" dataSource={this.state.unitVO.unit_List} loading={this.state.unitTableLoading} bordered="true" title={() => (<h2>单位列表</h2>)} footer={() => (<div>
+          <div>
+            <Button type="danger">
+              <Icon type="delete"/>
+              &nbsp;删除所选
+            </Button>
+          </div>
+          <div style={{
+              margin: "0 auto 10px",
+              width: "200px",
+              textAlign: "center"
+            }}>共{this.state.unitVO.totalRecords}条记录</div>
+        </div>)}>
+        <Column title="单位名称" dataIndex="unit_name" key="1" align="center"/>
+        <Column title="创建时间" dataIndex="unit_gmt_create" key="2" align="center"/>
+        <Column title="修改时间" dataIndex="unit_gmt_modified" key="3" align="center"/>
+      </Table>
     </div>);
   }
 }

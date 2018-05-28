@@ -1,4 +1,4 @@
-import {UPDATE_UNITREDUCER_UNITVO,SET_ADDUNITMODALVISIBLE} from './UnitActionTypes.js';
+import {UPDATE_UNITREDUCER_UNITVO, SET_ADDUNITMODALVISIBLE, SET_UNITTABLELOADING} from './UnitActionTypes.js';
 //
 //
 //
@@ -17,6 +17,13 @@ export default(state = [], action) => {
         const newState = Object.assign({}, state);
         //
         newState["addUnitModalVisible"] = action.addUnitModalVisible;
+        return newState;
+      }
+    case SET_UNITTABLELOADING:
+      {
+        const newState = Object.assign({}, state);
+        //
+        newState["unitTableLoading"] = action.unitTableLoading;
         return newState;
       }
     default:
