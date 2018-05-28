@@ -28,7 +28,7 @@ import {
 //
 //
 import store from '../../../Store.js';
-import UnitPanel from '../../unit/views/UnitPanel.js';
+import UnitPage from '../../unit/views/UnitPage.js';
 import ErrorPage from '../../route/views/ErrorPage.js';
 //
 //
@@ -69,17 +69,17 @@ class ManagePage extends Component {
           this.setState({tabsKey: "1"})
           break;
         }
-      case "/NavbarPage/ManagePage/UnitPanel":
+      case "/NavbarPage/ManagePage/UnitPage":
         {
           this.setState({tabsKey: "2"})
           break;
         }
-      case "/NavbarPage/ManagePage/ServicePanel":
+      case "/NavbarPage/ManagePage/ServicePage":
         {
           this.setState({tabsKey: "3"})
           break;
         }
-      case "/NavbarPage/ManagePage/UserPanel":
+      case "/NavbarPage/ManagePage/UserPage":
         {
           this.setState({tabsKey: "4"})
           break;
@@ -113,17 +113,17 @@ class ManagePage extends Component {
                 }
               case "2":
                 {
-                  this.context.router.history.push("/NavbarPage/ManagePage/UnitPanel");
+                  this.context.router.history.push("/NavbarPage/ManagePage/UnitPage");
                   break;
                 }
               case "3":
                 {
-                  this.context.router.history.push("/NavbarPage/ManagePage/ServicePanel");
+                  this.context.router.history.push("/NavbarPage/ManagePage/ServicePage");
                   break;
                 }
               case "4":
                 {
-                  this.context.router.history.push("/NavbarPage/ManagePage/UserPanel");
+                  this.context.router.history.push("/NavbarPage/ManagePage/UserPage");
                   break;
                 }
 
@@ -142,12 +142,13 @@ class ManagePage extends Component {
       <div style={{
           float: "left",
           width: "calc( 100% - 160px )",
-          margin: "0 0 0 20px"
+          margin: "0 0 0 20px",
+          minHeight: "calc( 100vh - 66px - 81px - 56px - 48px - 69px )  "
         }}>
         <Switch>
-          <Route path="/NavbarPage/ManagePage/UnitPanel" component={UnitPanel}></Route>
-          <Route path="/NavbarPage/ManagePage/ServicePanel" component={WelcomeManage}></Route>
-          <Route path="/NavbarPage/ManagePage/UserPanel" component={WelcomeManage}></Route>
+          <Route path="/NavbarPage/ManagePage/UnitPage" component={UnitPage}></Route>
+          <Route path="/NavbarPage/ManagePage/ServicePage" component={WelcomeManage}></Route>
+          <Route path="/NavbarPage/ManagePage/UserPage" component={WelcomeManage}></Route>
           <Route path="/NavbarPage/ManagePage" component={WelcomeManage}></Route>
         </Switch>
       </div>

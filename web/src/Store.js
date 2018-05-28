@@ -51,9 +51,9 @@ const initialState = {
     'unitVO': {
       'unit_List': [],
       'totalRecords': 0
-    }
+    },
+    'addUnitModalVisible': false
   }
-
 };
 
 const middlewares = [thunkMiddleware];

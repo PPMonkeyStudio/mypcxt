@@ -1,4 +1,4 @@
-import {UPDATE_UNITREDUCER_UNITVO} from './UnitActionTypes.js';
+import {UPDATE_UNITREDUCER_UNITVO,SET_ADDUNITMODALVISIBLE} from './UnitActionTypes.js';
 //
 //
 //
@@ -12,7 +12,13 @@ export default(state = [], action) => {
         newState["unitVO"]["totalRecords"] = action.unitVO.totalRecords;
         return newState;
       }
-
+    case SET_ADDUNITMODALVISIBLE:
+      {
+        const newState = Object.assign({}, state);
+        //
+        newState["addUnitModalVisible"] = action.addUnitModalVisible;
+        return newState;
+      }
     default:
       {
         return state;

@@ -47,7 +47,8 @@ const LoginPage = ({login}) => {
     }}>
     <Card style={PanelStyle}>
       <img src={require('../../../img/logo.png')} style={{
-          height: "40px"
+          height: "40px",
+          margin: "0 auto"
         }}/>
       <div style={TitleStyle}>公安业务评测分析系统</div>
       <Input type="text" placeholder="账号" onChange={accountChange} style={{
@@ -58,7 +59,7 @@ const LoginPage = ({login}) => {
           margin: "10px 0 20px"
         }}/>
       <br/>
-      <Button className="btn-block" type="primary" onClick={login}>登录</Button>
+      <Button type="primary" onClick={login} className="login-form-button" >登录</Button>
     </Card>
     <Footer style={{
         textAlign: 'center'

@@ -44,4 +44,21 @@ public class UnitDaoImpl implements UnitDao {
 		return count;
 	}
 
+	@Override
+	public void saveUnit(mypcxt_unit unit) {
+		Session session = getSession();
+		session.saveOrUpdate(unit);
+		session.flush();
+	}
+
+	@Override
+	public mypcxt_unit getUnitByUnitName(String unit_name) {
+		Session session = getSession();
+		mypcxt_unit unit = null;
+		String hql = "from mypcxt_unit where unit_name='" + unit_name + "'";
+		Query query = session.createQuery(hql);
+		unit = (mypcxt_unit) query.uniqueResult();
+		return unit;
+	}
+
 }

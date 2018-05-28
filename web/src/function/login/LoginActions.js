@@ -17,7 +17,6 @@ export const login = (account, password) => {
 
     fetch('/mypcxt/LoginAndLogout/login', {
       method: 'POST',
-      headers: {},
       body: formData
     }).then((response) => {
       if (response.status === 200) {
@@ -26,15 +25,15 @@ export const login = (account, password) => {
           //
           //
           console.debug(responseJson);
-          if(responseJson===1){
+          if (responseJson === 1) {
             //用户
             dispatch(login_success(account, password));
             dispatch(RouteActions.updateStoreCurrentURL("/NavbarPage/IndexPage"));
-          }else if(responseJson===2){
+          } else if (responseJson === 2) {
             //管理员
             dispatch(login_success(account, password));
             dispatch(RouteActions.updateStoreCurrentURL("/NavbarPage/IndexPage"));
-          }else{
+          } else {
             //登录失败
             alert("登录失败");
             dispatch(login_fail());

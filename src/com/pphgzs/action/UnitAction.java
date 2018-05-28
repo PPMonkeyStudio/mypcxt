@@ -11,6 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.opensymphony.xwork2.ActionSupport;
+import com.pphgzs.domain.DO.mypcxt_unit;
 import com.pphgzs.domain.VO.UnitVO;
 import com.pphgzs.service.UnitService;
 
@@ -24,8 +25,13 @@ public class UnitAction extends ActionSupport implements ServletResponseAware, S
 	/*
 	 * 
 	 */
+	private mypcxt_unit unit;
+
+	/*
+	 * 
+	 */
 	public void getUnitVO() throws IOException {
-		System.out.println("unitvo");
+
 		UnitVO unitVO = new UnitVO();
 
 		unitVO = unitService.getUnitVO();
@@ -35,6 +41,19 @@ public class UnitAction extends ActionSupport implements ServletResponseAware, S
 		Gson gson = gsonBuilder.create();
 		http_response.setContentType("text/html;charset=utf-8");
 		http_response.getWriter().write(gson.toJson(unitVO));
+
+	}
+
+	public void addUnit() throws IOException {
+
+		if (unitService.saveUnit(unit)) {
+			http_response.setContentType("text/html;charset=utf-8");
+			http_response.getWriter().write("1");
+		} else {
+			http_response.setContentType("text/html;charset=utf-8");
+			http_response.getWriter().write("-1");
+		}
+
 	}
 
 	/*
@@ -73,6 +92,14 @@ public class UnitAction extends ActionSupport implements ServletResponseAware, S
 
 	public void setUnitService(UnitService unitService) {
 		this.unitService = unitService;
+	}
+
+	public mypcxt_unit getUnit() {
+		return unit;
+	}
+
+	public void setUnit(mypcxt_unit unit) {
+		this.unit = unit;
 	}
 
 	/*
