@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 // import {Image} from 'react-bootstrap';
 import {withRouter} from 'react-router-dom';
-import {Button, Layout, Input, Card} from 'antd';
+import {Button, Layout, Input, Card,} from 'antd';
 //
 //
 //
@@ -10,24 +10,24 @@ import * as LoginActions from '../LoginActions.js';
 //
 //
 //
-const {Header, Content, Footer} = Layout;
+const {Header, Content, Footer,} = Layout;
 //
 //
 //
 let loginState = {
   account: "",
-  password: ""
+  password: "",
 };
 //
 const PanelStyle = {
   width: "550px",
   margin: " 100px auto calc( 100vh - 550px )",
-  padding: "20px 30px 40px 30px"
+  padding: "20px 30px 40px 30px",
 };
 const TitleStyle = {
   margin: "10px auto 30px",
   textAlign: "center",
-  fontSize: "30px"
+  fontSize: "30px",
 };
 //
 //
@@ -48,7 +48,7 @@ const LoginPage = ({login}) => {
     <Card style={PanelStyle}>
       <img src={require('../../../img/logo.png')} style={{
           height: "40px",
-          margin: "0 auto"
+          margin: "0 auto",
         }}/>
       <div style={TitleStyle}>公安业务评测分析系统</div>
       <Input type="text" placeholder="账号" onChange={accountChange} style={{
@@ -59,7 +59,9 @@ const LoginPage = ({login}) => {
           margin: "10px 0 20px"
         }}/>
       <br/>
-      <Button type="primary" onClick={login} className="login-form-button" >登录</Button>
+      <Button type="primary" onClick={login} style={{
+          width: "100%"
+        }}>登录</Button>
     </Card>
     <Footer style={{
         textAlign: 'center'

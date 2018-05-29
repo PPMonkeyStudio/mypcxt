@@ -41,24 +41,26 @@ public class UnitDaoImpl implements UnitDao {
 		String hql = "select count(*) from mypcxt_unit";
 		Query query = session.createQuery(hql);
 		int count = ((Number) query.uniqueResult()).intValue();
+		session.clear();
 		return count;
 	}
 
 	@Override
 	public void saveUnit(mypcxt_unit unit) {
 		Session session = getSession();
-		session.saveOrUpdate(unit);
+		session.save(unit);
 		session.flush();
 	}
 
 	@Override
-	public mypcxt_unit getUnitByUnitName(String unit_name) {
+	public mypcxt_unit getUnitByUnitName(mypcxt_unit unit) {
 		Session session = getSession();
-		mypcxt_unit unit = null;
-		String hql = "from mypcxt_unit where unit_name='" + unit_name + "'";
+
+		String hql = "from mypcxt_unit where unit_name='" + unit.getUnit_name() + "'";
 		Query query = session.createQuery(hql);
-		unit = (mypcxt_unit) query.uniqueResult();
-		return unit;
+		mypcxt_unit newUnit = (mypcxt_unit) query.uniqueResult();
+		session.clear();
+		return newUnit;
 	}
 
 	@Override
@@ -67,7 +69,24 @@ public class UnitDaoImpl implements UnitDao {
 		String hql = "delete from mypcxt_unit where mypcxt_unit_id='" + unit.getMypcxt_unit_id() + "'";
 		Query query = session.createQuery(hql);
 		query.executeUpdate();
+		session.flush();
+	}
 
+	@Override
+	public mypcxt_unit getUnitByUnitID(mypcxt_unit unit) {
+		Session session = getSession();
+		String hql = "from mypcxt_unit where mypcxt_unit_id='" + unit.getMypcxt_unit_id() + "'";
+		Query query = session.createQuery(hql);
+		mypcxt_unit newUnit = (mypcxt_unit) query.uniqueResult();
+		session.clear();
+		return newUnit;
+	}
+
+	@Override
+	public void updateUnit(mypcxt_unit unit) {
+		Session session = getSession();
+		session.update(unit);
+		session.flush();
 	}
 
 }

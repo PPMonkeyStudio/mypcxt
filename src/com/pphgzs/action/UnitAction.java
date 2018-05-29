@@ -63,6 +63,13 @@ public class UnitAction extends ActionSupport implements ServletResponseAware, S
 
 	}
 
+	public void updateUnit() throws IOException {
+		unitService.updateUnit(unit);
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write("1");
+
+	}
+
 	/*
 	 * 
 	 */

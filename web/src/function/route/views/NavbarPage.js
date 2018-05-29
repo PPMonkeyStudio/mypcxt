@@ -7,14 +7,20 @@ import {
   BrowserRouter,
   Router,
   Redirect,
-  withRouter,
+  withRouter
 } from 'react-router-dom';
 import PropTypes from 'prop-types'
 /**
  * antd
  * @type {[type]}
  */
-import {Button, Menu, Layout, Breadcrumb, Icon} from 'antd';
+import {
+  Button,
+  Menu,
+  Layout,
+  Breadcrumb,
+  Icon,
+} from 'antd';
 
 //
 //
@@ -28,7 +34,7 @@ import ManagePage from '../../manage/views/ManagePage.js';
 //
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
-const {Header, Content, Footer,} = Layout;
+const {Header, Content, Footer} = Layout;
 //
 //
 const title_my = (<span>
@@ -36,10 +42,6 @@ const title_my = (<span>
   &nbsp;管理员
 </span>);
 
-const clickChild = (e) => {
-  e.target.firstElementChild.click();
-  alert(e.target.firstElementChild.innerHTML);
-}
 
 class NavbarPage extends Component {
 
@@ -56,11 +58,11 @@ class NavbarPage extends Component {
     return (<Layout >
       <Header style={{
           position: 'fixed',
-          width: '100%',
+          width: '100%'
         }}>
         <div style={{
             margin: "0 50px 0 0",
-            float: "left",
+            float: "left"
           }}>公安业务评测系统</div>
         <Menu mode="horizontal" style={{
             lineHeight: '64px'
@@ -80,7 +82,7 @@ class NavbarPage extends Component {
       </Header>
       <Content style={{
           padding: '0 50px',
-          margin: "64px 0 0 0",
+          margin: "64px 0 0 0"
         }}>
         <Switch>
           <Breadcrumb path="/NavbarPage/ManagePage" style={{
@@ -88,17 +90,15 @@ class NavbarPage extends Component {
             }}>
             <Breadcrumb.Item>首页</Breadcrumb.Item>
             <Breadcrumb.Item>管理</Breadcrumb.Item>
-            <Switch>
-              <Breadcrumb.Item path="/NavbarPage/ManagePage/UnitPanel">
-                单位管理
-              </Breadcrumb.Item>
-              <Breadcrumb.Item path="/NavbarPage/ManagePage/UserPanel">
-                人员管理
-              </Breadcrumb.Item>
-              <Breadcrumb.Item path="/NavbarPage/ManagePage/ServicePanel">
-                业务管理
-              </Breadcrumb.Item>
-            </Switch>
+            <Breadcrumb.Item path="/NavbarPage/ManagePage/UnitPanel">
+              单位管理
+            </Breadcrumb.Item>
+            <Breadcrumb.Item path="/NavbarPage/ManagePage/UserPanel">
+              人员管理
+            </Breadcrumb.Item>
+            <Breadcrumb.Item path="/NavbarPage/ManagePage/ServicePanel">
+              业务管理
+            </Breadcrumb.Item>
           </Breadcrumb>
         </Switch>
         <Switch>

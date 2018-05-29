@@ -30,3 +30,9 @@ td:hover .editable-cell-icon {
 .editable-cell-icon-check:hover {
   color: #108ee9;
 }
+
+.editable-row .ant-form-explain {
+  position: absolute;
+  font-size: 12px;
+  margin-top: -4px;
+}

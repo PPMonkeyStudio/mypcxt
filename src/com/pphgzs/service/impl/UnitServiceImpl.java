@@ -36,7 +36,7 @@ public class UnitServiceImpl implements UnitService {
 	@Override
 	public boolean saveUnit(mypcxt_unit unit) {
 
-		if (unitDao.getUnitByUnitName(unit.getUnit_name()) == null) {
+		if (unitDao.getUnitByUnitName(unit) == null) {
 			unit.setMypcxt_unit_id(uuidUtil.getUuid());
 			String time = TimeUtil.getStringSecond();
 			unit.setUnit_gmt_create(time);
@@ -52,6 +52,15 @@ public class UnitServiceImpl implements UnitService {
 	@Override
 	public void deleteUnit(mypcxt_unit unit) {
 		unitDao.deleteUnit(unit);
+
+	}
+
+	@Override
+	public void updateUnit(mypcxt_unit newUnit) {
+		mypcxt_unit oldUnit = unitDao.getUnitByUnitID(newUnit);
+		newUnit.setUnit_gmt_create(oldUnit.getUnit_gmt_create());
+		newUnit.setUnit_gmt_modified(TimeUtil.getStringSecond());
+		unitDao.updateUnit(newUnit);
 
 	}
 

@@ -12,7 +12,11 @@ public interface UnitDao {
 
 	public void saveUnit(mypcxt_unit unit);
 
-	public mypcxt_unit getUnitByUnitName(String unit_name);
-
 	public void deleteUnit(mypcxt_unit unit);
+
+	public mypcxt_unit getUnitByUnitID(mypcxt_unit unit);
+
+	public mypcxt_unit getUnitByUnitName(mypcxt_unit unit);
+
+	public void updateUnit(mypcxt_unit unit);
 }

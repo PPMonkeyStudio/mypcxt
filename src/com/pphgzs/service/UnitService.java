@@ -11,4 +11,6 @@ public interface UnitService {
 
 	public void deleteUnit(mypcxt_unit unit);
 
+	public void updateUnit(mypcxt_unit newUnit);
+
 }
