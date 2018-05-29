@@ -41,7 +41,8 @@ const initialState = {
    * @type {Array}
    */
   'RouteReducer': {
-    'currentURL': ''
+    'currentURL': '',
+    'currentNavbarMenuItem': ''
   },
   /**
    * 所有单位

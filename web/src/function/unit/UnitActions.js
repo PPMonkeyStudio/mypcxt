@@ -30,13 +30,13 @@ export const getUnitVO = () => {
           //
           //
         }).catch((error) => {
-          alert(error);
+          console.err(error);
         });
       } else {
-        alert(response.status);
+        console.err(response.status);
       }
     }).catch((error) => {
-      alert(error);
+      console.err(error);
     });
     //
     //
@@ -65,19 +65,19 @@ export const addUnit = (unit_name) => {
             dispatch(getUnitVO());
             dispatch(setAddUnitModalVisible(false));
           } else {
-            alert("单位已存在");
+            console.err("单位已存在");
           }
           //
           //
           //
         }).catch((error) => {
-          alert(error);
+          console.err(error);
         });
       } else {
-        alert(response.status);
+        console.err(response.status);
       }
     }).catch((error) => {
-      alert(error);
+      console.err(error);
     });
     //
     //
@@ -103,13 +103,13 @@ export const deleteUnit = (mypcxt_unit_id) => {
           //
           //
         }).catch((error) => {
-          alert(error);
+          console.err(error);
         });
       } else {
-        alert(response.status);
+        console.err(response.status);
       }
     }).catch((error) => {
-      alert(error);
+      console.err(error);
     });
     //
     //
@@ -135,13 +135,13 @@ export const updateUnit = (mypcxt_unit_id, unit_name) => {
           //
           //
         }).catch((error) => {
-          alert(error);
+          console.err(error);
         });
       } else {
-        alert(response.status);
+        console.err(response.status);
       }
     }).catch((error) => {
-      alert(error);
+      console.err(error);
     });
     //
     //
