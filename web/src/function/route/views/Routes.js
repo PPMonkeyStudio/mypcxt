@@ -45,6 +45,7 @@ class Routes extends Component {
     store.subscribe(this.storeChanged);
     //组件装载时，同步当前URL至store
     store.dispatch(RouteActions.updateStoreCurrentURL(this.context.router.history.location.pathname));
+    store.dispatch(RouteActions.updateCurrentNavbarMenuItem(this.context.router.history.location.pathname));
   }
 
   //store中的路径改变引起
@@ -68,6 +69,11 @@ class Routes extends Component {
       //
     } else {
       store.dispatch(RouteActions.updateStoreCurrentURL(this.context.router.history.location.pathname));
+
+    }
+
+    if(this.context.router.history.location.pathname!==store.getState()["RouteReducer"]["currentNavbarMenuItem"]){
+        store.dispatch(RouteActions.updateCurrentNavbarMenuItem(this.context.router.history.location.pathname));
     }
   }
 

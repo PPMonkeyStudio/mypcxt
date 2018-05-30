@@ -27,7 +27,7 @@ import {
   Popconfirm,
   Divider,
   Tooltip,
-  Pagination,
+  Pagination
 } from 'antd';
 //
 //
@@ -37,7 +37,7 @@ import * as UnitActions from '../UnitActions.js';
 //
 //
 const FormItem = Form.Item;
-const {Column, ColumnGroup} = Table;
+const {Column, ColumnGroup,} = Table;
 //
 ////
 ////
@@ -60,7 +60,7 @@ let addUnitModelState = {
 const EditableRow = ({
   form,
   index,
-  ...props
+  ...props,
 }) => (<EditableContext.Provider value={form}>
   <tr {...props}/>
 </EditableContext.Provider>);
@@ -79,7 +79,7 @@ class EditableCell extends React.Component {
       inputType,
       record,
       index,
-      ...restProps,
+      ...restProps
     } = this.props;
     return (<EditableContext.Consumer>
       {
@@ -96,11 +96,13 @@ class EditableCell extends React.Component {
                       rules: [
                         {
                           required: true,
-                          message: `Please Input ${title}!`
+                          message: `Please Input ${title}!`,
                         }
                       ],
-                      initialValue: record[dataIndex]
-                    })(<Input/>)
+                      initialValue: record[dataIndex],
+                    })(<Input style={{
+                        textAlign: "center"
+                      }}/>)
                   }
                 </FormItem>)
                 : restProps.children
@@ -125,11 +127,11 @@ class UnitPage extends Component {
     this.state = {
       'unitVO': {
         'unit_List': [],
-        'totalRecords': 0
+        'totalRecords': 0,
       },
       'addUnitModalVisible': false,
       'unitTableLoading': false,
-      'editingID': '',
+      'editingID': ''
     }
 
   }
@@ -200,15 +202,15 @@ class UnitPage extends Component {
   isEditing = (record) => {
     return record.mypcxt_unit_id === this.state.editingID;
   };
-  edit(mypcxt_unit_id) {
+  edit = (mypcxt_unit_id) => {
     this.setState({editingID: mypcxt_unit_id});
-  }
-  saveEdit(form, mypcxt_unit_id) {
+  };
+  saveEdit = (form, mypcxt_unit_id) => {
     form.validateFields((error, row) => {
       store.dispatch(UnitActions.updateUnit(mypcxt_unit_id, row.unit_name));
       this.setState({editingID: ''});
     });
-  }
+  };
   cancelEdit = () => {
     this.setState({editingID: ''});
   };
@@ -217,13 +219,13 @@ class UnitPage extends Component {
     const components = {
       body: {
         row: EditableFormRow,
-        cell: EditableCell
+        cell: EditableCell,
       }
     };
     return (<div>
       <div style={{
           height: "34px",
-          margin: "0 0 20px 0"
+          margin: "0 0 20px 0",
         }}>
         <Button onClick={this.addUnitModal}>
           <Icon type="plus"/>
@@ -241,10 +243,10 @@ class UnitPage extends Component {
           <div style={{
               margin: "0 auto 10px",
               width: "200px",
-              textAlign: "center"
+              textAlign: "center",
             }}>共{this.state.unitVO.totalRecords}条记录</div>
         </div>)}>
-        <Column title="单位名称" dataIndex="unit_name" align="center" editable="true" onCell={(record) => ({record, 'dataIndex': 'unit_name', 'title': '单位名称', 'editing': this.isEditing(record),})}/>
+        <Column title="单位名称" dataIndex="unit_name" align="center" width="30%" editable="true" onCell={(record) => ({record, 'dataIndex': 'unit_name', 'title': '单位名称', 'editing': this.isEditing(record)})}/>
         <Column title="创建时间" dataIndex="unit_gmt_create" align="center"/>
         <Column title="修改时间" dataIndex="unit_gmt_modified" align="center"/>
         <Column title="操作" dataIndex="operation" align="center" render={(text, record) => {
@@ -265,7 +267,7 @@ class UnitPage extends Component {
                       }
                     </EditableContext.Consumer>
                     <Tooltip title="取消">
-                      <a onClick={() => this.cancel(record.mypcxt_unit_id)}><Icon type="close"/></a>
+                      <a onClick={() => this.cancelEdit(record.mypcxt_unit_id)}><Icon type="close"/></a>
                     </Tooltip>
                   </div>)
                   : (<div>

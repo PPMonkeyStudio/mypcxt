@@ -57,14 +57,13 @@ class NavbarPage extends Component {
     this.setState({
       currentNavbarMenuItem: store.getState()["RouteReducer"]["currentNavbarMenuItem"]
     });
-    //
   }
 
   componentDidMount() {
     //先挂载监听
     store.subscribe(this.storeChanged);
     //组件装载时，同步当前URL至store
-    store.dispatch(RouteActions.updateCurrentNavbarMenuItem(this.context.router.history.location.pathname));
+
   }
 
   render() {
@@ -77,7 +76,7 @@ class NavbarPage extends Component {
             margin: "0 50px 0 0",
             float: "left",
           }}>公安业务评测系统</div>
-        <Menu mode="horizontal" selectedKeys={[this.state.currentNavbarMenuItem]} style={{
+        <Menu mode="horizontal" selectedKeys={this.state.currentNavbarMenuItem} style={{
             lineHeight: '64px'
           }}>
           <Menu.Item key="IndexPage" onClick={() => {
@@ -94,27 +93,9 @@ class NavbarPage extends Component {
         </Menu>
       </Header>
       <Content style={{
-          padding: '0 50px',
+          padding: '50px 50px 0',
           margin: "64px 0 0 0",
         }}>
-
-        <Breadcrumb path="/NavbarPage/ManagePage" style={{
-            margin: '30px 0'
-          }}>
-          <Breadcrumb.Item>首页</Breadcrumb.Item>
-          <Breadcrumb.Item>管理</Breadcrumb.Item>
-          <Switch>
-            <Breadcrumb.Item path="/NavbarPage/ManagePage/UnitPanel">
-              单位管理
-            </Breadcrumb.Item>
-            <Breadcrumb.Item path="/NavbarPage/ManagePage/UserPanel">
-              人员管理
-            </Breadcrumb.Item>
-            <Breadcrumb.Item path="/NavbarPage/ManagePage/ServicePanel">
-              业务管理
-            </Breadcrumb.Item>
-          </Switch>
-        </Breadcrumb>
 
         {/************************************************/}
         <Route path="/NavbarPage/ManagePage" component={ManagePage}></Route>
