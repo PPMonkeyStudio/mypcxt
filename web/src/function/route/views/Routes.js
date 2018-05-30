@@ -78,8 +78,6 @@ class Routes extends Component {
   }
 
 
-  componentWillUpdate() {}
-  componentDIdUpdate() {}
   render() {
     return (<Switch>
       <LoginPage path="/LoginPage" exact="exact"/>

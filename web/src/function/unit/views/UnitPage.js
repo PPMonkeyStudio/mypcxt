@@ -239,7 +239,7 @@ class UnitPage extends Component {
           </Form>
         </Modal>
       </div>
-      <Table components={components} pagination="false" size="small" dataSource={this.state.unitVO.unit_List} loading={this.state.unitTableLoading} bordered={true} title={() => (<h2>单位列表</h2>)} footer={() => (<div>
+      <Table pagination={false} components={components} size="small" dataSource={this.state.unitVO.unit_List} loading={this.state.unitTableLoading} bordered={true} title={() => (<h2>单位列表</h2>)} footer={() => (<div>
           <div style={{
               margin: "0 auto 10px",
               width: "200px",
