@@ -239,7 +239,7 @@ class UnitPage extends Component {
           </Form>
         </Modal>
       </div>
-      <Table pagination={false} components={components} size="small" dataSource={this.state.unitVO.unit_List} loading={this.state.unitTableLoading} bordered={true} title={() => (<h2>单位列表</h2>)} footer={() => (<div>
+      <Table pagination={false} components={components} dataSource={this.state.unitVO.unit_List} loading={this.state.unitTableLoading} bordered={true} title={() => (<h2>单位列表</h2>)} footer={() => (<div>
           <div style={{
               margin: "0 auto 10px",
               width: "200px",
@@ -247,6 +247,7 @@ class UnitPage extends Component {
             }}>共{this.state.unitVO.totalRecords}条记录</div>
         </div>)}>
         <Column title="单位名称" dataIndex="unit_name" align="center" width="30%" editable="true" onCell={(record) => ({record, 'dataIndex': 'unit_name', 'title': '单位名称', 'editing': this.isEditing(record)})}/>
+        <Column title="整改员" dataIndex="unit_correction_man" align="center"/>
         <Column title="创建时间" dataIndex="unit_gmt_create" align="center"/>
         <Column title="修改时间" dataIndex="unit_gmt_modified" align="center"/>
         <Column title="操作" dataIndex="operation" align="center" render={(text, record) => {

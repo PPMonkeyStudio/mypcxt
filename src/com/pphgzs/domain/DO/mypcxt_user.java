@@ -7,6 +7,7 @@ public class mypcxt_user {
 	private String user_name;
 	private String user_Jurisdiction_evaluate;
 	private String user_Jurisdiction_statistics;
+	private String user_Jurisdiction_review;
 	private String user_gmt_create;
 	private String user_gmt_modified;
 
@@ -15,8 +16,8 @@ public class mypcxt_user {
 		return "mypcxt_user 【\nmypcxt_user_id=" + mypcxt_user_id + ", \nuser_account=" + user_account
 				+ ", \nuser_password=" + user_password + ", \nuser_name=" + user_name
 				+ ", \nuser_Jurisdiction_evaluate=" + user_Jurisdiction_evaluate + ", \nuser_Jurisdiction_statistics="
-				+ user_Jurisdiction_statistics + ", \nuser_gmt_create=" + user_gmt_create + ", \nuser_gmt_modified="
-				+ user_gmt_modified + "\n】";
+				+ user_Jurisdiction_statistics + ", \nuser_Jurisdiction_review=" + user_Jurisdiction_review
+				+ ", \nuser_gmt_create=" + user_gmt_create + ", \nuser_gmt_modified=" + user_gmt_modified + "\n】";
 	}
 
 	public String getMypcxt_user_id() {
@@ -81,5 +82,13 @@ public class mypcxt_user {
 
 	public void setUser_gmt_modified(String user_gmt_modified) {
 		this.user_gmt_modified = user_gmt_modified;
+	}
+
+	public String getUser_Jurisdiction_review() {
+		return user_Jurisdiction_review;
+	}
+
+	public void setUser_Jurisdiction_review(String user_Jurisdiction_review) {
+		this.user_Jurisdiction_review = user_Jurisdiction_review;
 	}
 }

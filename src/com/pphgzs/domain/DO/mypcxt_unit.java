@@ -6,11 +6,21 @@ public class mypcxt_unit {
 	private String unit_name;
 	private String unit_gmt_create;
 	private String unit_gmt_modified;
+	private String unit_correction_man;
+
+	public String getUnit_correction_man() {
+		return unit_correction_man;
+	}
 
 	@Override
 	public String toString() {
 		return "mypcxt_unit 【\nmypcxt_unit_id=" + mypcxt_unit_id + ", \nunit_name=" + unit_name + ", \nunit_gmt_create="
-				+ unit_gmt_create + ", \nunit_gmt_modified=" + unit_gmt_modified + "\n】";
+				+ unit_gmt_create + ", \nunit_gmt_modified=" + unit_gmt_modified + ", \nunit_correction_man="
+				+ unit_correction_man + "\n】";
+	}
+
+	public void setUnit_correction_man(String unit_correction_man) {
+		this.unit_correction_man = unit_correction_man;
 	}
 
 	public String getMypcxt_unit_id() {

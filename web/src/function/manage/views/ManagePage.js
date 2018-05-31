@@ -31,6 +31,7 @@ import store from '../../../Store.js';
 import UnitPage from '../../unit/views/UnitPage.js';
 import ServicePage from '../../service/views/ServicePage.js';
 import ErrorPage from '../../route/views/ErrorPage.js';
+import UserPage from '../../user/views/UserPage.js';
 import * as ManageActions from '../ManageActions.js';
 //
 //
@@ -157,7 +158,7 @@ class ManagePage extends Component {
         <Switch>
           <Route path="/NavbarPage/ManagePage/UnitPage" component={UnitPage}></Route>
           <Route path="/NavbarPage/ManagePage/ServicePage" component={ServicePage}></Route>
-          <Route path="/NavbarPage/ManagePage/UserPage" component={WelcomeManage}></Route>
+          <Route path="/NavbarPage/ManagePage/UserPage" component={UserPage}></Route>
           <Route path="/NavbarPage/ManagePage" component={WelcomeManage}></Route>
         </Switch>
       </div>
