@@ -6,4 +6,5 @@
 
 	<import resource="spring/LoginAndLogoutSpring.xml" />
 	<import resource="spring/UnitSpring.xml" />
+	<import resource="spring/UserSpring.xml" />
 </beans>

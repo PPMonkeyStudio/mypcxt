@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Link, withRouter, Route, Switch,} from 'react-router-dom';
+import {Link, withRouter, Route, Switch} from 'react-router-dom';
 // import {
 //   Panel,
 //   ButtonToolbar,
@@ -22,7 +22,7 @@ import {
   Layout,
   Breadcrumb,
   Tabs,
-  Card,
+  Card
 } from 'antd';
 //
 //
@@ -42,7 +42,7 @@ const TabPane = Tabs.TabPane;
 const WelcomeManage = () => {
   return (<div style={{
       margin: "50px auto 0",
-      textAlign: "center",
+      textAlign: "center"
     }}>
     <h1>系统管理</h1>
     <h2>请点击左侧标签进入具体的管理模块</h2>
@@ -56,7 +56,7 @@ class ManagePage extends Component {
 
     this.state = {
       tabsKey: "1",
-      ManageCardLoading: false,
+      ManageCardLoading: false
     }
 
   }
@@ -104,7 +104,7 @@ class ManagePage extends Component {
 
     return (<Card loading={this.state.ManageCardLoading} title="管理" style={{
         float: "left",
-        width: "100%",
+        width: "100%"
       }}>
       {/************************************************/}
       {/************************************************/}
@@ -142,9 +142,9 @@ class ManagePage extends Component {
 
         }}>
         <TabPane tab="管理" key="1"></TabPane>
-        <TabPane tab="单位" key="2"></TabPane>
         <TabPane tab="业务" key="3"></TabPane>
-        <TabPane tab="人员" key="4"></TabPane>
+        <TabPane tab="警员" key="4"></TabPane>
+        <TabPane tab="单位" key="2"></TabPane>
       </Tabs>
       {/************************************************/}
       {/************************************************/}
@@ -153,7 +153,7 @@ class ManagePage extends Component {
           float: "left",
           width: "calc( 100% - 160px )",
           margin: "0 0 0 20px",
-          minHeight: "calc( 100vh - 66px - 81px - 56px - 48px - 69px )  ",
+          minHeight: "calc( 100vh - 66px - 81px - 56px - 48px - 69px )  "
         }}>
         <Switch>
           <Route path="/NavbarPage/ManagePage/UnitPage" component={UnitPage}></Route>

@@ -27,7 +27,7 @@ import {
   Popconfirm,
   Divider,
   Tooltip,
-  Pagination
+  Pagination,
 } from 'antd';
 //
 //
@@ -37,7 +37,7 @@ import * as UnitActions from '../UnitActions.js';
 //
 //
 const FormItem = Form.Item;
-const {Column, ColumnGroup,} = Table;
+const {Column, ColumnGroup} = Table;
 //
 ////
 ////
@@ -57,62 +57,6 @@ let addUnitModelState = {
   addUnit_unitName: ""
 };
 
-const EditableRow = ({
-  form,
-  index,
-  ...props,
-}) => (<EditableContext.Provider value={form}>
-  <tr {...props}/>
-</EditableContext.Provider>);
-const EditableContext = React.createContext();
-const EditableFormRow = Form.create()(EditableRow);
-/**
- * [UnitPage description]
- * @extends Component
- */
-class EditableCell extends React.Component {
-  render() {
-    const {
-      editing,
-      dataIndex,
-      title,
-      inputType,
-      record,
-      index,
-      ...restProps
-    } = this.props;
-    return (<EditableContext.Consumer>
-      {
-        (form) => {
-          const {getFieldDecorator} = form;
-          return (<td {...restProps}>
-            {
-              editing
-                ? (<FormItem style={{
-                    margin: 0
-                  }}>
-                  {
-                    getFieldDecorator(dataIndex, {
-                      rules: [
-                        {
-                          required: true,
-                          message: `Please Input ${title}!`,
-                        }
-                      ],
-                      initialValue: record[dataIndex],
-                    })(<Input style={{
-                        textAlign: "center"
-                      }}/>)
-                  }
-                </FormItem>)
-                : restProps.children
-            }
-          </td>);
-        }
-      }
-    </EditableContext.Consumer>);
-  }
-}
 class UnitPage extends Component {
   constructor(props, context) {
     super(props, context);
@@ -120,18 +64,15 @@ class UnitPage extends Component {
     this.addUnitModal = this.addUnitModal.bind(this);
     this.addUnitOk = this.addUnitOk.bind(this);
     this.addUnitCancel = this.addUnitCancel.bind(this);
-    this.addUnitCancel = this.addUnitCancel.bind(this);
-    this.addUnit_UnitName_Channge = this.addUnit_UnitName_Channge.bind(this);
     this.deleteUnit = this.deleteUnit.bind(this);
 
     this.state = {
       'unitVO': {
         'unit_List': [],
-        'totalRecords': 0,
+        'totalRecords': 0
       },
       'addUnitModalVisible': false,
-      'unitTableLoading': false,
-      'editingID': ''
+      'unitTableLoading': false
     }
 
   }
@@ -163,9 +104,6 @@ class UnitPage extends Component {
     }
   }
 
-  addUnit_UnitName_Channge(event) {
-    addUnitModelState.addUnit_unitName = event.target.value;
-  }
 
   addUnitModal = () => {
     store.dispatch(UnitActions.setAddUnitModalVisible(true));
@@ -199,33 +137,12 @@ class UnitPage extends Component {
   //
   //
   //
-  isEditing = (record) => {
-    return record.mypcxt_unit_id === this.state.editingID;
-  };
-  edit = (mypcxt_unit_id) => {
-    this.setState({editingID: mypcxt_unit_id});
-  };
-  saveEdit = (form, mypcxt_unit_id) => {
-    form.validateFields((error, row) => {
-      store.dispatch(UnitActions.updateUnit(mypcxt_unit_id, row.unit_name));
-      this.setState({editingID: ''});
-    });
-  };
-  cancelEdit = () => {
-    this.setState({editingID: ''});
-  };
 
   render() {
-    const components = {
-      body: {
-        row: EditableFormRow,
-        cell: EditableCell,
-      }
-    };
     return (<div>
       <div style={{
           height: "34px",
-          margin: "0 0 20px 0",
+          margin: "0 0 20px 0"
         }}>
         <Button onClick={this.addUnitModal}>
           <Icon type="plus"/>
@@ -234,58 +151,38 @@ class UnitPage extends Component {
         <Modal title="新增一个单位" visible={this.state.addUnitModalVisible} onOk={this.addUnitOk} onCancel={this.addUnitCancel} okText="确认添加" cancelText="取消">
           <Form >
             <FormItem label="单位名称">
-              <Input onChange={this.addUnit_UnitName_Channge}/>
+              <Input onChange={(event) => {
+                  addUnitModelState.addUnit_unitName = event.target.value;
+                }}/>
             </FormItem>
           </Form>
         </Modal>
       </div>
-      <Table pagination={false} components={components} dataSource={this.state.unitVO.unit_List} loading={this.state.unitTableLoading} bordered={true} title={() => (<h2>单位列表</h2>)} footer={() => (<div>
+      <Table pagination={false} dataSource={this.state.unitVO.unit_List} loading={this.state.unitTableLoading} bordered={true} title={() => (<h2>单位列表</h2>)} footer={() => (<div>
           <div style={{
               margin: "0 auto 10px",
               width: "200px",
-              textAlign: "center",
+              textAlign: "center"
             }}>共{this.state.unitVO.totalRecords}条记录</div>
         </div>)}>
-        <Column title="单位名称" dataIndex="unit_name" align="center" width="30%" editable="true" onCell={(record) => ({record, 'dataIndex': 'unit_name', 'title': '单位名称', 'editing': this.isEditing(record)})}/>
+        <Column title="单位名称" dataIndex="unit_name" align="center"/>
         <Column title="整改员" dataIndex="unit_correction_man" align="center"/>
         <Column title="创建时间" dataIndex="unit_gmt_create" align="center"/>
         <Column title="修改时间" dataIndex="unit_gmt_modified" align="center"/>
         <Column title="操作" dataIndex="operation" align="center" render={(text, record) => {
-            const editable = this.isEditing(record);
-            return (<div>
-              {
-                editable
-                  ? (<div>
-                    <EditableContext.Consumer>
-                      {
-                        (form) => (<Tooltip title="保存">
-                          <a onClick={() => (this.saveEdit(form, record.mypcxt_unit_id))} style={{
-                              marginRight: 8
-                            }}>
-                            <Icon type="check"/>
-                          </a>
-                        </Tooltip>)
-                      }
-                    </EditableContext.Consumer>
-                    <Tooltip title="取消">
-                      <a onClick={() => this.cancelEdit(record.mypcxt_unit_id)}><Icon type="close"/></a>
-                    </Tooltip>
-                  </div>)
-                  : (<div>
-                    <Tooltip title="修改">
-                      <a onClick={() => this.edit(record.mypcxt_unit_id)}><Icon type="edit"/></a>
-                    </Tooltip>
-                    <Divider type="vertical"/>
-                    <Popconfirm title="确认删除吗?删除后，将删除所有此单位的数据及记录，无法恢复，是否继续？" okText="确认删除" cancelText="放弃" okType="danger" onConfirm={() => this.deleteUnit(record.mypcxt_unit_id)}>
-                      <Tooltip title="删除">
-                        <a>
-                          <Icon type="delete"/>
-                        </a>
-                      </Tooltip>
-                    </Popconfirm>
-                  </div>)
-              }
-            </div>);
+            return ((<div>
+              <Tooltip title="修改">
+                <a><Icon type="edit"/></a>
+              </Tooltip>
+              <Divider type="vertical"/>
+              <Popconfirm title="确认删除吗?删除后，将删除所有此单位的数据及记录，无法恢复，是否继续？" okText="确认删除" cancelText="放弃" okType="danger" onConfirm={() => this.deleteUnit(record.mypcxt_unit_id)}>
+                <Tooltip title="删除">
+                  <a>
+                    <Icon type="delete"/>
+                  </a>
+                </Tooltip>
+              </Popconfirm>
+            </div>));
           }}/>
       </Table>
     </div>);
