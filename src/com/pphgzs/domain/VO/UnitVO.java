@@ -2,25 +2,25 @@ package com.pphgzs.domain.VO;
 
 import java.util.List;
 
-import com.pphgzs.domain.DO.mypcxt_unit;
+import com.pphgzs.domain.DTO.UnitDTO;
 
 public class UnitVO {
 
-	private List<mypcxt_unit> unit_List;
+	private List<UnitDTO> unitDTOList;
 
 	private int totalRecords = 0;
 
 	@Override
 	public String toString() {
-		return "UnitVO 【\nunit_List=" + unit_List + ", \ntotalRecords=" + totalRecords + "\n】";
+		return "UnitVO 【\nunitDTOList=" + unitDTOList + ", \ntotalRecords=" + totalRecords + "\n】";
 	}
 
-	public List<mypcxt_unit> getUnit_List() {
-		return unit_List;
+	public List<UnitDTO> getUnitDTOList() {
+		return unitDTOList;
 	}
 
-	public void setUnit_List(List<mypcxt_unit> unit_List) {
-		this.unit_List = unit_List;
+	public void setUnitDTOList(List<UnitDTO> unitDTOList) {
+		this.unitDTOList = unitDTOList;
 	}
 
 	public int getTotalRecords() {

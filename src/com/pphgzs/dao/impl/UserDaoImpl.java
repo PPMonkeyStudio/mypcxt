@@ -73,9 +73,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public mypcxt_user getUserByUserID(mypcxt_user user) {
+	public mypcxt_user getUserByUserID(String userID) {
 		Session session = getSession();
-		String hql = "from mypcxt_user where mypcxt_user_id='" + user.getMypcxt_user_id() + "'";
+		String hql = "from mypcxt_user where mypcxt_user_id='" + userID + "'";
 		Query query = session.createQuery(hql);
 		mypcxt_user newUser = (mypcxt_user) query.uniqueResult();
 		session.clear();

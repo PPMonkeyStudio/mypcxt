@@ -1,10 +1,18 @@
-import {UPDATE_UNITREDUCER_UNITVO, SET_ADDUNITMODALVISIBLE, SET_UNITTABLELOADING, UPDATE_UNIT,} from './UnitActionTypes.js';
+import {
+  UPDATE_UNITREDUCER_UNITVO,
+  SET_ADDUNITMODALVISIBLE,
+  SET_UNITTABLELOADING,
+  UPDATE_UNIT,
+  SET_UPDATEUNITMODALVISIBLE,
+} from './UnitActionTypes.js';
+import * as UserActions from '../user/UserActions.js';
 //
 //
 //
-export const updateUnitVO = (unitVO) => ({type: UPDATE_UNITREDUCER_UNITVO, unitVO: unitVO,})
-export const setAddUnitModalVisible = (addUnitModalVisible) => ({type: SET_ADDUNITMODALVISIBLE, addUnitModalVisible: addUnitModalVisible,})
-export const setUnitTableLoading = (unitTableLoading) => ({type: SET_UNITTABLELOADING, unitTableLoading: unitTableLoading,})
+export const updateUnitVO = (unitVO) => ({type: UPDATE_UNITREDUCER_UNITVO, unitVO: unitVO})
+export const setAddUnitModalVisible = (addUnitModalVisible) => ({type: SET_ADDUNITMODALVISIBLE, addUnitModalVisible: addUnitModalVisible})
+export const setUpdateUnitModalVisible = (updateUnitModalVisible) => ({type: SET_UPDATEUNITMODALVISIBLE, updateUnitModalVisible: updateUnitModalVisible})
+export const setUnitTableLoading = (unitTableLoading) => ({type: SET_UNITTABLELOADING, unitTableLoading: unitTableLoading})
 
 export const getUnitVO = () => {
   return(dispatch) => {
@@ -17,7 +25,7 @@ export const getUnitVO = () => {
     //
     fetch('/mypcxt/Unit/getUnitVO', {
       method: 'POST',
-      headers: {},
+      headers: {}
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
@@ -54,7 +62,7 @@ export const addUnit = (unit_name) => {
     formData.append("unit.unit_name", unit_name);
     fetch('/mypcxt/Unit/addUnit', {
       method: 'POST',
-      body: formData,
+      body: formData
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
@@ -91,7 +99,7 @@ export const deleteUnit = (mypcxt_unit_id) => {
     formData.append("unit.mypcxt_unit_id", mypcxt_unit_id);
     fetch('/mypcxt/Unit/deleteUnit', {
       method: 'POST',
-      body: formData,
+      body: formData
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
@@ -116,14 +124,15 @@ export const deleteUnit = (mypcxt_unit_id) => {
     //
   };
 }
-export const updateUnit = (mypcxt_unit_id, unit_name) => {
+export const updateUnit = (mypcxt_unit_id, unit_name, unit_correction_man) => {
   return(dispatch) => {
     let formData = new FormData();
     formData.append("unit.mypcxt_unit_id", mypcxt_unit_id);
     formData.append("unit.unit_name", unit_name);
+    formData.append("unit.unit_correction_man", unit_correction_man);
     fetch('/mypcxt/Unit/updateUnit', {
       method: 'POST',
-      body: formData,
+      body: formData
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
@@ -131,6 +140,7 @@ export const updateUnit = (mypcxt_unit_id, unit_name) => {
           //
           //
           dispatch(getUnitVO());
+          dispatch(setUpdateUnitModalVisible(false));
           //
           //
           //

@@ -1,4 +1,4 @@
-import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
+import {createStore, applyMiddleware, compose, combineReducers,} from 'redux';
 import thunkMiddleware from 'redux-thunk'
 //
 //
@@ -23,26 +23,27 @@ const initialState = {
         'user_Jurisdiction_evaluate': '',
         'user_Jurisdiction_statistics': '',
         'user_gmt_create': '',
-        'user_gmt_modified': ''
+        'user_gmt_modified': '',
       },
       'pypcxt_admin': {
         'pypcxt_admin_id': '',
         'admin_account': '',
         'admin_password': '',
         'admin_gmt_create': '',
-        'admin_gmt_modified': ''
-      }
+        'admin_gmt_modified': '',
+      },
     }
   },
   'RouteReducer': {
     'currentURL': '',
-    'currentNavbarMenuItem': '',
+    'currentNavbarMenuItem': ''
   },
   'UnitReducer': {
     'unitVO': {
-      'unit_List': [],
+      'unitDTOList': [],
       'totalRecords': 0
     },
+
     'addUnitModalVisible': false,
     'updateUnitModalVisible': false,
     'unitTableLoading': false
@@ -50,28 +51,23 @@ const initialState = {
   'UserReducer': {
     'userVO': {
       'user_List': [],
-      'totalRecords': 0
+      'totalRecords': 0,
     },
+    'userList': [],
     'addUserModalVisible': false,
     'updateUserModalVisible': false,
-    'userTableLoading': false
+    'userTableLoading': false,
   },
   'ManageReducer': {
     'ManageCardLoading': true
-  },
+  }
 };
 
 const middlewares = [thunkMiddleware];
 
 const storeEnhancers = compose(applyMiddleware(...middlewares));
 
-const reducer = combineReducers({
-  LoginReducer: LoginReducer,
-  RouteReducer: RouteReducer,
-  UnitReducer: UnitReducer,
-  UserReducer: UserReducer,
-  ManageReducer: ManageReducer,
-});
+const reducer = combineReducers({LoginReducer: LoginReducer, RouteReducer: RouteReducer, UnitReducer: UnitReducer, UserReducer: UserReducer, ManageReducer: ManageReducer});
 
 const store = createStore(reducer, initialState, storeEnhancers);
 

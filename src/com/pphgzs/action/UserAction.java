@@ -1,6 +1,8 @@
 package com.pphgzs.action;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +43,20 @@ public class UserAction extends ActionSupport implements ServletResponseAware, S
 		Gson gson = gsonBuilder.create();
 		http_response.setContentType("text/html;charset=utf-8");
 		http_response.getWriter().write(gson.toJson(userVO));
+
+	}
+
+	public void getUserList() throws IOException {
+
+		List<mypcxt_user> userList = new ArrayList<mypcxt_user>();
+
+		userList = userService.getUserList();
+
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write(gson.toJson(userList));
 
 	}
 

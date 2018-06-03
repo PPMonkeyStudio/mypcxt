@@ -3,13 +3,13 @@ package com.pphgzs.domain.DTO;
 import com.pphgzs.domain.DO.mypcxt_unit;
 import com.pphgzs.domain.DO.mypcxt_user;
 
-public class UnitAndUserDTO {
+public class UnitDTO {
 	private mypcxt_unit unit;
 	private mypcxt_user user;
 
 	@Override
 	public String toString() {
-		return "UnitAndUserDTO 【\nunit=" + unit + ", \nuser=" + user + "\n】";
+		return "UnitDTO 【\nunit=" + unit + ", \nuser=" + user + "\n】";
 	}
 
 	public mypcxt_unit getUnit() {

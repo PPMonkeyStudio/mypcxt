@@ -47,29 +47,11 @@ const Option = Select.Option;
   *
   */
 
-let addUserModelState = {
-  user_name: "",
-  user_password: "",
-};
-let updateUserModelState = {
-  mypcxt_user_id: "",
-  user_name: "",
-  user_Jurisdiction_evaluate: "",
-  user_Jurisdiction_statistics: "",
-  user_Jurisdiction_review: "",
-};
 class UserPage extends Component {
   constructor(props) {
     super(props);
 
     this.storeChanged = this.storeChanged.bind(this);
-    this.addUserModal = this.addUserModal.bind(this);
-    this.addUserOk = this.addUserOk.bind(this);
-    this.addUserCancel = this.addUserCancel.bind(this);
-
-    this.updateUserModal = this.updateUserModal.bind(this);
-    this.updateUserOk = this.updateUserOk.bind(this);
-    this.updateUserCancel = this.updateUserCancel.bind(this);
 
     this.state = {
       'userVO': {
@@ -78,8 +60,19 @@ class UserPage extends Component {
       },
       'addUserModalVisible': false,
       'updateUserModalVisible': false,
-      'userTableLoading': false
-    };
+      'userTableLoading': false,
+      'addUserModelState': {
+        user_name: "",
+        user_password: "",
+      },
+      'updateUserModelState': {
+        mypcxt_user_id: "",
+        user_name: "",
+        user_Jurisdiction_evaluate: "",
+        user_Jurisdiction_statistics: "",
+        user_Jurisdiction_review: "",
+      },
+    }
   }
   componentDidMount() {
     store.subscribe(this.storeChanged);
@@ -112,36 +105,6 @@ class UserPage extends Component {
     }
   }
 
-  addUserModal = () => {
-    store.dispatch(UserActions.setAddUserModalVisible(true));
-  }
-
-  updateUserModal = () => {
-    store.dispatch(UserActions.setUpdateUserModalVisible(true));
-  }
-
-  addUserOk = () => {
-    store.dispatch(UserActions.addUser(addUserModelState.user_password, addUserModelState.user_name));
-    // this.setState({addUserModalVisible: false});
-  }
-
-  addUserCancel = () => {
-    store.dispatch(UserActions.setAddUserModalVisible(false));
-  }
-
-  updateUserOk = () => {
-    store.dispatch(UserActions.updateUser(updateUserModelState.mypcxt_user_id, updateUserModelState.user_name, updateUserModelState.user_Jurisdiction_evaluate, updateUserModelState.user_Jurisdiction_statistics, updateUserModelState.user_Jurisdiction_review));
-    // this.setState({addUserModalVisible: false});
-  }
-
-  updateUserCancel = () => {
-    store.dispatch(UserActions.setUpdateUserModalVisible(false));
-  }
-
-  deleteUser = (mypcxt_user_id) => {
-    store.dispatch(UserActions.deleteUser(mypcxt_user_id));
-  }
-
   render() {
 
     return (<div>
@@ -149,18 +112,14 @@ class UserPage extends Component {
           height: "34px",
           margin: "0 0 20px 0"
         }}>
-        <Button onClick={this.addUserModal}>
+        <Button onClick={() => {
+            store.dispatch(UserActions.setAddUserModalVisible(true));
+          }}>
           <Icon type="plus"/>
           &nbsp;添加警员
         </Button>
       </div>
-      <Table bordered={true} dataSource={this.state.userVO.user_List} loading={this.state.userTableLoading} title={() => (<h2>警员列表</h2>)} footer={() => (<div>
-          <div style={{
-              margin: "0 auto 10px",
-              width: "200px",
-              textAlign: "center",
-            }}>共{this.state.userVO.totalRecords}条记录</div>
-        </div>)}>
+      <Table bordered={true} dataSource={this.state.userVO.user_List} loading={this.state.userTableLoading} title={() => (<h2>警员列表</h2>)}>
         <Column title="警号" dataIndex="user_account" align="center"/>
         <Column title="姓名" dataIndex="user_name" align="center"/>
         <Column title="测评权限" dataIndex="user_Jurisdiction_evaluate" align="center" render={(text, record) => {
@@ -195,12 +154,16 @@ class UserPage extends Component {
               <Tooltip title="修改">
                 <a onClick={() => {
                     store.dispatch(UserActions.setUpdateUserModalVisible(true));
+
+                    let updateUserModelState = this.state.updateUserModelState;
                     updateUserModelState.mypcxt_user_id = record.mypcxt_user_id;
                     updateUserModelState.user_account = record.user_account;
                     updateUserModelState.user_name = record.user_name;
                     updateUserModelState.user_Jurisdiction_evaluate = record.user_Jurisdiction_evaluate;
                     updateUserModelState.user_Jurisdiction_statistics = record.user_Jurisdiction_statistics;
                     updateUserModelState.user_Jurisdiction_review = record.user_Jurisdiction_review;
+                    this.setState({updateUserModelState: updateUserModelState});
+
                   }}><Icon type="edit"/></a>
               </Tooltip><Divider type="vertical"/>
               <Tooltip title="重置密码">
@@ -209,7 +172,9 @@ class UserPage extends Component {
                 </a>
               </Tooltip>
               <Divider type="vertical"/>
-              <Popconfirm title="确认删除吗?删除后，将删除所有此警员的数据及记录，无法恢复，是否继续？" okText="确认删除" cancelText="放弃" okType="danger" onConfirm={() => this.deleteUser(record.mypcxt_user_id)}>
+              <Popconfirm title="确认删除吗?删除后，将删除所有此警员的数据及记录，无法恢复，是否继续？" okText="确认删除" cancelText="放弃" okType="danger" onConfirm={() => {
+                  store.dispatch(UserActions.deleteUser(record.mypcxt_user_id));
+                }}>
                 <Tooltip title="删除">
                   <a>
                     <Icon type="delete"/>
@@ -219,47 +184,78 @@ class UserPage extends Component {
             </div>));
           }}/>
       </Table>
-      <Modal title="添加一个警员" visible={this.state.addUserModalVisible} onOk={this.addUserOk} onCancel={this.addUserCancel} okText="确认添加" cancelText="取消">
+      <div style={{
+          margin: "0 auto 10px",
+          width: "200px",
+          textAlign: "center",
+        }}>共{this.state.userVO.totalRecords}条记录</div>
+      <Modal title="添加一个警员" visible={this.state.addUserModalVisible} onOk={() => {
+          store.dispatch(UserActions.addUser(this.state.addUserModelState.user_password, this.state.addUserModelState.user_name));
+        }} onCancel={() => {
+          store.dispatch(UserActions.setAddUserModalVisible(false));
+        }} okText="确认添加" cancelText="取消">
         <Form>
           <FormItem label="警号">
             <Input onChange={(event) => {
-                addUserModelState.user_password = event.target.value;
+
+                let addUserModelState = this.state.addUserModelState;
+                addUserModelState.user_name = event.target.value;
+                this.setState({addUserModelState: addUserModelState});
+
               }}/>
           </FormItem>
           <FormItem label="姓名">
             <Input onChange={(event) => {
+
+                let addUserModelState = this.state.addUserModelState;
                 addUserModelState.user_name = event.target.value;
+                this.setState({addUserModelState: addUserModelState});
+
               }}/>
           </FormItem>
         </Form>
       </Modal>
-      <Modal title="修改" visible={this.state.updateUserModalVisible} onOk={this.updateUserOk} onCancel={this.updateUserCancel} okText="修改" cancelText="取消">
+      <Modal title="修改" visible={this.state.updateUserModalVisible} onOk={() => {
+          store.dispatch(UserActions.updateUser(this.state.updateUserModelState.mypcxt_user_id, this.state.updateUserModelState.user_name, this.state.updateUserModelState.user_Jurisdiction_evaluate, this.state.updateUserModelState.user_Jurisdiction_statistics, this.state.updateUserModelState.user_Jurisdiction_review));
+        }} onCancel={() => {
+          store.dispatch(UserActions.setUpdateUserModalVisible(false));
+        }} okText="修改" cancelText="取消">
         <Form>
-          <h3>警号：{updateUserModelState.user_account}</h3>
+          <h3>警号：{this.state.updateUserModelState.user_account}</h3>
           <FormItem label="名称">
             <Input onChange={(event) => {
-                updateUserModelState.user_name = event.target.value;
-              }} value={updateUserModelState.user_name}/>
+
+                let addUserModelState = this.state.addUserModelState;
+                addUserModelState.unit_name = event.target.value;
+                this.setState({addUserModelState: addUserModelState});
+
+              }} defaultValue={this.state.updateUserModelState.user_name}/>
           </FormItem>
           <FormItem label="测评权限">
-            <Select defaultValue={updateUserModelState.user_Jurisdiction_evaluate} onChange={(value) => {
+            <Select defaultValue={this.state.updateUserModelState.user_Jurisdiction_evaluate} onChange={(value) => {
+                let updateUserModelState = this.state.updateUserModelState;
                 updateUserModelState.user_Jurisdiction_evaluate = value;
+                this.setState({updateUserModelState: updateUserModelState});
               }}>
               <Option value="have">有</Option>
               <Option value="none">无</Option>
             </Select>
           </FormItem>
           <FormItem label="统计权限">
-            <Select defaultValue={updateUserModelState.user_Jurisdiction_statistics} onChange={(value) => {
+            <Select defaultValue={this.state.updateUserModelState.user_Jurisdiction_statistics} onChange={(value) => {
+                let updateUserModelState = this.state.updateUserModelState;
                 updateUserModelState.user_Jurisdiction_statistics = value;
+                this.setState({updateUserModelState: updateUserModelState});
               }}>
               <Option value="have">有</Option>
               <Option value="none">无</Option>
             </Select>
           </FormItem>
           <FormItem label="审核整改权限">
-            <Select defaultValue={updateUserModelState.user_Jurisdiction_review} onChange={(value) => {
+            <Select defaultValue={this.state.updateUserModelState.user_Jurisdiction_review} onChange={(value) => {
+                let updateUserModelState = this.state.updateUserModelState;
                 updateUserModelState.user_Jurisdiction_review = value;
+                this.setState({updateUserModelState: updateUserModelState});
               }}>
               <Option value="have">有</Option>
               <Option value="none">无</Option>

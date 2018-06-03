@@ -1,5 +1,8 @@
 package com.pphgzs.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.pphgzs.dao.UserDao;
 import com.pphgzs.domain.DO.mypcxt_user;
 import com.pphgzs.domain.VO.UserVO;
@@ -32,6 +35,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public List<mypcxt_user> getUserList() {
+		List<mypcxt_user> userList = new ArrayList<mypcxt_user>();
+		userList = userDao.listUserAll();
+		return userList;
+	}
+
+	@Override
 	public boolean saveUser(mypcxt_user user) {
 		if (userDao.getUserByUserName(user) == null) {
 			user.setMypcxt_user_id(uuidUtil.getUuid());
@@ -56,13 +66,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void updateUser(mypcxt_user newUser) {
-		mypcxt_user oldUser = userDao.getUserByUserID(newUser);
+		mypcxt_user oldUser = userDao.getUserByUserID(newUser.getMypcxt_user_id());
 		oldUser.setUser_name(newUser.getUser_name());
 		oldUser.setUser_Jurisdiction_evaluate(newUser.getUser_Jurisdiction_evaluate());
 		oldUser.setUser_Jurisdiction_statistics(newUser.getUser_Jurisdiction_statistics());
 		oldUser.setUser_Jurisdiction_review(newUser.getUser_Jurisdiction_review());
 		oldUser.setUser_gmt_modified(TimeUtil.getStringSecond());
-		System.out.println(oldUser);
 		userDao.updateUser(oldUser);
 	}
 

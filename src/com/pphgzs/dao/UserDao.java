@@ -14,7 +14,7 @@ public interface UserDao {
 
 	public void deleteUser(mypcxt_user user);
 
-	public mypcxt_user getUserByUserID(mypcxt_user user);
+	public mypcxt_user getUserByUserID(String userID);
 
 	public mypcxt_user getUserByUserName(mypcxt_user user);
 
