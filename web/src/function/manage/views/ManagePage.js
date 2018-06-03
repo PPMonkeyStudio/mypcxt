@@ -98,7 +98,6 @@ class ManagePage extends Component {
   }
   storeChanged() {}
 
-  componentWillReceiveProps(nextProps) {}
 
   render() {
 

@@ -60,7 +60,9 @@ const initialState = {
   },
   'ManageReducer': {
     'ManageCardLoading': true
-  }
+  },
+  'ServiceReducer': {
+  },
 };
 
 const middlewares = [thunkMiddleware];

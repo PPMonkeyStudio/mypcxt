@@ -6,7 +6,7 @@ import {
   BrowserRouter,
   Router,
   Redirect,
-  withRouter
+  withRouter,
 } from 'react-router-dom';
 import {Provider} from 'react-redux';
 import PropTypes from 'prop-types'
@@ -54,10 +54,7 @@ class Routes extends Component {
     this.setState({
       currentURL: currentURL
     }, () => {
-      //回调方法
-      //改变路由
       if (this.context.router.history.location.pathname === this.state.currentURL) {
-        //
       } else {
         this.context.router.history.push(this.state.currentURL);
       }
@@ -72,19 +69,18 @@ class Routes extends Component {
 
     }
 
-    if(this.context.router.history.location.pathname!==store.getState()["RouteReducer"]["currentNavbarMenuItem"]){
-        store.dispatch(RouteActions.updateCurrentNavbarMenuItem(this.context.router.history.location.pathname));
+    if (this.context.router.history.location.pathname !== store.getState()["RouteReducer"]["currentNavbarMenuItem"]) {
+      store.dispatch(RouteActions.updateCurrentNavbarMenuItem(this.context.router.history.location.pathname));
     }
   }
 
-
   render() {
     return (<Switch>
-      <LoginPage path="/LoginPage" exact="exact"/>
+      <LoginPage path="/LoginPage" exact={true}/>
       <NavbarPage path="/NavbarPage"/>
-      <ErrorPage path="/ErrorPage" exact="exact"/>
-      <IndexPage path="/IndexPage" exact="exact"/>
-      <LoginPage path="/" exact="exact"/>
+      <ErrorPage path="/ErrorPage" exact={true}/>
+      <IndexPage path="/IndexPage" exact={true}/>
+      <LoginPage path="/" exact={true}/>
       <ErrorPage path="/*"/>
     </Switch>);
   }

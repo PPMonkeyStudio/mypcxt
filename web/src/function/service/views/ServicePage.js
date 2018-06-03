@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
-// import {
-//   ButtonToolbar,
-//   FormGroup,
-//   FormControl,
-//   Image,
-//   Jumbotron,
-//   Table,
-//   Tab
-// } from 'react-bootstrap';
+import {
+  Route,
+  Switch,
+  Link,
+  BrowserRouter,
+  Router,
+  Redirect,
+  withRouter,
+} from 'react-router-dom';
 import store from '../../../Store.js';
 import {
   Button,
@@ -27,8 +26,10 @@ import {
   Popconfirm,
   Divider,
   Tooltip,
+  Card,
   Pagination,
 } from 'antd';
+import ServiceDefinition from './ServiceDefinition.js';
 //
 //
 //
@@ -39,56 +40,123 @@ const FormItem = Form.Item;
 const {Column, ColumnGroup} = Table;
 //
 ////
-
-//
-////
-////
-/**
-  *
-  */
-/**
- * [ServicePage description]
- * @extends Component
- */
+const tabList = [
+  {
+    key: '1',
+    tab: '所有业务',
+  }, {
+    key: '2',
+    tab: '业务定义',
+  }, {
+    key: '3',
+    tab: '业务当事人',
+  }, {
+    key: '4',
+    tab: '业务测评分配',
+  }, {
+    key: '5',
+    tab: '业务数据抓取',
+  },
+];
 class ServicePage extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {
-      'serviceVO': {
-        'service_List': [],
-        'totalRecords': 0,
-      }
-
+      key: '2'
     };
   }
-  render() {
+  static contextTypes = {
+    router: PropTypes.object
+  }
+  componentDidMount() {
 
+    switch (this.context.router.history.location.pathname) {
+      case "/NavbarPage/ManagePage/ServicePage/ServiceInstance":
+        {
+          this.setState({key: "1"})
+          break;
+        }
+      case "/NavbarPage/ManagePage/ServicePage/ServiceDefinition":
+        {
+          this.setState({key: "2"})
+          break;
+        }
+      case "/NavbarPage/ManagePage/ServicePage/ServiceClient":
+        {
+          this.setState({key: "3"})
+          break;
+        }
+      case "/NavbarPage/ManagePage/ServicePage/ServiceDistribution":
+        {
+          this.setState({key: "4"})
+          break;
+        }
+      case "/NavbarPage/ManagePage/ServicePage/ServiceGrab":
+        {
+          this.setState({key: "5"})
+          break;
+        }
+      default:
+        {
+          this.setState({key: "2"})
+        }
+    }
+
+  }
+  render() {
     return (<div>
-      <div style={{
-          height: "34px",
-          margin: "0 0 20px 0"
-        }}></div>
-      <Table bordered={true} size="small" dataSource={this.state.serviceVO.service_List} title={() => (<h2>业务定义</h2>)} footer={() => (<div>
-          <div style={{
-              margin: "0 auto 10px",
-              width: "200px",
-              textAlign: "center",
-            }}>共0条记录</div>
-        </div>)}>
-        <Column title="业务描述" dataIndex="service_definition_describe" align="center"/>
-        <Column title="业务所属单位" dataIndex="service_definition_unit" align="center"/>
-        <Column title="表名（业务）" dataIndex="service_definition_table" align="center"/>
-        <Column title="字段名（业务唯一识别编号）" dataIndex="service_definition_field_num" align="center"/>
-        <Column title="字段名（业务所属者姓名）" dataIndex="service_definition_field_owner_name" align="center"/>
-        <Column title="字段名（业务所属者性别）" dataIndex="service_definition_field_owner_sex" align="center"/>
-        <Column title="字段名（业务所属者电话）" dataIndex="service_definition_field_owner_phone" align="center"/>
-        <Column title="字段名（业务办理时间）" dataIndex="service_definition_field_handle_date" align="center"/>
-        <Column title="操作" dataIndex="operation" align="center" render={(text, record) => {
-            return (<div></div>);
-          }}/>
-      </Table>
+      <Card title="业务" tabList={tabList} onTabChange={(key) => {
+          this.setState({
+            ['key']: key
+          }, () => {
+            switch (this.state.key) {
+              case "1":
+                {
+                  this.context.router.history.push("/NavbarPage/ManagePage/ServicePage/ServiceInstance");
+                  break;
+                }
+              case "2":
+                {
+                  this.context.router.history.push("/NavbarPage/ManagePage/ServicePage/ServiceDefinition");
+                  break;
+                }
+              case "3":
+                {
+                  this.context.router.history.push("/NavbarPage/ManagePage/ServicePage/ServiceClient");
+                  break;
+                }
+              case "4":
+                {
+                  this.context.router.history.push("/NavbarPage/ManagePage/ServicePage/ServiceDistribution");
+                  break;
+                }
+              case "5":
+                {
+                  this.context.router.history.push("/NavbarPage/ManagePage/ServicePage/ServiceGrab");
+                  break;
+                }
+            }
+          });
+
+        }}>
+        <Switch>
+          <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceInstance" exact="exact"/>
+          <ServiceDefinition path="/NavbarPage/ManagePage/ServicePage/ServiceDefinition" exact="exact"/>
+          <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceClient" exact="exact"/>
+          <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceDistribution" exact="exact"/>
+          <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceGrab" exact="exact"/>
+        </Switch>
+      </Card>
     </div>);
   }
 }
-
+const WelcomeServicePage = () => {
+  return (<div style={{
+      margin: "50px auto 0",
+      textAlign: "center"
+    }}>
+    <h1>asds</h1>
+    <h2>asdasd</h2>
+  </div>);
+}
 export default withRouter(ServicePage);

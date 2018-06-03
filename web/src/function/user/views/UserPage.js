@@ -1,15 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-// import {
-//   ButtonToolbar,
-//   FormGroup,
-//   FormControl,
-//   Image,
-//   Jumbotron,
-//   Table,
-//   Tab
-// } from 'react-bootstrap';
 import store from '../../../Store.js';
 import {
   Button,
