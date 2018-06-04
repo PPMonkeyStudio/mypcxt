@@ -16,7 +16,7 @@ public interface UserDao {
 
 	public mypcxt_user getUserByUserID(String userID);
 
-	public mypcxt_user getUserByUserName(mypcxt_user user);
+	public mypcxt_user getUserByUserName(String userName);
 
 	public void updateUser(mypcxt_user user);
 }

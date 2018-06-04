@@ -45,7 +45,7 @@ class NavbarPage extends Component {
     this.storeChanged = this.storeChanged.bind(this);
 
     this.state = {
-      currentNavbarMenuItem: ''
+      currentNavbarMenuItem: []
     }
   }
 
@@ -85,7 +85,9 @@ class NavbarPage extends Component {
           <Menu.Item key="2"><Icon type="global"/>业务评测</Menu.Item>
           <Menu.Item key="3"><Icon type="pie-chart"/>数据统计</Menu.Item>
           <Menu.Item key="ManagePage" onClick={() => {
-              this.context.router.history.push("/NavbarPage/ManagePage");
+              if (this.context.router.history.location.pathname.includes("/NavbarPage/ManagePage")) {} else {
+                this.context.router.history.push("/NavbarPage/ManagePage");
+              }
             }}><Icon type="setting"/>管理</Menu.Item>
           <Menu.Item key="5" style={{
               float: "right"

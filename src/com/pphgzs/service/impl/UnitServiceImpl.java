@@ -84,7 +84,7 @@ public class UnitServiceImpl implements UnitService {
 	@Override
 	public void updateUnit(mypcxt_unit newUnit) {
 		System.out.println(newUnit);
-		mypcxt_unit oldUnit = unitDao.getUnitByUnitID(newUnit);
+		mypcxt_unit oldUnit = unitDao.getUnitByUnitID(newUnit.getMypcxt_unit_id());
 		oldUnit.setUnit_name(newUnit.getUnit_name());
 		oldUnit.setUnit_correction_man(newUnit.getUnit_correction_man());
 		oldUnit.setUnit_gmt_modified(TimeUtil.getStringSecond());

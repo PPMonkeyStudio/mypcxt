@@ -15,7 +15,7 @@ import {Link, withRouter, Route, Switch} from 'react-router-dom';
 //   Checkbox
 //
 // } from 'react-bootstrap';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import {
   Button,
   Menu,
@@ -67,40 +67,40 @@ class ManagePage extends Component {
 
   componentDidMount() {
     store.subscribe(this.storeChanged);
-
-    switch (this.context.router.history.location.pathname) {
-      case "/NavbarPage/ManagePage":
-        {
-          this.setState({tabsKey: "1"})
-          break;
-        }
-      case "/NavbarPage/ManagePage/UnitPage":
-        {
-          this.setState({tabsKey: "2"})
-          break;
-        }
-      case "/NavbarPage/ManagePage/ServicePage":
-        {
-          this.setState({tabsKey: "3"})
-          break;
-        }
-      case "/NavbarPage/ManagePage/UserPage":
-        {
-          this.setState({tabsKey: "4"})
-          break;
-        }
-      default:
-        {
-          this.setState({tabsKey: "1"})
-        }
+    if (this.context.router.history.location.pathname.includes("/NavbarPage/ManagePage/ServicePage")) {
+      this.setState({tabsKey: "3"})
+    } else {
+      switch (this.context.router.history.location.pathname) {
+        case "/NavbarPage/ManagePage":
+          {
+            this.setState({tabsKey: "1"})
+            break;
+          }
+        case "/NavbarPage/ManagePage/UnitPage":
+          {
+            this.setState({tabsKey: "2"})
+            break;
+          }
+        case "/NavbarPage/ManagePage/ServicePage":
+          {
+            this.setState({tabsKey: "3"})
+            break;
+          }
+        case "/NavbarPage/ManagePage/UserPage":
+          {
+            this.setState({tabsKey: "4"})
+            break;
+          }
+        default:
+          {
+            this.setState({tabsKey: "1"})
+          }
+      }
     }
-
   }
   storeChanged() {}
 
-
   render() {
-
     return (<Card loading={this.state.ManageCardLoading} title="管理" style={{
         float: "left",
         width: "100%"
@@ -127,7 +127,9 @@ class ManagePage extends Component {
                 }
               case "3":
                 {
-                  this.context.router.history.push("/NavbarPage/ManagePage/ServicePage");
+                  if (!this.context.router.history.location.pathname.includes("/NavbarPage/ManagePage/ServicePage/")) {
+                    this.context.router.history.push("/NavbarPage/ManagePage/ServicePage/ServiceInstance");
+                  }
                   break;
                 }
               case "4":

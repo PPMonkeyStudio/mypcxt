@@ -1,12 +1,17 @@
 package com.pphgzs.action;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.opensymphony.xwork2.ActionSupport;
+import com.pphgzs.domain.VO.ServiceDefinitionVO;
 import com.pphgzs.service.ServiceService;
 
 @SuppressWarnings("serial")
@@ -19,10 +24,21 @@ public class ServiceAction extends ActionSupport implements ServletResponseAware
 	/* 
 	 * 
 	 */
+	ServiceDefinitionVO serviceDefinitionVO;
 
 	/*
 	 * 
 	 */
+	public void getServiceDefinitionVO() throws IOException {
+
+		serviceDefinitionVO = serviceService.getServiceDefinitionVO();
+
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write(gson.toJson(serviceDefinitionVO));
+	}
 
 	/*
 	 * 
@@ -60,6 +76,10 @@ public class ServiceAction extends ActionSupport implements ServletResponseAware
 
 	public void setServiceService(ServiceService serviceService) {
 		this.serviceService = serviceService;
+	}
+
+	public void setServiceDefinitionVO(ServiceDefinitionVO serviceDefinitionVO) {
+		this.serviceDefinitionVO = serviceDefinitionVO;
 	}
 
 	/*

@@ -73,9 +73,9 @@ public class UnitDaoImpl implements UnitDao {
 	}
 
 	@Override
-	public mypcxt_unit getUnitByUnitID(mypcxt_unit unit) {
+	public mypcxt_unit getUnitByUnitID(String unitID) {
 		Session session = getSession();
-		String hql = "from mypcxt_unit where mypcxt_unit_id='" + unit.getMypcxt_unit_id() + "'";
+		String hql = "from mypcxt_unit where mypcxt_unit_id='" + unitID + "'";
 		Query query = session.createQuery(hql);
 		mypcxt_unit newUnit = (mypcxt_unit) query.uniqueResult();
 		session.clear();

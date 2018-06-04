@@ -14,7 +14,7 @@ public interface UnitDao {
 
 	public void deleteUnit(mypcxt_unit unit);
 
-	public mypcxt_unit getUnitByUnitID(mypcxt_unit unit);
+	public mypcxt_unit getUnitByUnitID(String unitID);
 
 	public mypcxt_unit getUnitByUnitName(mypcxt_unit unit);
 

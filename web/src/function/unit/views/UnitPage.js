@@ -51,7 +51,7 @@ class UnitPage extends Component {
       'userList': [],
       'addUnitModalVisible': false,
       'updateUnitModalVisible': false,
-      'unitTableLoading': false,
+      'tableLoading': false,
       'addUnitModelState': {
         'unit_name': ""
       },
@@ -95,9 +95,9 @@ class UnitPage extends Component {
         updateUnitModalVisible: store.getState()["UnitReducer"]["updateUnitModalVisible"]
       });
     }
-    if (this.state.unitTableLoading !== store.getState()["UnitReducer"]["unitTableLoading"]) {
+    if (this.state.tableLoading !== store.getState()["UnitReducer"]["tableLoading"]) {
       this.setState({
-        unitTableLoading: store.getState()["UnitReducer"]["unitTableLoading"]
+        tableLoading: store.getState()["UnitReducer"]["tableLoading"]
       });
     }
   }
@@ -118,7 +118,7 @@ class UnitPage extends Component {
           &nbsp;新增一个单位
         </Button>
       </div>
-      <Table pagination={false} dataSource={this.state.unitVO.unitDTOList} loading={this.state.unitTableLoading} bordered={true} title={() => (<h2>单位列表</h2>)}>
+      <Table pagination={false} dataSource={this.state.unitVO.unitDTOList} loading={this.state.tableLoading} bordered={true} title={() => (<h2>单位列表</h2>)}>
         <Column title="单位名称" dataIndex="unit.unit_name" align="center"/>
         <Column title="整改员" dataIndex="unit.unit_correction_man" align="center" render={(text, record) => {
             if (text === "none") {

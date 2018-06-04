@@ -51,7 +51,7 @@ class UserPage extends Component {
       },
       'addUserModalVisible': false,
       'updateUserModalVisible': false,
-      'userTableLoading': false,
+      'tableLoading': false,
       'addUserModelState': {
         user_name: "",
         user_password: "",
@@ -89,9 +89,9 @@ class UserPage extends Component {
         updateUserModalVisible: store.getState()["UserReducer"]["updateUserModalVisible"]
       });
     }
-    if (this.state.userTableLoading !== store.getState()["UserReducer"]["userTableLoading"]) {
+    if (this.state.tableLoading !== store.getState()["UserReducer"]["tableLoading"]) {
       this.setState({
-        userTableLoading: store.getState()["UserReducer"]["userTableLoading"]
+        tableLoading: store.getState()["UserReducer"]["tableLoading"]
       });
     }
   }
@@ -110,7 +110,7 @@ class UserPage extends Component {
           &nbsp;添加警员
         </Button>
       </div>
-      <Table bordered={true} dataSource={this.state.userVO.user_List} loading={this.state.userTableLoading} title={() => (<h2>警员列表</h2>)}>
+      <Table bordered={true} dataSource={this.state.userVO.user_List} loading={this.state.tableLoading} title={() => (<h2>警员列表</h2>)}>
         <Column title="警号" dataIndex="user_account" align="center"/>
         <Column title="姓名" dataIndex="user_name" align="center"/>
         <Column title="测评权限" dataIndex="user_Jurisdiction_evaluate" align="center" render={(text, record) => {

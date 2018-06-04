@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean saveUser(mypcxt_user user) {
-		if (userDao.getUserByUserName(user) == null) {
+		if (userDao.getUserByUserName(user.getUser_name()) == null) {
 			user.setMypcxt_user_id(uuidUtil.getUuid());
 			user.setUser_password(user.getUser_account());
 			user.setUser_Jurisdiction_evaluate("none");

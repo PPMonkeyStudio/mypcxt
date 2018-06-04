@@ -1,5 +1,7 @@
 package com.pphgzs.service;
 
-public interface ServiceService {
+import com.pphgzs.domain.VO.ServiceDefinitionVO;
 
+public interface ServiceService {
+	public ServiceDefinitionVO getServiceDefinitionVO();
 }

@@ -7,9 +7,10 @@ import {
   BrowserRouter,
   Router,
   Redirect,
-  withRouter,
+  withRouter
 } from 'react-router-dom';
 import store from '../../../Store.js';
+import PropTypes from 'prop-types';
 import {
   Button,
   Menu,
@@ -27,7 +28,7 @@ import {
   Divider,
   Tooltip,
   Card,
-  Pagination,
+  Pagination
 } from 'antd';
 import ServiceDefinition from './ServiceDefinition.js';
 //
@@ -37,25 +38,25 @@ import ServiceDefinition from './ServiceDefinition.js';
 //
 //
 const FormItem = Form.Item;
-const {Column, ColumnGroup} = Table;
+const {Column, ColumnGroup,} = Table;
 //
 ////
 const tabList = [
   {
     key: '1',
-    tab: '所有业务',
+    tab: '所有业务'
   }, {
     key: '2',
-    tab: '业务定义',
+    tab: '业务定义'
   }, {
     key: '3',
-    tab: '业务当事人',
+    tab: '业务当事人'
   }, {
     key: '4',
-    tab: '业务测评分配',
+    tab: '业务测评分配'
   }, {
     key: '5',
-    tab: '业务数据抓取',
+    tab: '业务数据抓取'
   },
 ];
 class ServicePage extends Component {
@@ -69,8 +70,13 @@ class ServicePage extends Component {
     router: PropTypes.object
   }
   componentDidMount() {
-
     switch (this.context.router.history.location.pathname) {
+      case "/NavbarPage/ManagePage/ServicePage":
+        {
+          this.context.router.history.push("/NavbarPage/ManagePage/ServicePage/ServiceInstance");
+          this.setState({key: "2"});
+          break;
+        }
       case "/NavbarPage/ManagePage/ServicePage/ServiceInstance":
         {
           this.setState({key: "1"})
@@ -105,9 +111,9 @@ class ServicePage extends Component {
   }
   render() {
     return (<div>
-      <Card title="业务" tabList={tabList} onTabChange={(key) => {
+      <Card title="业务" activeTabKey={this.state.key}  tabList={tabList} onTabChange={(key) => {
           this.setState({
-            ['key']: key
+            key: key
           }, () => {
             switch (this.state.key) {
               case "1":
@@ -140,11 +146,11 @@ class ServicePage extends Component {
 
         }}>
         <Switch>
-          <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceInstance" exact="exact"/>
-          <ServiceDefinition path="/NavbarPage/ManagePage/ServicePage/ServiceDefinition" exact="exact"/>
-          <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceClient" exact="exact"/>
-          <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceDistribution" exact="exact"/>
-          <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceGrab" exact="exact"/>
+          <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceInstance"/>
+          <ServiceDefinition path="/NavbarPage/ManagePage/ServicePage/ServiceDefinition"/>
+          <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceClient"/>
+          <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceDistribution"/>
+          <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceGrab"/>
         </Switch>
       </Card>
     </div>);
@@ -153,10 +159,9 @@ class ServicePage extends Component {
 const WelcomeServicePage = () => {
   return (<div style={{
       margin: "50px auto 0",
-      textAlign: "center"
+      textAlign: "center",
     }}>
-    <h1>asds</h1>
-    <h2>asdasd</h2>
+    <h1>尚未开发</h1>
   </div>);
 }
 export default withRouter(ServicePage);
