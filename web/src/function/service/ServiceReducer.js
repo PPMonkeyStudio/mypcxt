@@ -1,4 +1,4 @@
-import {UPDATE_SERVICEDEFINITIONVO, SET_SERVICEDEFINITION_TABLELOADING,} from './ServiceActionTypes.js';
+import {UPDATE_SERVICEDEFINITIONVO, SET_SERVICEDEFINITION_TABLELOADING} from './ServiceActionTypes.js';
 //
 //
 //
@@ -15,8 +15,8 @@ export default(state = [], action) => {
     case SET_SERVICEDEFINITION_TABLELOADING:
       {
         const newState = Object.assign({}, state);
-        //
-        newState["serviceDefinition"]["serviceDefinitionTableLoading"] = action.unitTableLoading;
+        
+        newState["serviceDefinition"]["serviceDefinitionTableLoading"] = action.serviceDefinitionTableLoading;
         return newState;
       }
     default:

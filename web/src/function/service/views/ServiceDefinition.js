@@ -50,9 +50,9 @@ class ServiceDefinition extends Component {
         serviceDefinitionVO: store.getState()["ServiceReducer"]["serviceDefinition"]["serviceDefinitionVO"]
       });
     }
-    if (this.state.tableLoading !== store.getState()["ServiceReducer"]["serviceDefinitionTableLoading"]) {
+    if (this.state.tableLoading !== store.getState()["ServiceReducer"]["serviceDefinition"]["serviceDefinitionTableLoading"]) {
       this.setState({
-        tableLoading: store.getState()["ServiceReducer"]["serviceDefinitionTableLoading"]
+        tableLoading: store.getState()["ServiceReducer"]["serviceDefinition"]["serviceDefinitionTableLoading"]
       });
     }
   }
@@ -74,7 +74,7 @@ class ServiceDefinition extends Component {
           &nbsp;创建业务定义
         </Button>
       </div>
-      <Table pagination={false} dataSource={this.state.serviceDefinitionVO.serviceDefinitionDTOList} loading={this.state.tableLoading} bordered={true} title={() => (<h2>业务定义列表</h2>)}>
+      <Table  dataSource={this.state.serviceDefinitionVO.serviceDefinitionDTOList} loading={this.state.tableLoading} bordered={true} title={() => (<h2>业务定义列表</h2>)}>
         <Column title="业务名称" dataIndex="serviceDefinition.service_definition_describe" align="center"/>
         <Column title="业务所属单位" dataIndex="unit.unit_name" align="center"/>
         <Column title="操作" dataIndex="operation" align="center" render={(text, record) => {
