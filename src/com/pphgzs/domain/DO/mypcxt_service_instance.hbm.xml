@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-4 20:53:41 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.pphgzs.domain.DO.mypcxt_service_instance" table="MYPCXT_SERVICE_INSTANCE">
+        <id name="mypcxt_service_instance_id" type="java.lang.String">
+            <column name="MYPCXT_SERVICE_INSTANCE_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="service_instance_service_definition" type="java.lang.String">
+            <column name="SERVICE_INSTANCE_SERVICE_DEFINITION" />
+        </property>
+        <property name="service_instance_date" type="java.lang.String">
+            <column name="SERVICE_INSTANCE_DATE" />
+        </property>
+        <property name="service_instance_distribution" type="java.lang.String">
+            <column name="SERVICE_INSTANCE_DISTRIBUTION" />
+        </property>
+        <property name="service_instance_gmt_create" type="java.lang.String">
+            <column name="SERVICE_INSTANCE_GMT_CREATE" />
+        </property>
+        <property name="service_instance_gmt_modified" type="java.lang.String">
+            <column name="SERVICE_INSTANCE_GMT_MODIFIED" />
+        </property>
+    </class>
+</hibernate-mapping>

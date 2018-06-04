@@ -65,7 +65,7 @@ class ServiceDefinition extends Component {
   }
   render() {
     return (<div>
-      <div style={{
+      {/* <div style={{
           height: "34px",
           margin: "0 0 20px 0"
         }}>
@@ -73,25 +73,11 @@ class ServiceDefinition extends Component {
           <Icon type="plus"/>
           &nbsp;创建业务定义
         </Button>
-      </div>
-      <Table  dataSource={this.state.serviceDefinitionVO.serviceDefinitionDTOList} loading={this.state.tableLoading} bordered={true} title={() => (<h2>业务定义列表</h2>)}>
+      </div> */
+      }
+      <Table dataSource={this.state.serviceDefinitionVO.serviceDefinitionDTOList} loading={this.state.tableLoading} bordered={true} title={() => (<h2>业务定义列表</h2>)}>
         <Column title="业务名称" dataIndex="serviceDefinition.service_definition_describe" align="center"/>
         <Column title="业务所属单位" dataIndex="unit.unit_name" align="center"/>
-        <Column title="操作" dataIndex="operation" align="center" render={(text, record) => {
-            return (<div>
-              <Tooltip title="修改">
-                <a onClick={() => {}}><Icon type="edit"/></a>
-              </Tooltip>
-              <Divider type="vertical"/>
-              <Popconfirm title="确认删除吗?删除后，将删除所有此单位的数据及记录，无法恢复，是否继续？" okText="确认删除" cancelText="放弃" okType="danger" onConfirm={() => {}}>
-                <Tooltip title="删除">
-                  <a>
-                    <Icon type="delete"/>
-                  </a>
-                </Tooltip>
-              </Popconfirm>
-            </div>);
-          }}/>
       </Table>
       <div style={{
           margin: "20px auto 10px",

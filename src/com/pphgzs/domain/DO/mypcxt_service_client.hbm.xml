@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-4 23:02:00 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.pphgzs.domain.DO.mypcxt_service_client" table="MYPCXT_SERVICE_CLIENT">
+        <id name="mypcxt_service_client_id" type="java.lang.String">
+            <column name="MYPCXT_SERVICE_CLIENT_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="service_client_service_instance" type="java.lang.String">
+            <column name="SERVICE_CLIENT_SERVICE_INSTANCE" />
+        </property>
+        <property name="service_client_name" type="java.lang.String">
+            <column name="SERVICE_CLIENT_NAME" />
+        </property>
+        <property name="service_client_sex" type="java.lang.String">
+            <column name="SERVICE_CLIENT_SEX" />
+        </property>
+        <property name="service_client_phone" type="java.lang.String">
+            <column name="SERVICE_CLIENT_PHONE" />
+        </property>
+        <property name="service_client_visit" type="java.lang.String">
+            <column name="SERVICE_CLIENT_VISIT" />
+        </property>
+        <property name="service_client_gmt_create" type="java.lang.String">
+            <column name="SERVICE_CLIENT_GMT_CREATE" />
+        </property>
+        <property name="service_client_gmt_modified" type="java.lang.String">
+            <column name="SERVICE_CLIENT_GMT_MODIFIED" />
+        </property>
+    </class>
+</hibernate-mapping>

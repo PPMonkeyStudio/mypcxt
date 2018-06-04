@@ -72,7 +72,15 @@ const initialState = {
         totalRecords: 0,
       },
       serviceDefinitionTableLoading: false,
-    }
+    },
+
+    'serviceInstance':{
+      'serviceInstanceVO': {
+        serviceInstanceDTOList: [],
+        totalRecords: 0,
+      },
+      serviceInstanceTableLoading: false,
+    },
     //
     //
     //

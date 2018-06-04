@@ -31,6 +31,8 @@ import {
   Pagination
 } from 'antd';
 import ServiceDefinition from './ServiceDefinition.js';
+import ServiceInstance from './ServiceInstance.js';
+
 //
 //
 //
@@ -146,7 +148,7 @@ class ServicePage extends Component {
 
         }}>
         <Switch>
-          <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceInstance"/>
+          <ServiceInstance path="/NavbarPage/ManagePage/ServicePage/ServiceInstance"/>
           <ServiceDefinition path="/NavbarPage/ManagePage/ServicePage/ServiceDefinition"/>
           <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceClient"/>
           <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceDistribution"/>
