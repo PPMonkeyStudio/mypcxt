@@ -20,12 +20,14 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag
+  Tag,
 } from 'antd';
-const FormItem = Form.Item;
-const {Column, ColumnGroup} = Table;
-const Option = Select.Option;
 import * as ServiceActions from '../ServiceActions.js';
+
+const FormItem = Form.Item;
+const {Column, ColumnGroup,} = Table;
+const Option = Select.Option;
+
 //
 //
 //
@@ -37,9 +39,9 @@ class ServiceDefinition extends Component {
     this.state = {
       serviceDefinitionVO: {
         serviceDefinitionDTOList: [],
-        totalRecords: 0
+        totalRecords: 0,
       },
-      tableLoading: false
+      tableLoading: false,
     }
   }
   storeChanged() {
@@ -65,7 +67,7 @@ class ServiceDefinition extends Component {
     return (<div>
       <div style={{
           height: "34px",
-          margin: "0 0 20px 0",
+          margin: "0 0 20px 0"
         }}>
         <Button onClick={() => {}}>
           <Icon type="plus"/>
@@ -73,8 +75,8 @@ class ServiceDefinition extends Component {
         </Button>
       </div>
       <Table pagination={false} dataSource={this.state.serviceDefinitionVO.serviceDefinitionDTOList} loading={this.state.tableLoading} bordered={true} title={() => (<h2>业务定义列表</h2>)}>
-        <Column title="业务名称" dataIndex="unit.unit_name" align="center"/>
-        <Column title="业务所属单位" dataIndex="unit.unit_gmt_create" align="center"/>
+        <Column title="业务名称" dataIndex="serviceDefinition.service_definition_describe" align="center"/>
+        <Column title="业务所属单位" dataIndex="unit.unit_name" align="center"/>
         <Column title="操作" dataIndex="operation" align="center" render={(text, record) => {
             return (<div>
               <Tooltip title="修改">
@@ -94,7 +96,7 @@ class ServiceDefinition extends Component {
       <div style={{
           margin: "20px auto 10px",
           width: "200px",
-          textAlign: "center",
+          textAlign: "center"
         }}>共{this.state.serviceDefinitionVO.totalRecords}条记录</div>
 
     </div>);

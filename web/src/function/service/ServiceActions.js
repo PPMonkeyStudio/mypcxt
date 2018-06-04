@@ -1,10 +1,9 @@
-import {UPDATE_UNITREDUCER_UNITVO, SET_ADDUNITMODALVISIBLE, SET_UNITTABLELOADING, UPDATE_UNIT, SET_UPDATEUNITMODALVISIBLE} from './UnitActionTypes.js';
-import * as UserActions from '../user/UserActions.js';
+import {UPDATE_SERVICEDEFINITIONVO, SET_SERVICEDEFINITION_TABLELOADING} from './ServiceActionTypes.js';
 //
 //
 //
-export const updateServiceDefinitionVO = (unitVO) => ({type: UPDATE_UNITREDUCER_UNITVO, unitVO: unitVO,})
-export const setServiceDefinitionTableLoading = (unitTableLoading) => ({type: SET_UNITTABLELOADING, unitTableLoading: unitTableLoading,})
+export const updateServiceDefinitionVO = (serviceDefinitionVO) => ({type: UPDATE_SERVICEDEFINITIONVO, serviceDefinitionVO: serviceDefinitionVO,})
+export const setServiceDefinitionTableLoading = (serviceDefinitionTableLoading) => ({type: SET_SERVICEDEFINITION_TABLELOADING, serviceDefinitionTableLoading: serviceDefinitionTableLoading,})
 
 export const getServiceDefinitionVO = () => {
   return(dispatch) => {
@@ -15,7 +14,7 @@ export const getServiceDefinitionVO = () => {
     //
     //
     //
-    fetch('/mypcxt/service/getServiceDefinitionVO', {
+    fetch('/mypcxt/Service/getServiceDefinitionVO', {
       method: 'POST',
       headers: {},
     }).then((response) => {
@@ -30,13 +29,13 @@ export const getServiceDefinitionVO = () => {
           //
           //
         }).catch((error) => {
-          console.err(error);
+          console.error(error);
         });
       } else {
-        console.err(response.status);
+        console.error(response.status);
       }
     }).catch((error) => {
-      console.err(error);
+      console.error(error);
     });
     //
     //

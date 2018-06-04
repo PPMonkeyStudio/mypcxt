@@ -1,36 +1,22 @@
-import {UPDATE_UNITREDUCER_UNITVO, SET_ADDUNITMODALVISIBLE, SET_UNITTABLELOADING, SET_UPDATEUNITMODALVISIBLE,} from './UnitActionTypes.js';
+import {UPDATE_SERVICEDEFINITIONVO, SET_SERVICEDEFINITION_TABLELOADING,} from './ServiceActionTypes.js';
 //
 //
 //
 export default(state = [], action) => {
   switch (action.type) {
-    case UPDATE_UNITREDUCER_UNITVO:
+    case UPDATE_SERVICEDEFINITIONVO:
       {
         const newState = Object.assign({}, state);
         //
-        newState["unitVO"]["unitDTOList"] = action.unitVO.unitDTOList;
-        newState["unitVO"]["totalRecords"] = action.unitVO.totalRecords;
+        newState["serviceDefinition"]["serviceDefinitionVO"]["serviceDefinitionDTOList"] = action.serviceDefinitionVO.serviceDefinitionDTOList;
+        newState["serviceDefinition"]["serviceDefinitionVO"]["totalRecords"] = action.serviceDefinitionVO.totalRecords;
         return newState;
       }
-    case SET_ADDUNITMODALVISIBLE:
+    case SET_SERVICEDEFINITION_TABLELOADING:
       {
         const newState = Object.assign({}, state);
         //
-        newState["addUnitModalVisible"] = action.addUnitModalVisible;
-        return newState;
-      }
-    case SET_UPDATEUNITMODALVISIBLE:
-      {
-        const newState = Object.assign({}, state);
-        //
-        newState["updateUnitModalVisible"] = action.updateUnitModalVisible;
-        return newState;
-      }
-    case SET_UNITTABLELOADING:
-      {
-        const newState = Object.assign({}, state);
-        //
-        newState["unitTableLoading"] = action.unitTableLoading;
+        newState["serviceDefinition"]["serviceDefinitionTableLoading"] = action.unitTableLoading;
         return newState;
       }
     default:

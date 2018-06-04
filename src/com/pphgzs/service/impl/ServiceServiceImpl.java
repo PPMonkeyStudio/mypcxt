@@ -27,6 +27,14 @@ public class ServiceServiceImpl implements ServiceService {
 	 * 
 	 */
 
+	public UnitDao getUnitDao() {
+		return unitDao;
+	}
+
+	public void setUnitDao(UnitDao unitDao) {
+		this.unitDao = unitDao;
+	}
+
 	@Override
 	public ServiceDefinitionVO getServiceDefinitionVO() {
 
@@ -38,7 +46,7 @@ public class ServiceServiceImpl implements ServiceService {
 		for (mypcxt_service_definition serviceDefinition : serviceDefinitionList) {
 			serviceDefinitionDTO = new ServiceDefinitionDTO();
 			serviceDefinitionDTO.setServiceDefinition(serviceDefinition);
-			serviceDefinitionDTO.setUnit(unitDao.getUnitByUnitID(serviceDefinition.getMypcxt_service_definition_id()));
+			serviceDefinitionDTO.setUnit(unitDao.getUnitByUnitID(serviceDefinition.getService_definition_unit()));
 			serviceDefinitionDTOList.add(serviceDefinitionDTO);
 		}
 
