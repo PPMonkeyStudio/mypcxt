@@ -5,6 +5,8 @@ public class mypcxt_service_instance {
 
 	private String service_instance_service_definition;
 
+	private String service_instance_nid;
+
 	private String service_instance_date;
 
 	private String service_instance_distribution;
@@ -17,9 +19,18 @@ public class mypcxt_service_instance {
 	public String toString() {
 		return "mypcxt_service_instance 【\nmypcxt_service_instance_id=" + mypcxt_service_instance_id
 				+ ", \nservice_instance_service_definition=" + service_instance_service_definition
-				+ ", \nservice_instance_date=" + service_instance_date + ", \nservice_instance_distribution="
-				+ service_instance_distribution + ", \nservice_instance_gmt_create=" + service_instance_gmt_create
+				+ ", \nservice_instance_nid=" + service_instance_nid + ", \nservice_instance_date="
+				+ service_instance_date + ", \nservice_instance_distribution=" + service_instance_distribution
+				+ ", \nservice_instance_gmt_create=" + service_instance_gmt_create
 				+ ", \nservice_instance_gmt_modified=" + service_instance_gmt_modified + "\n】";
+	}
+
+	public String getService_instance_nid() {
+		return service_instance_nid;
+	}
+
+	public void setService_instance_nid(String service_instance_nid) {
+		this.service_instance_nid = service_instance_nid;
 	}
 
 	public String getMypcxt_service_instance_id() {

@@ -14,6 +14,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.pphgzs.domain.VO.ServiceDefinitionVO;
 import com.pphgzs.domain.VO.ServiceInstanceVO;
 import com.pphgzs.service.ServiceService;
+import com.pphgzs.thread.ServiceDistributionThread;
 
 @SuppressWarnings("serial")
 public class ServiceAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
@@ -58,6 +59,32 @@ public class ServiceAction extends ActionSupport implements ServletResponseAware
 		Gson gson = gsonBuilder.create();
 		http_response.setContentType("text/html;charset=utf-8");
 		http_response.getWriter().write(gson.toJson(serviceInstanceVO));
+	}
+
+	public void getserviceDistributionThreadState() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write(gson.toJson(ServiceDistributionThread.getServiceDistributionThreadState()));
+	}
+
+	public void startServiceDistributionThread() throws IOException {
+		ServiceDistributionThread.startServiceDistributionThread();
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write(gson.toJson("1"));
+	}
+
+	public void stopServiceDistributionThread() throws IOException {
+		ServiceDistributionThread.stopServiceDistributionThread();
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write(gson.toJson("1"));
 	}
 
 	/*

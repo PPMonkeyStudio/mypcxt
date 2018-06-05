@@ -7,7 +7,7 @@ import {
   BrowserRouter,
   Router,
   Redirect,
-  withRouter
+  withRouter,
 } from 'react-router-dom';
 import store from '../../../Store.js';
 import PropTypes from 'prop-types';
@@ -28,11 +28,12 @@ import {
   Divider,
   Tooltip,
   Card,
-  Pagination
+  Pagination,
 } from 'antd';
+
 import ServiceDefinition from './ServiceDefinition.js';
 import ServiceInstance from './ServiceInstance.js';
-
+import ServiceDistribution from './ServiceDistribution.js';
 //
 //
 //
@@ -40,25 +41,25 @@ import ServiceInstance from './ServiceInstance.js';
 //
 //
 const FormItem = Form.Item;
-const {Column, ColumnGroup,} = Table;
+const {Column, ColumnGroup} = Table;
 //
 ////
 const tabList = [
   {
     key: '1',
-    tab: '所有业务'
+    tab: '所有业务',
   }, {
     key: '2',
-    tab: '业务定义'
+    tab: '业务定义',
   }, {
     key: '3',
-    tab: '业务当事人'
+    tab: '业务当事人',
   }, {
     key: '4',
-    tab: '业务测评分配'
+    tab: '业务测评分配',
   }, {
     key: '5',
-    tab: '业务数据抓取'
+    tab: '业务数据抓取',
   },
 ];
 class ServicePage extends Component {
@@ -113,7 +114,7 @@ class ServicePage extends Component {
   }
   render() {
     return (<div>
-      <Card title="业务" activeTabKey={this.state.key}  tabList={tabList} onTabChange={(key) => {
+      <Card title="业务" activeTabKey={this.state.key} tabList={tabList} onTabChange={(key) => {
           this.setState({
             key: key
           }, () => {
@@ -151,7 +152,7 @@ class ServicePage extends Component {
           <ServiceInstance path="/NavbarPage/ManagePage/ServicePage/ServiceInstance"/>
           <ServiceDefinition path="/NavbarPage/ManagePage/ServicePage/ServiceDefinition"/>
           <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceClient"/>
-          <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceDistribution"/>
+          <ServiceDistribution path="/NavbarPage/ManagePage/ServicePage/ServiceDistribution"/>
           <WelcomeServicePage path="/NavbarPage/ManagePage/ServicePage/ServiceGrab"/>
         </Switch>
       </Card>
@@ -161,7 +162,7 @@ class ServicePage extends Component {
 const WelcomeServicePage = () => {
   return (<div style={{
       margin: "50px auto 0",
-      textAlign: "center",
+      textAlign: "center"
     }}>
     <h1>尚未开发</h1>
   </div>);

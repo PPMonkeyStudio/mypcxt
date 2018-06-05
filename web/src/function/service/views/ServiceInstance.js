@@ -20,12 +20,12 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag,
+  Tag
 } from 'antd';
 import * as ServiceActions from '../ServiceActions.js';
 
 const FormItem = Form.Item;
-const {Column, ColumnGroup,} = Table;
+const {Column, ColumnGroup} = Table;
 const Option = Select.Option;
 
 //
@@ -39,9 +39,9 @@ class ServiceInstance extends Component {
     this.state = {
       serviceInstanceVO: {
         serviceInstanceDTOList: [],
-        totalRecords: 0,
+        totalRecords: 0
       },
-      tableLoading: false,
+      tableLoading: false
     }
   }
   storeChanged() {
@@ -76,20 +76,41 @@ class ServiceInstance extends Component {
       </div> */
       }
       <Table dataSource={this.state.serviceInstanceVO.serviceInstanceDTOList} loading={this.state.tableLoading} bordered={true} title={() => (<h2>业务实例列表</h2>)}>
+        <Column title="业务编号" dataIndex="serviceInstance.service_instance_nid" align="center"/>
         <Column title="业务类型" dataIndex="serviceDefinition.service_definition_describe" align="center"/>
         <Column title="所属单位" dataIndex="unit.unit_name" align="center"/>
         <Column title="当事人" dataIndex="serviceClientList" align="center" render={(text, record) => {
             return (text.map(function(client) {
-              return (<span>{client.service_client_name}</span>);
+              return (<Tooltip title={() => {
+                  return (<div>
+                    <div>姓名：{client.service_client_name}，性别：{client.service_client_sex}</div>
+                    <div>电话：{client.service_client_phone}</div>
+                    {
+                      (client.service_client_visit === "1")
+                        ? <div>未回访</div>
+                        : <div>已回访</div>
+                    }
+                  </div>);
+                }}>
+                <Tag color="#108ee9">{client.service_client_name}</Tag>
+              </Tooltip>);
             }));
           }}/>
         <Column title="办理时间" dataIndex="serviceInstance.service_instance_date" align="center"/>
-        <Column title="是否已分配" dataIndex="serviceInstance.service_instance_distribution" align="center"/>
+        <Column title="是否已分配" dataIndex="serviceInstance.service_instance_distribution" align="center" render={(text, record) => {
+            return (<div>
+              {
+                (text === "1")
+                  ? <Tag color="#108ee9">是</Tag>
+                  : <Tag color="#777777">否</Tag>
+              }
+            </div>);
+          }}/>
       </Table>
       <div style={{
           margin: "20px auto 10px",
           width: "200px",
-          textAlign: "center"
+          textAlign: "center",
         }}>共{this.state.serviceInstanceVO.totalRecords}条记录</div>
 
     </div>);

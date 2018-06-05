@@ -11,6 +11,9 @@
         <property name="service_instance_service_definition" type="java.lang.String">
             <column name="SERVICE_INSTANCE_SERVICE_DEFINITION" />
         </property>
+        <property name="service_instance_nid" type="java.lang.String">
+            <column name="SERVICE_INSTANCE_NID" />
+        </property>
         <property name="service_instance_date" type="java.lang.String">
             <column name="SERVICE_INSTANCE_DATE" />
         </property>
