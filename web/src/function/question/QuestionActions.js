@@ -1,6 +1,7 @@
-import {UPDATE_QUESTIONVO} from './QuestionActionTypes.js';
+import {UPDATE_QUESTIONVO,SET_QUESTIONDETAILSMODALVISIBLE} from './QuestionActionTypes.js';
 
 export const updateQuestionVO = (questionServiceVO) => ({type: UPDATE_QUESTIONVO, questionServiceVO: questionServiceVO})
+export const setQuestionDetailsModalVisible = (questionDetailsModalVisible) => ({type: SET_QUESTIONDETAILSMODALVISIBLE, questionDetailsModalVisible: questionDetailsModalVisible})
 
 export const getQuestionServiceVO = () => {
   return(dispatch) => {

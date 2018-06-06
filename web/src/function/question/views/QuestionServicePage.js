@@ -39,10 +39,11 @@ class QuestionServicePage extends Component {
     this.state = {
       questionServiceVO: {
         questionServiceDTOList: [],
-        totalRecords: 0,
+        totalRecords: 0
       },
       tableLoading: false,
-      questionDetailsModalVisible: false
+      questionDetailsModalVisible: false,
+      questionDetails: {}
     }
   }
   storeChanged() {
@@ -51,6 +52,12 @@ class QuestionServicePage extends Component {
         questionServiceVO: store.getState()["QuestionReducer"]["QuestionService"]["questionServiceVO"]
       });
     }
+    if (this.state.questionDetailsModalVisible !== store.getState()["QuestionReducer"]["QuestionService"]["questionDetailsModalVisible"]) {
+      this.setState({
+        questionDetailsModalVisible: store.getState()["QuestionReducer"]["QuestionService"]["questionDetailsModalVisible"]
+      });
+    }
+
   }
   componentDidMount() {
     store.subscribe(this.storeChanged);
@@ -61,20 +68,13 @@ class QuestionServicePage extends Component {
   }
   render() {
     return (<div>
-      {/* <div style={{
-          height: "34px",
-          margin: "0 0 20px 0"
-        }}>
-        <Button onClick={() => {}}>
-          <Icon type="plus"/>
-          &nbsp;创建业务定义
-        </Button>
-      </div> */
-      }
       <Table dataSource={this.state.questionServiceVO.questionServiceDTOList} loading={this.state.tableLoading} bordered={true} title={() => (<h2>问题列表</h2>)}>
         <Column title="问题" dataIndex="question.question_describe" align="center" render={(text, record) => {
             return (<Tooltip title="查看">
-              <a onClick={(record) => {}}>{record.question.question_describe}</a>
+              <a onClick={(record) => {
+                  store.dispatch(QuestionActions.setQuestionDetailsModalVisible(true));
+
+                }}>{record.question.question_describe}</a>
             </Tooltip>);
           }}/>
         <Column title="问题类型" dataIndex="question.question_type" align="center"/>
@@ -91,12 +91,10 @@ class QuestionServicePage extends Component {
           width: "200px",
           textAlign: "center"
         }}>共{this.state.questionServiceVO.totalRecords}条记录</div>
-      <Modal title="问题详情" visible={this.state.questionDetailsModalVisible} onOk={() => {}} onCancel={() => {}} okText="修改" cancelText="返回">
-        <Form>
-          <FormItem label="问题描述">
-            <Input value={} onChange={(event) => {}}/>
-          </FormItem>
-        </Form>
+      <Modal title="问题详情" visible={this.state.questionDetailsModalVisible} onOk={() => {}} onCancel={() => {
+          store.dispatch(QuestionActions.setQuestionDetailsModalVisible(false));
+        }} okText="修改" cancelText="返回">
+        <h3>11111</h3>
       </Modal>
     </div>);
 

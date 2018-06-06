@@ -93,9 +93,10 @@ const initialState = {
   'QuestionReducer': {
     'QuestionService': {
       'questionServiceVO': {
-        questionServiceDTOList: [],
-        totalRecords: 0,
-      }
+        'questionServiceDTOList': [],
+        'totalRecords': 0,
+      },
+      'questionDetailsModalVisible': false,
     }
   },
 };

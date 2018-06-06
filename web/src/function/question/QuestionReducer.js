@@ -1,4 +1,4 @@
-import {UPDATE_QUESTIONVO} from './QuestionActionTypes.js';
+import {UPDATE_QUESTIONVO, SET_QUESTIONDETAILSMODALVISIBLE,} from './QuestionActionTypes.js';
 
 export default(state = [], action) => {
   switch (action.type) {
@@ -10,7 +10,12 @@ export default(state = [], action) => {
         newState["QuestionService"]["questionServiceVO"]["totalRecords"] = action.questionServiceVO.totalRecords;
         return newState;
       }
-
+    case SET_QUESTIONDETAILSMODALVISIBLE:
+      {
+        const newState = Object.assign({}, state);
+        newState["QuestionService"]["questionDetailsModalVisible"] = action.questionDetailsModalVisible;
+        return newState;
+      }
     default:
       {
         return state;

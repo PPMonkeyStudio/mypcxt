@@ -2,7 +2,6 @@ package com.pphgzs.domain.DO;
 
 public class mypcxt_question {
 	private String mypcxt_question_id;
-
 	private String question_describe;
 	private String question_type;
 	private String question_service_definition;
