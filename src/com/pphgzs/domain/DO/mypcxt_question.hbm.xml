@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-6 14:36:27 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.pphgzs.domain.DO.mypcxt_question" table="MYPCXT_QUESTION">
+        <id name="mypcxt_question_id" type="java.lang.String">
+            <column name="MYPCXT_QUESTION_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="question_describe" type="java.lang.String">
+            <column name="QUESTION_DESCRIBE" />
+        </property>
+        <property name="question_type" type="java.lang.String">
+            <column name="QUESTION_TYPE" />
+        </property>
+        <property name="question_service_definition" type="java.lang.String">
+            <column name="QUESTION_SERVICE_DEFINITION" />
+        </property>
+        <property name="question_sort" type="int">
+            <column name="QUESTION_SORT" />
+        </property>
+        <property name="question_father_question" type="java.lang.String">
+            <column name="QUESTION_FATHER_QUESTION" />
+        </property>
+        <property name="question_gmt_create" type="java.lang.String">
+            <column name="QUESTION_GMT_CREATE" />
+        </property>
+        <property name="question_gmt_modified" type="java.lang.String">
+            <column name="QUESTION_GMT_MODIFIED" />
+        </property>
+    </class>
+</hibernate-mapping>

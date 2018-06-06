@@ -32,7 +32,7 @@ const Option = Select.Option;
 //
 //
 //
-class QuestionService extends Component {
+class QuestionServicePage extends Component {
   constructor(props, context) {
     super(props, context);
     this.storeChanged = this.storeChanged.bind(this);
@@ -42,17 +42,13 @@ class QuestionService extends Component {
         totalRecords: 0,
       },
       tableLoading: false,
+      questionDetailsModalVisible: false
     }
   }
   storeChanged() {
-    if (this.state.questionServiceVO !== store.getState()["ServiceReducer"]["questionService"]["questionServiceVO"]) {
+    if (this.state.questionServiceVO !== store.getState()["QuestionReducer"]["QuestionService"]["questionServiceVO"]) {
       this.setState({
-        questionServiceVO: store.getState()["ServiceReducer"]["questionService"]["questionServiceVO"]
-      });
-    }
-    if (this.state.tableLoading !== store.getState()["ServiceReducer"]["questionService"]["questionServiceTableLoading"]) {
-      this.setState({
-        tableLoading: store.getState()["ServiceReducer"]["questionService"]["questionServiceTableLoading"]
+        questionServiceVO: store.getState()["QuestionReducer"]["QuestionService"]["questionServiceVO"]
       });
     }
   }
@@ -75,18 +71,35 @@ class QuestionService extends Component {
         </Button>
       </div> */
       }
-      <Table dataSource={this.state.questionServiceVO.questionServiceDTOList} loading={this.state.tableLoading} bordered={true} title={() => (<h2>业务定义列表</h2>)}>
-        <Column title="业务名称" dataIndex="questionService.service_definition_describe" align="center"/>
-        <Column title="业务所属单位" dataIndex="unit.unit_name" align="center"/>
+      <Table dataSource={this.state.questionServiceVO.questionServiceDTOList} loading={this.state.tableLoading} bordered={true} title={() => (<h2>问题列表</h2>)}>
+        <Column title="问题" dataIndex="question.question_describe" align="center" render={(text, record) => {
+            return (<Tooltip title="查看">
+              <a onClick={(record) => {}}>{record.question.question_describe}</a>
+            </Tooltip>);
+          }}/>
+        <Column title="问题类型" dataIndex="question.question_type" align="center"/>
+        <Column title="所属业务" dataIndex="serviceDefinitionDTO.serviceDefinition.service_definition_describe" align="center"/>
+        <Column title="所属单位" dataIndex="serviceDefinitionDTO.unit.unit_name" align="center"/>
+        <Column title="操作" dataIndex="question.mypcxt_question_id" align="center" render={(text, record) => {
+            return (<Tooltip title="删除">
+              <a onClick={(record) => {}}><Icon type="delete"/></a>
+            </Tooltip>);
+          }}/>
       </Table>
       <div style={{
           margin: "20px auto 10px",
           width: "200px",
           textAlign: "center"
         }}>共{this.state.questionServiceVO.totalRecords}条记录</div>
-
+      <Modal title="问题详情" visible={this.state.questionDetailsModalVisible} onOk={() => {}} onCancel={() => {}} okText="修改" cancelText="返回">
+        <Form>
+          <FormItem label="问题描述">
+            <Input value={} onChange={(event) => {}}/>
+          </FormItem>
+        </Form>
+      </Modal>
     </div>);
 
   }
 }
-export default withRouter(QuestionService);
+export default withRouter(QuestionServicePage);

@@ -8,4 +8,5 @@
 	<import resource="spring/UnitSpring.xml" />
 	<import resource="spring/UserSpring.xml" />
 	<import resource="spring/ServiceSpring.xml" />
+	<import resource="spring/QuestionSpring.xml" />
 </beans>

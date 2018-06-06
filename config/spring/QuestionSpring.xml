@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="questionAction" class="com.pphgzs.action.QuestionAction"
+		scope="prototype">
+		<property name="questionService" ref="questionService"></property>
+	</bean>
+
+	<bean id="questionService" class="com.pphgzs.service.impl.QuestionServiceImpl">
+		<property name="questionDao" ref="questionDao"></property>
+		<property name="serviceService" ref="serviceService"></property>
+	</bean>
+
+	<bean id="questionDao" class="com.pphgzs.dao.impl.QuestionDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+</beans>

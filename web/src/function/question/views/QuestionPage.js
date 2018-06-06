@@ -102,7 +102,7 @@ class QuestionPage extends Component {
         }}>
         <Switch>
           <WelcomeQuestionPage path="/NavbarPage/ManagePage/QuestionPage/QuestionnairePage"/>
-          <WelcomeQuestionPage path="/NavbarPage/ManagePage/QuestionPage/QuestionServicePage"/>
+          <QuestionServicePage path="/NavbarPage/ManagePage/QuestionPage/QuestionServicePage"/>
         </Switch>
       </Card>
     </div>);

@@ -62,6 +62,7 @@ public class ServiceServiceImpl implements ServiceService {
 		List<mypcxt_service_definition> serviceDefinitionList = serviceDao.listServiceDefinitionAll();
 
 		for (mypcxt_service_definition serviceDefinition : serviceDefinitionList) {
+
 			serviceDefinitionDTOList.add(
 					getServiceDefinitionDTO_byServiceDefinitionID(serviceDefinition.getMypcxt_service_definition_id()));
 		}

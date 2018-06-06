@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-6 14:36:27 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.pphgzs.domain.DO.mypcxt_option" table="MYPCXT_OPTION">
+        <id name="mypcxt_option_id" type="java.lang.String">
+            <column name="MYPCXT_OPTION_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="option_describe" type="java.lang.String">
+            <column name="OPTION_DESCRIBE" />
+        </property>
+        <property name="option_question" type="java.lang.String">
+            <column name="OPTION_QUESTION" />
+        </property>
+        <property name="option_sort" type="int">
+            <column name="OPTION_SORT" />
+        </property>
+        <property name="option_grade" type="java.lang.String">
+            <column name="OPTION_GRADE" />
+        </property>
+        <property name="option_gmt_create" type="java.lang.String">
+            <column name="OPTION_GMT_CREATE" />
+        </property>
+        <property name="option_gmt_modified" type="java.lang.String">
+            <column name="OPTION_GMT_MODIFIED" />
+        </property>
+    </class>
+</hibernate-mapping>
