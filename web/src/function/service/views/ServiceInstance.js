@@ -77,8 +77,8 @@ class ServiceInstance extends Component {
       }
       <Table dataSource={this.state.serviceInstanceVO.serviceInstanceDTOList} loading={this.state.tableLoading} bordered={true} title={() => (<h2>业务实例列表</h2>)}>
         <Column title="业务编号" dataIndex="serviceInstance.service_instance_nid" align="center"/>
-        <Column title="业务类型" dataIndex="serviceDefinition.service_definition_describe" align="center"/>
-        <Column title="所属单位" dataIndex="unit.unit_name" align="center"/>
+        <Column title="业务类型" dataIndex="serviceDefinitionDTO.serviceDefinition.service_definition_describe" align="center"/>
+        <Column title="所属单位" dataIndex="serviceDefinitionDTO.unit.unit_name" align="center"/>
         <Column title="当事人" dataIndex="serviceClientList" align="center" render={(text, record) => {
             return (text.map(function(client) {
               return (<Tooltip title={() => {

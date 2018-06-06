@@ -32,7 +32,6 @@ public class LoginAndLogoutAction extends ActionSupport implements ServletRespon
 		 */
 		Object userOrAdmin = loginAndLogoutService.login(account, password);
 		if (userOrAdmin != null) {
-			System.out.println(userOrAdmin.getClass().toString());
 			if (userOrAdmin.getClass().toString().equals("class com.pphgzs.domain.DO.mypcxt_user")) {
 				/*
 				 * 用户权限

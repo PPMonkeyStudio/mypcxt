@@ -82,12 +82,17 @@ const initialState = {
       serviceInstanceTableLoading: false
     },
 
-    'ServiceDistribution': {
+    'serviceDistribution': {
+      'serviceDistributionVO': {
+        serviceDistributionDTOList: [],
+        totalRecords: 0
+      },
+      serviceDistributionTableLoading:false,
       serviceDistributionThreadState: false
     },
     //
     //
-    //,
+    //,,,
   },
 };
 

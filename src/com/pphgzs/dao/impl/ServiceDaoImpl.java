@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import com.pphgzs.dao.ServiceDao;
 import com.pphgzs.domain.DO.mypcxt_service_client;
 import com.pphgzs.domain.DO.mypcxt_service_definition;
+import com.pphgzs.domain.DO.mypcxt_service_distribution;
 import com.pphgzs.domain.DO.mypcxt_service_instance;
 
 public class ServiceDaoImpl implements ServiceDao {
@@ -57,6 +58,16 @@ public class ServiceDaoImpl implements ServiceDao {
 	}
 
 	@Override
+	public int getServiceDistributionTotalRecords() {
+		Session session = getSession();
+		String hql = "select count(*) from mypcxt_service_distribution";
+		Query query = session.createQuery(hql);
+		int count = ((Number) query.uniqueResult()).intValue();
+		session.clear();
+		return count;
+	}
+
+	@Override
 	public List<mypcxt_service_instance> listServiceInstanceAll() {
 		List<mypcxt_service_instance> serviceInstanceList = new ArrayList<mypcxt_service_instance>();
 
@@ -80,6 +91,27 @@ public class ServiceDaoImpl implements ServiceDao {
 	}
 
 	@Override
+	public mypcxt_service_instance getServiceInstanceByID(String serviceInstanceID) {
+		Session session = getSession();
+		String hql = "from mypcxt_service_instance where mypcxt_service_instance_id='" + serviceInstanceID + "'";
+		Query query = session.createQuery(hql);
+		mypcxt_service_instance serviceInstance = (mypcxt_service_instance) query.uniqueResult();
+		session.clear();
+		return serviceInstance;
+	}
+
+	@Override
+	public mypcxt_service_distribution getServiceDistributionByID(String serviceDistributionID) {
+		Session session = getSession();
+		String hql = "from mypcxt_service_distribution where mypcxt_service_distribution_id='" + serviceDistributionID
+				+ "'";
+		Query query = session.createQuery(hql);
+		mypcxt_service_distribution serviceDistribution = (mypcxt_service_distribution) query.uniqueResult();
+		session.clear();
+		return serviceDistribution;
+	}
+
+	@Override
 	public List<mypcxt_service_client> listServiceClientByInstance(String instanceID) {
 		List<mypcxt_service_client> serviceClientList = new ArrayList<mypcxt_service_client>();
 
@@ -89,6 +121,17 @@ public class ServiceDaoImpl implements ServiceDao {
 		serviceClientList = query.list();
 		session.clear();
 		return serviceClientList;
+	}
+
+	@Override
+	public List<mypcxt_service_distribution> listServiceDistributionAll() {
+		List<mypcxt_service_distribution> serviceDistributionList = new ArrayList<mypcxt_service_distribution>();
+		Session session = getSession();
+		String hql = "from mypcxt_service_distribution ";
+		Query query = session.createQuery(hql);
+		serviceDistributionList = query.list();
+		session.clear();
+		return serviceDistributionList;
 	}
 
 }

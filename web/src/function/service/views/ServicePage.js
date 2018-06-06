@@ -114,7 +114,7 @@ class ServicePage extends Component {
   }
   render() {
     return (<div>
-      <Card title="业务" activeTabKey={this.state.key} tabList={tabList} onTabChange={(key) => {
+      <Card activeTabKey={this.state.key} tabList={tabList} onTabChange={(key) => {
           this.setState({
             key: key
           }, () => {

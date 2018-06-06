@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 import com.pphgzs.domain.VO.ServiceDefinitionVO;
+import com.pphgzs.domain.VO.ServiceDistributionVO;
 import com.pphgzs.domain.VO.ServiceInstanceVO;
 import com.pphgzs.service.ServiceService;
 import com.pphgzs.thread.ServiceDistributionThread;
@@ -28,6 +29,7 @@ public class ServiceAction extends ActionSupport implements ServletResponseAware
 	 */
 	ServiceDefinitionVO serviceDefinitionVO;
 	ServiceInstanceVO serviceInstanceVO;
+	ServiceDistributionVO serviceDistributionVO;
 
 	/**
 	 * 查询业务定义VO类
@@ -51,9 +53,7 @@ public class ServiceAction extends ActionSupport implements ServletResponseAware
 	 * @throws IOException
 	 */
 	public void getServiceInstanceVO() throws IOException {
-
 		serviceInstanceVO = serviceService.getServiceInstanceVO();
-
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
@@ -61,7 +61,21 @@ public class ServiceAction extends ActionSupport implements ServletResponseAware
 		http_response.getWriter().write(gson.toJson(serviceInstanceVO));
 	}
 
-	public void getserviceDistributionThreadState() throws IOException {
+	/**
+	 * 查询业务分配的VO类
+	 * 
+	 * @throws IOException
+	 */
+	public void getServiceDistributionVO() throws IOException {
+		serviceDistributionVO = serviceService.getServiceDistributionVO();
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write(gson.toJson(serviceDistributionVO));
+	}
+
+	public void getServiceDistributionThreadState() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
@@ -127,6 +141,14 @@ public class ServiceAction extends ActionSupport implements ServletResponseAware
 
 	public void setServiceDefinitionVO(ServiceDefinitionVO serviceDefinitionVO) {
 		this.serviceDefinitionVO = serviceDefinitionVO;
+	}
+
+	public void setServiceInstanceVO(ServiceInstanceVO serviceInstanceVO) {
+		this.serviceInstanceVO = serviceInstanceVO;
+	}
+
+	public void setServiceDistributionVO(ServiceDistributionVO serviceDistributionVO) {
+		this.serviceDistributionVO = serviceDistributionVO;
 	}
 
 	/*
