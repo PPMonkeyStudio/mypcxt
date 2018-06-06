@@ -21,12 +21,12 @@ import {
   Pagination,
   Select,
   Tag,
-  Switch,
+  Switch
 } from 'antd';
 import * as ServiceActions from '../ServiceActions.js';
 
 const FormItem = Form.Item;
-const {Column, ColumnGroup} = Table;
+const {Column, ColumnGroup,} = Table;
 const Option = Select.Option;
 
 //
@@ -40,10 +40,10 @@ class ServiceDistribution extends Component {
     this.state = {
       serviceDistributionVO: {
         serviceDistributionDTOList: [],
-        totalRecords: 0,
+        totalRecords: 0
       },
       serviceDistributionTableLoading: false,
-      serviceDistributionThreadState: false,
+      serviceDistributionThreadState: false
     }
   }
   storeChanged() {
@@ -76,7 +76,7 @@ class ServiceDistribution extends Component {
     return (<div>
       <div style={{
           height: "34px",
-          margin: "0 0 20px 0",
+          margin: "0 0 20px 0"
         }}>
         <Switch checkedChildren="已启动自动分配业务功能" unCheckedChildren="已关闭自动分配业务功能" defaultChecked={this.state.serviceDistributionThreadState} onChange={(checked) => {
             if (checked) {
@@ -94,12 +94,13 @@ class ServiceDistribution extends Component {
             return (text.map(function(client) {
               return (<Tooltip title={() => {
                   return (<div>
-                    <div>姓名：{client.service_client_name}，性别：{client.service_client_sex}</div>
+                    <div>姓名：{client.service_client_name}</div>
+                    <div>性别：{client.service_client_sex}</div>
                     <div>电话：{client.service_client_phone}</div>
                     {
                       (client.service_client_visit === "1")
-                        ? <div>未回访</div>
-                        : <div>已回访</div>
+                        ? <Tag color="#f5222d">未回访</Tag>
+                        : <Tag color="#108ee9">已回访</Tag>
                     }
                   </div>);
                 }}>
@@ -110,15 +111,25 @@ class ServiceDistribution extends Component {
         <Column title="办理时间" dataIndex="serviceInstanceDTO.serviceInstance.service_instance_date" align="center"/>
         <Column title="分配时间" dataIndex="serviceDistribution.service_distribution_gmt_create" align="center"/>
         <Column title="是否完成回访" dataIndex="serviceInstanceDTO.serviceClientList" align="center" render={(text, record) => {
-            return (text.map(function(client) {
+            let clientNoNum = 0;
+            text.map((client) => {
               //如果所有的当事人都回访了，那么回访完毕
-            }));
+              if (client.service_client_visit !== "1") {
+                clientNoNum++;
+              }
+            });
+            return (<div>{
+                (clientNoNum !== 0)
+                  ? <Tag color="#f5222d">未完成</Tag>
+                  : <Tag color="#108ee9">已完成</Tag>
+              }
+            </div>);
           }}/>
       </Table>
       <div style={{
           margin: "20px auto 10px",
           width: "200px",
-          textAlign: "center",
+          textAlign: "center"
         }}>共{this.state.serviceDistributionVO.totalRecords}条记录</div>
     </div>);
 

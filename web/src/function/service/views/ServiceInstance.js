@@ -86,7 +86,7 @@ class ServiceInstance extends Component {
                     <div>姓名：{client.service_client_name}，性别：{client.service_client_sex}</div>
                     <div>电话：{client.service_client_phone}</div>
                     {
-                      (client.service_client_visit === "1")
+                      (client.service_client_visit !== "1")
                         ? <div>未回访</div>
                         : <div>已回访</div>
                     }
