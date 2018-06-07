@@ -25,3 +25,31 @@ export const getQuestionServiceVO = () => {
     });
   };
 }
+export const addOption = (addOptionModelState) => {
+  return(dispatch) => {
+    let formData = new FormData();
+    formData.append("option.option_describe", addOptionModelState.option_describe);
+    formData.append("option.option_question", addOptionModelState.option_question);
+    formData.append("option.option_grade", addOptionModelState.option_grade);
+    fetch('/mypcxt/Unit/addOption', {
+      method: 'POST',
+      body: formData
+    }).then((response) => {
+      if (response.status === 200) {
+        response.json().then((responseJson) => {
+          if (JSON.stringify(responseJson) === "1") {
+            dispatch(getQuestionServiceVO());
+          } else {
+            console.error("单位已存在");
+          }
+        }).catch((error) => {
+          console.error(error);
+        });
+      } else {
+        console.error(response.status);
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  };
+}

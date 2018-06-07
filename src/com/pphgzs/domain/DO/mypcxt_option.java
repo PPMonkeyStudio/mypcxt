@@ -2,7 +2,6 @@ package com.pphgzs.domain.DO;
 
 public class mypcxt_option {
 	private String mypcxt_option_id;
-
 	private String option_describe;
 	private String option_question;
 	private int option_sort;

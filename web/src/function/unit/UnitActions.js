@@ -51,11 +51,6 @@ export const getUnitVO = () => {
     //
   };
 }
-/**
- * 添加单位
- * @method addUnit
- * @param  {[type]} unit_name [description]
- */
 export const addUnit = (unit_name) => {
   return(dispatch) => {
     let formData = new FormData();
@@ -66,18 +61,12 @@ export const addUnit = (unit_name) => {
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
-          //
-          //
-          //
           if (JSON.stringify(responseJson) === "1") {
             dispatch(getUnitVO());
             dispatch(setAddUnitModalVisible(false));
           } else {
             console.error("单位已存在");
           }
-          //
-          //
-          //
         }).catch((error) => {
           console.error(error);
         });
@@ -87,9 +76,6 @@ export const addUnit = (unit_name) => {
     }).catch((error) => {
       console.error(error);
     });
-    //
-    //
-    //
   };
 }
 

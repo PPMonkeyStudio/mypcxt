@@ -20,7 +20,7 @@ import {
   Tooltip,
   Pagination,
   Tag,
-  Select
+  Select,
 } from 'antd';
 import * as UserActions from '../UserActions.js';
 //
@@ -30,7 +30,7 @@ import * as UserActions from '../UserActions.js';
 //
 //
 const FormItem = Form.Item;
-const {Column, ColumnGroup} = Table;
+const {Column, ColumnGroup,} = Table;
 const Option = Select.Option;
 //
 
@@ -47,22 +47,22 @@ class UserPage extends Component {
     this.state = {
       'userVO': {
         'user_List': [],
-        'totalRecords': 0
+        'totalRecords': 0,
       },
       'addUserModalVisible': false,
       'updateUserModalVisible': false,
       'tableLoading': false,
       'addUserModelState': {
         user_name: "",
-        user_password: "",
+        user_password: ""
       },
       'updateUserModelState': {
         mypcxt_user_id: "",
         user_name: "",
         user_Jurisdiction_evaluate: "",
         user_Jurisdiction_statistics: "",
-        user_Jurisdiction_review: "",
-      },
+        user_Jurisdiction_review: ""
+      }
     }
   }
   componentDidMount() {
@@ -101,7 +101,7 @@ class UserPage extends Component {
     return (<div>
       <div style={{
           height: "34px",
-          margin: "0 0 20px 0"
+          margin: "0 0 20px 0",
         }}>
         <Button onClick={() => {
             store.dispatch(UserActions.setAddUserModalVisible(true));
@@ -178,7 +178,7 @@ class UserPage extends Component {
       <div style={{
           margin: "0 auto 10px",
           width: "200px",
-          textAlign: "center",
+          textAlign: "center"
         }}>共{this.state.userVO.totalRecords}条记录</div>
       <Modal title="添加一个警员" visible={this.state.addUserModalVisible} onOk={() => {
           store.dispatch(UserActions.addUser(this.state.addUserModelState.user_password, this.state.addUserModelState.user_name));
@@ -188,20 +188,16 @@ class UserPage extends Component {
         <Form>
           <FormItem label="警号">
             <Input onChange={(event) => {
-
                 let addUserModelState = this.state.addUserModelState;
                 addUserModelState.user_name = event.target.value;
                 this.setState({addUserModelState: addUserModelState});
-
               }}/>
           </FormItem>
           <FormItem label="姓名">
             <Input onChange={(event) => {
-
                 let addUserModelState = this.state.addUserModelState;
                 addUserModelState.user_name = event.target.value;
                 this.setState({addUserModelState: addUserModelState});
-
               }}/>
           </FormItem>
         </Form>

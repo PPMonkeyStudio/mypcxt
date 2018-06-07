@@ -4,9 +4,9 @@ public class mypcxt_unit {
 
 	private String mypcxt_unit_id;
 	private String unit_name;
+	private String unit_correction_man;
 	private String unit_gmt_create;
 	private String unit_gmt_modified;
-	private String unit_correction_man;
 
 	public String getUnit_correction_man() {
 		return unit_correction_man;
