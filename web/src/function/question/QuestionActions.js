@@ -1,8 +1,8 @@
-import {UPDATE_QUESTIONVO, SET_QUESTIONDETAILSMODALVISIBLE,} from './QuestionActionTypes.js';
-
-export const updateQuestionVO = (questionServiceVO) => ({type: UPDATE_QUESTIONVO, questionServiceVO: questionServiceVO,})
+export const updateQuestionVO = (questionServiceVO) => ({type: 'updateQuestionVO', questionServiceVO: questionServiceVO,})
 export const updateServiceDefinitionList = (serviceDefinitionList) => ({type: 'updateServiceDefinitionList', serviceDefinitionList: serviceDefinitionList,})
-export const setQuestionDetailsModalVisible = (questionDetailsModalVisible) => ({type: SET_QUESTIONDETAILSMODALVISIBLE, questionDetailsModalVisible: questionDetailsModalVisible,})
+export const setQuestionDetailsModalVisible = (questionDetailsModalVisible) => ({type: 'setQuestionDetailsModalVisible', questionDetailsModalVisible: questionDetailsModalVisible,})
+export const setQuestionServiceTableLoading = (tableLoading) => ({type: 'setQuestionServiceTableLoading', tableLoading: tableLoading,})
+
 
 export const getServiceDefinitionList = () => {
   return(dispatch) => {
@@ -26,7 +26,7 @@ export const getServiceDefinitionList = () => {
 }
 export const getQuestionServiceVO = () => {
   return(dispatch) => {
-    // dispatch(setServiceDefinitionTableLoading(true));
+    dispatch(setQuestionServiceTableLoading(true));
     fetch('/mypcxt/Question/getQuestionServiceVO', {
       method: 'POST',
       headers: {}
@@ -34,7 +34,7 @@ export const getQuestionServiceVO = () => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
           dispatch(updateQuestionVO(responseJson));
-          // dispatch(setServiceDefinitionTableLoading(false));
+          dispatch(setQuestionServiceTableLoading(false));
         }).catch((error) => {
           console.error(error);
         });

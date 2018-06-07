@@ -98,6 +98,7 @@ const initialState = {
       },
       'questionDetailsModalVisible': false,
       'serviceDefinitionList':[],
+      'tableLoading':false,
     }
   },
 };

@@ -85,7 +85,7 @@ class QuestionServicePage extends Component {
         option_question: "",
         option_grade: ""
       },
-      'serviceDefinitionList': []
+      'serviceDefinitionList': [],
     }
   }
   storeChanged() {
@@ -104,14 +104,15 @@ class QuestionServicePage extends Component {
         serviceDefinitionList: store.getState()["QuestionReducer"]["QuestionService"]["serviceDefinitionList"]
       });
     }
+    if (this.state.tableLoading !== store.getState()["QuestionReducer"]["QuestionService"]["tableLoading"]) {
+      this.setState({
+        tableLoading: store.getState()["QuestionReducer"]["QuestionService"]["tableLoading"]
+      });
+    }
   }
   componentDidMount() {
     store.subscribe(this.storeChanged);
-    //
-    //加载数据
-    //
     store.dispatch(QuestionActions.getQuestionServiceVO());
-
   }
   render() {
     return (<div>
@@ -243,16 +244,19 @@ class QuestionServicePage extends Component {
 
       </Modal>
       {/* 创建问题模态框 */}
-      <Modal title="创建问题" visible={this.state.addQuestionModalVisible} wrapClassName="vertical-center-modal" onOk={() => {}} onCancel={() => {
+      <Modal title="创建问题" visible={this.state.addQuestionModalVisible} wrapClassName="vertical-center-modal" onOk={() => {
+          // 确认创建问题
+          store.dispatch(QuestionActions.addQuestion(this.state.addQuestionModelState));
+        }} onCancel={() => {
           this.setState({addQuestionModalVisible: false});
         }} okText="确认创建" cancelText="返回">
         <Form>
           <FormItem label="问题描述">
-            <Input onChange={(event) => {
+            <TextArea autosize={true} onChange={(event) => {
                 let addQuestionModelState = this.state.addQuestionModelState;
                 addQuestionModelState.question_describe = event.target.value;
                 this.setState({addQuestionModelState: addQuestionModelState});
-              }}/>
+              }}></TextArea>
           </FormItem>
           <FormItem label="类型">
             <Select onChange={(value) => {
