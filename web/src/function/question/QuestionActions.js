@@ -3,7 +3,6 @@ export const updateServiceDefinitionList = (serviceDefinitionList) => ({type: 'u
 export const setQuestionDetailsModalVisible = (questionDetailsModalVisible) => ({type: 'setQuestionDetailsModalVisible', questionDetailsModalVisible: questionDetailsModalVisible,})
 export const setQuestionServiceTableLoading = (tableLoading) => ({type: 'setQuestionServiceTableLoading', tableLoading: tableLoading,})
 
-
 export const getServiceDefinitionList = () => {
   return(dispatch) => {
     fetch('/mypcxt/Question/getServiceDefinitionList', {
@@ -35,6 +34,29 @@ export const getQuestionServiceVO = () => {
         response.json().then((responseJson) => {
           dispatch(updateQuestionVO(responseJson));
           dispatch(setQuestionServiceTableLoading(false));
+        }).catch((error) => {
+          console.error(error);
+        });
+      } else {
+        console.error(response.status);
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  };
+}
+export const moveOption = (moveOptionAction, moveOptionID) => {
+  return(dispatch) => {
+    let formData = new FormData();
+    formData.append("moveOptionAction", moveOptionAction);
+    formData.append("moveOptionID", moveOptionID);
+    fetch('/mypcxt/Question/moveOption', {
+      method: 'POST',
+      body: formData,
+    }).then((response) => {
+      if (response.status === 200) {
+        response.json().then((responseJson) => {
+          dispatch(getQuestionServiceVO());
         }).catch((error) => {
           console.error(error);
         });

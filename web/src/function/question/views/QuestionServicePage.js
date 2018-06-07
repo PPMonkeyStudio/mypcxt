@@ -206,19 +206,23 @@ class QuestionServicePage extends Component {
                     <Column title="操作" dataIndex="mypcxt_option_id" align="center" render={(text, record) => {
                         return (<div>
                           <Tooltip title="修改">
-                            <a onClick={(record) => {}}><Icon type="edit"/></a>
+                            <a onClick={() => {}}><Icon type="edit"/></a>
                           </Tooltip>
                           <Divider type="vertical"/>
                           <Tooltip title="上移">
-                            <a onClick={(record) => {}}><Icon type="arrow-up"/></a>
+                            <a onClick={() => {
+                                store.dispatch(QuestionActions.moveOption(text, "1"));
+                              }}><Icon type="arrow-up"/></a>
                           </Tooltip>
                           <Divider type="vertical"/>
                           <Tooltip title="下移">
-                            <a onClick={(record) => {}}><Icon type="arrow-down"/></a>
+                            <a onClick={() => {
+                                store.dispatch(QuestionActions.moveOption(text, "2"));
+                              }}><Icon type="arrow-down"/></a>
                           </Tooltip>
                           <Divider type="vertical"/>
                           <Tooltip title="删除">
-                            <a onClick={(record) => {}}><Icon type="delete"/></a>
+                            <a onClick={() => {}}><Icon type="delete"/></a>
                           </Tooltip>
                         </div>);
                       }}/>
