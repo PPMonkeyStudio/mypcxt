@@ -70,7 +70,7 @@ class UnitPage extends Component {
     //加载数据
     //
     store.dispatch(UnitActions.getUnitVO());
-    store.dispatch(UserActions.getUserList());
+
   }
 
   storeChanged() {
@@ -113,6 +113,7 @@ class UnitPage extends Component {
         }}>
         <Button onClick={() => {
             store.dispatch(UnitActions.setAddUnitModalVisible(true));
+
           }}>
           <Icon type="plus"/>
           &nbsp;新增一个单位
@@ -134,6 +135,7 @@ class UnitPage extends Component {
               <Tooltip title="修改">
                 <a onClick={() => {
                     store.dispatch(UnitActions.setUpdateUnitModalVisible(true));
+                    store.dispatch(UserActions.getUserList());
                     let updateUnitModelState = this.state.updateUnitModelState;
                     updateUnitModelState.unit_name = record.unit.unit_name;
                     updateUnitModelState.unit_correction_man = record.unit.unit_correction_man;

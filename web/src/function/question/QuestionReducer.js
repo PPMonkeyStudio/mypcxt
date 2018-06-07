@@ -1,4 +1,4 @@
-import {UPDATE_QUESTIONVO, SET_QUESTIONDETAILSMODALVISIBLE,} from './QuestionActionTypes.js';
+import {UPDATE_QUESTIONVO, SET_QUESTIONDETAILSMODALVISIBLE} from './QuestionActionTypes.js';
 
 export default(state = [], action) => {
   switch (action.type) {
@@ -14,6 +14,12 @@ export default(state = [], action) => {
       {
         const newState = Object.assign({}, state);
         newState["QuestionService"]["questionDetailsModalVisible"] = action.questionDetailsModalVisible;
+        return newState;
+      }
+    case 'updateServiceDefinitionList':
+      {
+        const newState = Object.assign({}, state);
+        newState["QuestionService"]["serviceDefinitionList"] = action.serviceDefinitionList;
         return newState;
       }
     default:
