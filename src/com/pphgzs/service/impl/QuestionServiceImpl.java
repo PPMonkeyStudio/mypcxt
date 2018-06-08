@@ -6,16 +6,21 @@ import java.util.List;
 import com.pphgzs.dao.QuestionDao;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
+import com.pphgzs.domain.DO.mypcxt_service_definition;
+import com.pphgzs.domain.DO.mypcxt_user;
 import com.pphgzs.domain.DTO.QuestionServiceDTO;
 import com.pphgzs.domain.DTO.ServiceDefinitionDTO;
 import com.pphgzs.domain.VO.QuestionServiceVO;
 import com.pphgzs.service.QuestionService;
 import com.pphgzs.service.ServiceService;
+import com.pphgzs.util.TimeUtil;
+import com.pphgzs.util.uuidUtil;
 
 public class QuestionServiceImpl implements QuestionService {
 
 	private QuestionDao questionDao;
 	private ServiceService serviceService;
+	
 
 	public ServiceService getServiceService() {
 		return serviceService;
@@ -67,6 +72,33 @@ public class QuestionServiceImpl implements QuestionService {
 		questionDTO.setOptionList(optionList);
 		//
 		return questionDTO;
+	}
+
+	@Override
+	public boolean saveQuestion(mypcxt_question question) {
+		// TODO Auto-generated method stub
+		if (questionDao.getUserByUserName(question.getQuestion_describe()) == null) {
+			question.setMypcxt_question_id(uuidUtil.getUuid());
+			List<mypcxt_question> questionList = new ArrayList<mypcxt_question>();
+			questionList = questionDao.getMaxQuestion_sort(question.getQuestion_service_definition());
+			question.setQuestion_sort(questionList.get(0).getQuestion_sort()+1);
+			String time = TimeUtil.getStringSecond();
+			question.setQuestion_gmt_create(time);
+			question.setQuestion_gmt_modified(time);
+			questionDao.saveQuestion(question);
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+
+	@Override
+	public List<mypcxt_service_definition> getDefinitionList() {
+		// TODO Auto-generated method stub
+		List<mypcxt_service_definition> definitionList = new ArrayList<mypcxt_service_definition>();
+		definitionList = questionDao.listDefinitionAll();
+		return definitionList;
 	}
 
 }
