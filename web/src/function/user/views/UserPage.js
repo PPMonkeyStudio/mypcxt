@@ -146,7 +146,7 @@ class UserPage extends Component {
                 <a onClick={() => {
                     store.dispatch(UserActions.setUpdateUserModalVisible(true));
 
-                    let updateUserModelState = this.state.updateUserModelState;
+                    let updateUserModelState = Object.assign({}, this.state.updateUserModelState);
                     updateUserModelState.mypcxt_user_id = record.mypcxt_user_id;
                     updateUserModelState.user_account = record.user_account;
                     updateUserModelState.user_name = record.user_name;
@@ -188,14 +188,14 @@ class UserPage extends Component {
         <Form>
           <FormItem label="警号">
             <Input onChange={(event) => {
-                let addUserModelState = this.state.addUserModelState;
+                let addUserModelState = Object.assign({}, this.state.addUserModelState);
                 addUserModelState.user_name = event.target.value;
                 this.setState({addUserModelState: addUserModelState});
               }}/>
           </FormItem>
           <FormItem label="姓名">
             <Input onChange={(event) => {
-                let addUserModelState = this.state.addUserModelState;
+                let addUserModelState = Object.assign({}, this.state.addUserModelState);
                 addUserModelState.user_name = event.target.value;
                 this.setState({addUserModelState: addUserModelState});
               }}/>
@@ -211,16 +211,14 @@ class UserPage extends Component {
           <h3>警号：{this.state.updateUserModelState.user_account}</h3>
           <FormItem label="名称">
             <Input onChange={(event) => {
-
-                let addUserModelState = this.state.addUserModelState;
-                addUserModelState.unit_name = event.target.value;
-                this.setState({addUserModelState: addUserModelState});
-
+                let updateUserModelState = Object.assign({}, this.state.updateUserModelState);
+                updateUserModelState.unit_name = event.target.value;
+                this.setState({updateUserModelState: updateUserModelState});
               }} defaultValue={this.state.updateUserModelState.user_name}/>
           </FormItem>
           <FormItem label="测评权限">
             <Select defaultValue={this.state.updateUserModelState.user_Jurisdiction_evaluate} onChange={(value) => {
-                let updateUserModelState = this.state.updateUserModelState;
+                let updateUserModelState = Object.assign({}, this.state.updateUserModelState);
                 updateUserModelState.user_Jurisdiction_evaluate = value;
                 this.setState({updateUserModelState: updateUserModelState});
               }}>
@@ -230,7 +228,7 @@ class UserPage extends Component {
           </FormItem>
           <FormItem label="统计权限">
             <Select defaultValue={this.state.updateUserModelState.user_Jurisdiction_statistics} onChange={(value) => {
-                let updateUserModelState = this.state.updateUserModelState;
+                let updateUserModelState = Object.assign({}, this.state.updateUserModelState);
                 updateUserModelState.user_Jurisdiction_statistics = value;
                 this.setState({updateUserModelState: updateUserModelState});
               }}>
@@ -240,7 +238,7 @@ class UserPage extends Component {
           </FormItem>
           <FormItem label="审核整改权限">
             <Select defaultValue={this.state.updateUserModelState.user_Jurisdiction_review} onChange={(value) => {
-                let updateUserModelState = this.state.updateUserModelState;
+                let updateUserModelState = Object.assign({}, this.state.updateUserModelState);
                 updateUserModelState.user_Jurisdiction_review = value;
                 this.setState({updateUserModelState: updateUserModelState});
               }}>

@@ -100,7 +100,7 @@ public class QuestionDaoImpl implements QuestionDao {
 		List<Integer> maxQuestionSort_onServiceDefinition = query.list();
 
 		session.clear();
-
+		// 返回第一个值（最大值）
 		return maxQuestionSort_onServiceDefinition.get(0);
 
 	}

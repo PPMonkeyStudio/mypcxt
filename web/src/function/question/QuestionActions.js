@@ -45,6 +45,28 @@ export const getQuestionServiceVO = () => {
     });
   };
 }
+export const updateQuestion = (question) => {
+  return(dispatch) => {
+    let formData = new FormData();
+    formData.append("question.question_describe", question.question_describe);
+    fetch('/mypcxt/Question/updateQuestion', {
+      method: 'POST',
+      body: formData
+    }).then((response) => {
+      if (response.status === 200) {
+        response.json().then((responseJson) => {
+          dispatch(getQuestionServiceVO());
+        }).catch((error) => {
+          console.error(error);
+        });
+      } else {
+        console.error(response.status);
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  };
+}
 export const moveOption = (moveOptionID, moveOptionAction) => {
   return(dispatch) => {
     let formData = new FormData();

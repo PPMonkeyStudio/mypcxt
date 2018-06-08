@@ -74,7 +74,6 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public boolean saveQuestion(mypcxt_question question) {
-		// TODO Auto-generated method stub
 		if (questionDao.getUserByUserName(question.getQuestion_describe()) == null) {
 			question.setMypcxt_question_id(uuidUtil.getUuid());
 			List<mypcxt_question> questionList = new ArrayList<mypcxt_question>();
@@ -93,7 +92,6 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public List<mypcxt_service_definition> getDefinitionList() {
-		// TODO Auto-generated method stub
 		List<mypcxt_service_definition> definitionList = new ArrayList<mypcxt_service_definition>();
 		definitionList = questionDao.listDefinitionAll();
 		return definitionList;

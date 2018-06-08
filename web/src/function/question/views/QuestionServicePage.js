@@ -20,12 +20,12 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag
+  Tag,
 } from 'antd';
 import * as QuestionActions from '../QuestionActions.js';
 
 const FormItem = Form.Item;
-const {Column, ColumnGroup} = Table;
+const {Column, ColumnGroup,} = Table;
 const Option = Select.Option;
 const {TextArea} = Input;
 //
@@ -39,7 +39,7 @@ class QuestionServicePage extends Component {
     this.state = {
       questionServiceVO: {
         questionServiceDTOList: [],
-        totalRecords: 0,
+        totalRecords: 0
       },
       tableLoading: false,
       questionDetailsModalVisible: false,
@@ -52,7 +52,7 @@ class QuestionServicePage extends Component {
           question_sort: 0,
           question_father_question: '',
           question_gmt_create: '',
-          question_gmt_modified: '',
+          question_gmt_modified: ''
         },
         serviceDefinitionDTO: {
           serviceDefinition: {
@@ -60,33 +60,46 @@ class QuestionServicePage extends Component {
             service_definition_describe: '',
             service_definition_unit: '',
             service_definition_gmt_create: '',
-            service_definition_gmt_modified: ''
+            service_definition_gmt_modified: '',
           },
           unit: {
             mypcxt_unit_id: '',
             unit_name: '',
             unit_correction_man: '',
             unit_gmt_create: '',
-            unit_gmt_modified: '',
-          },
+            unit_gmt_modified: ''
+          }
         },
-        optionList: []
+        optionList: [],
       },
       addQuestionModalVisible: false,
       addQuestionModelState: {
         question_describe: "",
         question_type: "",
         question_service_definition: "",
-        question_father_question: "",
+        question_father_question: ""
       },
       addOptionModalVisible: false,
       addOptionModelState: {
         option_describe: "",
         option_question: "",
-        option_grade: "",
+        option_grade: ""
       },
-      serviceDefinitionList: []
+      serviceDefinitionList: [],
+      updateQuestionState: {
+        mypcxt_question_id: '',
+        question_describe: '',
+        question_type: '',
+        question_service_definition: '',
+        question_sort: 0,
+        question_father_question: '',
+        question_gmt_create: '',
+        question_gmt_modified: ''
+      }
     }
+    //
+    //
+    //
   }
   storeChanged() {
     if (this.state.questionServiceVO !== store.getState()["QuestionReducer"]["QuestionService"]["questionServiceVO"]) {
@@ -118,11 +131,12 @@ class QuestionServicePage extends Component {
     return (<div>
       <div style={{
           height: "34px",
-          margin: "0 0 20px 0"
+          margin: "0 0 20px 0",
         }}>
         <Button onClick={() => {
             this.setState({addQuestionModalVisible: true});
             store.dispatch(QuestionActions.getServiceDefinitionList());
+
           }}>
           <Icon type="plus"/>
           &nbsp;创建问题
@@ -133,15 +147,16 @@ class QuestionServicePage extends Component {
             return (<Tooltip title="查看">
               <a onClick={() => {
                   this.setState({questionDetailsModalVisible: true});
-                  let questionDetails = this.state.questionDetails;
+                  let questionDetails =Object.assign({}, this.state.questionDetails);
+
                   questionDetails = record;
                   this.setState({questionDetails: questionDetails});
+                  this.setState({updateQuestionState: questionDetails.question});
+
                   //
                   //
                   //
-                  let addOptionModelState = this.state.addOptionModelState;
-                  addOptionModelState.option_question = record.question.mypcxt_question_id;
-                  this.setState({addOptionModelState: addOptionModelState});
+
                 }}>{record.question.question_describe}</a>
             </Tooltip>);
           }}/>
@@ -165,8 +180,9 @@ class QuestionServicePage extends Component {
       <div style={{
           margin: "20px auto 10px",
           width: "200px",
-          textAlign: "center",
+          textAlign: "center"
         }}>共{this.state.questionServiceVO.totalRecords}条记录</div>
+      // 查看问题模态框
       <Modal title="问题详情" visible={this.state.questionDetailsModalVisible} onCancel={() => {
           this.setState({questionDetailsModalVisible: false});
         }} footer={(
@@ -182,6 +198,7 @@ class QuestionServicePage extends Component {
             </Button>,
             <Button icon="check" onClick={() => {
                 this.setState({questionDetailsModalVisible: false});
+                store.dispatch(QuestionActions.updateQuestion(this.state.questionDetails.question));
               }}>保存问题描述的修改</Button>,
           ]
           : [
@@ -194,7 +211,11 @@ class QuestionServicePage extends Component {
           ]}>
         <div>
           <h2>问题：</h2>
-          <TextArea autosize={true} defaultValue={this.state.questionDetails.question.question_describe}></TextArea>
+          <TextArea autosize={true} value={this.state.updateQuestionState.question_describe} onChange={(event) => {
+              let updateQuestionState = Object.assign({}, this.state.updateQuestionState);
+              updateQuestionState.question_describe = event.target.value;
+              this.setState({updateQuestionState: updateQuestionState});
+            }}></TextArea>
           {
             (this.state.questionDetails.question.question_type === "1")
               ? <div>
@@ -258,7 +279,7 @@ class QuestionServicePage extends Component {
         <Form>
           <FormItem label="问题描述">
             <TextArea autosize={true} onChange={(event) => {
-                let addQuestionModelState = this.state.addQuestionModelState;
+                let addQuestionModelState =Object.assign({}, this.state.addQuestionModelState);
                 addQuestionModelState.question_describe = event.target.value;
                 this.setState({addQuestionModelState: addQuestionModelState});
               }}></TextArea>
@@ -275,7 +296,7 @@ class QuestionServicePage extends Component {
           </FormItem>
           <FormItem label="所属业务">
             <Select onChange={(value) => {
-                let addQuestionModelState = this.state.addQuestionModelState;
+                      let addQuestionModelState =Object.assign({}, this.state.addQuestionModelState);
                 addQuestionModelState.question_service_definition = value;
                 this.setState({addQuestionModelState: addQuestionModelState});
               }}>
@@ -297,7 +318,7 @@ class QuestionServicePage extends Component {
         <Form>
           <FormItem label="描述">
             <Input onChange={(event) => {
-                let addOptionModelState = this.state.addOptionModelState;
+                let addOptionModelState =Object.assign({}, this.state.addOptionModelState);
                 addOptionModelState.option_describe = event.target.value;
                 this.setState({addOptionModelState: addOptionModelState});
               }}/>
@@ -305,6 +326,7 @@ class QuestionServicePage extends Component {
           <FormItem label="分值">
             <InputNumber defaultValue={1} onChange={(event) => {
                 let addOptionModelState = this.state.addOptionModelState;
+                  let addOptionModelState =Object.assign({}, this.state.addOptionModelState);
                 addOptionModelState.option_grade = event.target.value;
                 this.setState({addOptionModelState: addOptionModelState});
               }}/>
