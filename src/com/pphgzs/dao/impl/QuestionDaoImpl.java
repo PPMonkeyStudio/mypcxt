@@ -11,8 +11,8 @@ import com.pphgzs.dao.QuestionDao;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
 import com.pphgzs.domain.DO.mypcxt_service_definition;
-import com.pphgzs.domain.DO.mypcxt_user;
 
+@SuppressWarnings("unchecked")
 public class QuestionDaoImpl implements QuestionDao {
 	private SessionFactory sessionFactory;
 
@@ -78,28 +78,35 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public void saveQuestion(mypcxt_question question) {
-		// TODO Auto-generated method stub
 		Session session = getSession();
 		session.save(question);
 		session.flush();
 	}
 
 	@Override
-	public List<mypcxt_question> getMaxQuestion_sort(String question_service_definition) {
+	public int getMaxQuestionSort_byServiceDefinition(String question_service_definition) {
+
 		Session session = getSession();
-		String hql = "from mypcxt_question where question_service_definition='" + question_service_definition + "'";
+		//
+		String hql = "select question_sort from mypcxt_question where question_service_definition='"
+				+ question_service_definition + "' order by question_sort desc";
+
 		Query query = session.createQuery(hql);
-		mypcxt_question mypcxt_question = (mypcxt_question) query.setMaxResults(1);
+
+		query.setFirstResult(0);
+
+		query.setMaxResults(1);
+
+		List<Integer> maxQuestionSort_onServiceDefinition = query.list();
+
 		session.clear();
-		
-		return (List<com.pphgzs.domain.DO.mypcxt_question>) mypcxt_question;
-		// TODO Auto-generated method stub
-		
+
+		return maxQuestionSort_onServiceDefinition.get(0);
+
 	}
 
 	@Override
 	public List<mypcxt_service_definition> listDefinitionAll() {
-		// TODO Auto-generated method stub
 		List<mypcxt_service_definition> definition_List = new ArrayList<mypcxt_service_definition>();
 		Session session = getSession();
 		String hql = "from mypcxt_service_definition";
@@ -108,7 +115,5 @@ public class QuestionDaoImpl implements QuestionDao {
 		session.clear();
 		return definition_List;
 	}
-
-
 
 }

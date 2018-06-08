@@ -74,8 +74,8 @@ export const addQuestion = (addQuestionModelState) => {
     formData.append("question.question_describe", addQuestionModelState.question_describe);
     formData.append("question.question_type", addQuestionModelState.question_type);
     formData.append("question.question_service_definition", addQuestionModelState.question_service_definition);
-    formData.append("question.question_father_question", addQuestionModelState.question_father_question);
-    fetch('/mypcxt/Unit/addQuestion', {
+    formData.append("question.question_father_question", "none");
+    fetch('/mypcxt/Question/addQuestion', {
       method: 'POST',
       body: formData
     }).then((response) => {
@@ -99,7 +99,7 @@ export const addOption = (addOptionModelState) => {
     formData.append("option.option_describe", addOptionModelState.option_describe);
     formData.append("option.option_question", addOptionModelState.option_question);
     formData.append("option.option_grade", addOptionModelState.option_grade);
-    fetch('/mypcxt/Unit/addOption', {
+    fetch('/mypcxt/Question/addOption', {
       method: 'POST',
       body: formData
     }).then((response) => {

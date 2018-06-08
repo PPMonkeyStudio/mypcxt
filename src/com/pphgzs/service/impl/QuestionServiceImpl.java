@@ -7,7 +7,6 @@ import com.pphgzs.dao.QuestionDao;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
 import com.pphgzs.domain.DO.mypcxt_service_definition;
-import com.pphgzs.domain.DO.mypcxt_user;
 import com.pphgzs.domain.DTO.QuestionServiceDTO;
 import com.pphgzs.domain.DTO.ServiceDefinitionDTO;
 import com.pphgzs.domain.VO.QuestionServiceVO;
@@ -20,7 +19,6 @@ public class QuestionServiceImpl implements QuestionService {
 
 	private QuestionDao questionDao;
 	private ServiceService serviceService;
-	
 
 	public ServiceService getServiceService() {
 		return serviceService;
@@ -80,8 +78,8 @@ public class QuestionServiceImpl implements QuestionService {
 		if (questionDao.getUserByUserName(question.getQuestion_describe()) == null) {
 			question.setMypcxt_question_id(uuidUtil.getUuid());
 			List<mypcxt_question> questionList = new ArrayList<mypcxt_question>();
-			questionList = questionDao.getMaxQuestion_sort(question.getQuestion_service_definition());
-			question.setQuestion_sort(questionList.get(0).getQuestion_sort()+1);
+			question.setQuestion_sort(
+					questionDao.getMaxQuestionSort_byServiceDefinition(question.getQuestion_service_definition()) + 1);
 			String time = TimeUtil.getStringSecond();
 			question.setQuestion_gmt_create(time);
 			question.setQuestion_gmt_modified(time);
@@ -90,7 +88,7 @@ public class QuestionServiceImpl implements QuestionService {
 		} else {
 			return false;
 		}
-		
+
 	}
 
 	@Override

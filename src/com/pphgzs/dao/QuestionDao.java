@@ -20,7 +20,7 @@ public interface QuestionDao {
 
 	public void saveQuestion(mypcxt_question question);
 
-	public List<mypcxt_question> getMaxQuestion_sort(String question_service_definition);
+	public int getMaxQuestionSort_byServiceDefinition(String question_service_definition);
 
 	public List<mypcxt_service_definition> listDefinitionAll();
 }
