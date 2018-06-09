@@ -97,7 +97,7 @@ const initialState = {
         'totalRecords': 0
       },
       'questionDetailsModalVisible': false,
-      'serviceDefinitionList': [],
+      'serviceDefinitionDTOList': [],
       'questionFatherList': [],
       'tableLoading': false
     }

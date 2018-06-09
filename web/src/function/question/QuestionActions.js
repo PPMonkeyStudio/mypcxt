@@ -1,5 +1,5 @@
 export const updateQuestionVO = (questionServiceVO) => ({type: 'updateQuestionVO', questionServiceVO: questionServiceVO})
-export const updateServiceDefinitionList = (serviceDefinitionList) => ({type: 'updateServiceDefinitionList', serviceDefinitionList: serviceDefinitionList})
+export const updateServiceDefinitionList = (serviceDefinitionDTOList) => ({type: 'updateServiceDefinitionList', serviceDefinitionDTOList: serviceDefinitionDTOList})
 export const updateQuestionFatherList = (questionFatherList) => ({type: 'updateQuestionFatherList', questionFatherList: questionFatherList})
 
 
@@ -94,7 +94,7 @@ export const updateQuestion = (updateQuestionState) => {
 export const moveOption = (moveOptionID, moveOptionAction) => {
   return(dispatch) => {
     let formData = new FormData();
-    formData.append("moveOptionID", moveOptionID);
+    formData.append("option.mypcxt_option_id", moveOptionID);
     formData.append("moveOptionAction", moveOptionAction);
     fetch('/mypcxt/Question/moveOption', {
       method: 'POST',

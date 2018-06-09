@@ -11,7 +11,7 @@ export default(state = [], action) => {
     case 'updateServiceDefinitionList':
       {
         const newState = Object.assign({}, state);
-        newState["QuestionService"]["serviceDefinitionList"] = action.serviceDefinitionList;
+        newState["QuestionService"]["serviceDefinitionDTOList"] = action.serviceDefinitionDTOList;
         return newState;
       }
     case 'updateQuestionFatherList':

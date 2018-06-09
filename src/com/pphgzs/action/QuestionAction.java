@@ -15,8 +15,6 @@ import com.google.gson.GsonBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
-import com.pphgzs.domain.DO.mypcxt_service_definition;
-import com.pphgzs.domain.DO.mypcxt_user;
 import com.pphgzs.domain.DTO.QuestionServiceDTO;
 import com.pphgzs.domain.DTO.ServiceDefinitionDTO;
 import com.pphgzs.domain.VO.QuestionServiceVO;
@@ -33,10 +31,11 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	 * 
 	 */
 	private mypcxt_question question;
-	private mypcxt_option   option;
-    private int moveOptionAction;
+	private mypcxt_option option;
+	private int moveOptionAction;
+
 	/*
-	 * 
+	 *  
 	 */
 	public void getQuestionServiceVO() throws IOException {
 
@@ -51,10 +50,11 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 		http_response.getWriter().write(gson.toJson(questionServiceVO));
 
 	}
-    /*
-     * 创建问题
-     */
-	public  void addQuestion() throws IOException{
+
+	/*
+	 * 创建问题
+	 */
+	public void addQuestion() throws IOException {
 		if (questionService.saveQuestion(question)) {
 			http_response.setContentType("text/html;charset=utf-8");
 			http_response.getWriter().write("1");
@@ -63,10 +63,11 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 			http_response.getWriter().write("-1");
 		}
 	}
+
 	/*
 	 * 获取任务定义列表
 	 */
-	public void getServiceDefinitionList() throws IOException{
+	public void getServiceDefinitionList() throws IOException {
 		List<ServiceDefinitionDTO> ServiceDefinitionDTOList = new ArrayList<ServiceDefinitionDTO>();
 
 		ServiceDefinitionDTOList = questionService.getServiceDefinitionDTOList();
@@ -77,11 +78,12 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 		http_response.setContentType("text/html;charset=utf-8");
 		http_response.getWriter().write(gson.toJson(ServiceDefinitionDTOList));
 	}
+
 	/*
-	 *创建选择题选项
+	 * 创建选择题选项
 	 * 
 	 */
-	public void addOption() throws IOException{
+	public void addOption() throws IOException {
 		if (questionService.addOption(option)) {
 			http_response.setContentType("text/html;charset=utf-8");
 			http_response.getWriter().write("1");
@@ -90,11 +92,12 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 			http_response.getWriter().write("-1");
 		}
 	}
+
 	/*
 	 * 移动选择题选项
 	 */
-	public void moveOption() throws IOException{
-		if (questionService.moveOption(moveOptionAction,option.getMypcxt_option_id())) {
+	public void moveOption() throws IOException {
+		if (questionService.moveOption(moveOptionAction, option.getMypcxt_option_id())) {
 			http_response.setContentType("text/html;charset=utf-8");
 			http_response.getWriter().write("1");
 		} else {
@@ -102,18 +105,20 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 			http_response.getWriter().write("-1");
 		}
 	}
+
 	/*
 	 * 修改问题
 	 */
-	public void updateQuestion(){
-		questionService.updateQuestion(question); 
-	    http_response.setContentType("text/html;charset=utf-8");
-		
+	public void updateQuestion() {
+		questionService.updateQuestion(question);
+		http_response.setContentType("text/html;charset=utf-8");
+
 	}
+
 	/*
 	 * 获取问题列表
 	 */
-	public void getQuestionFatherList() throws IOException{
+	public void getQuestionFatherList() throws IOException {
 		List<QuestionServiceDTO> QuestionServiceDTOList = new ArrayList<QuestionServiceDTO>();
 
 		QuestionServiceDTOList = questionService.getQuestionFatherList();
@@ -124,6 +129,7 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 		http_response.setContentType("text/html;charset=utf-8");
 		http_response.getWriter().write(gson.toJson(QuestionServiceDTOList));
 	}
+
 	/*
 	 */
 	@Override
@@ -168,15 +174,19 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	public void setQuestion(mypcxt_question question) {
 		this.question = question;
 	}
+
 	public mypcxt_option getOption() {
 		return option;
 	}
+
 	public void setOption(mypcxt_option option) {
 		this.option = option;
 	}
+
 	public int getMoveOptionAction() {
 		return moveOptionAction;
 	}
+
 	public void setMoveOptionAction(int moveOptionAction) {
 		this.moveOptionAction = moveOptionAction;
 	}
