@@ -193,4 +193,24 @@ public class QuestionDaoImpl implements QuestionDao {
 		session.flush();
 	}
 
+	@Override
+	public List<mypcxt_question> getQuestionAll() {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		String hql = "from mypcxt_question ";
+		Query query = session.createQuery(hql);
+		List<mypcxt_question> question_List = query.list();		
+		return question_List;
+	}
+
+	@Override
+	public List<mypcxt_option> getOptionAll() {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		String hql = "from mypcxt_option ";
+		Query query = session.createQuery(hql);
+		List<mypcxt_option> option_List = query.list();		
+		return option_List;
+	}
+
 }

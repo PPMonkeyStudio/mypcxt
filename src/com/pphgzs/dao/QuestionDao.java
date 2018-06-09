@@ -38,4 +38,10 @@ public interface QuestionDao {
 	public List<mypcxt_option> getOptionByQuestion(String option_question);
 
 	public void updateQuestion(mypcxt_question question);
+
+	public List<mypcxt_question> getQuestionAll();
+
+	public List<mypcxt_option> getOptionAll();
+
+
 }

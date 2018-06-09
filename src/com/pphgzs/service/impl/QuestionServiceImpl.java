@@ -195,6 +195,22 @@ public class QuestionServiceImpl implements QuestionService {
 	@Override
 	public List<QuestionServiceDTO> getQuestionFatherList() {
 		// TODO Auto-generated method stub
-		return null;
+		QuestionServiceDTO QuestionServiceDTO;
+	    List<mypcxt_question> questionList = questionDao.getQuestionAll();
+	    for(mypcxt_question question : questionList){
+	    	QuestionServiceDTO = new QuestionServiceDTO();
+	    	QuestionServiceDTO.setQuestion(question);
+	    }
+	    List<ServiceDefinitionDTO> serviceDefinitionDTOList =getServiceDefinitionDTOList();
+	    for(ServiceDefinitionDTO serviceDefinitionDTO :serviceDefinitionDTOList){
+	    	QuestionServiceDTO = new QuestionServiceDTO();
+	    	QuestionServiceDTO.setServiceDefinitionDTO(serviceDefinitionDTO);
+	    }
+	    List<mypcxt_option> optionList = questionDao.getOptionAll();
+	    QuestionServiceDTO = new QuestionServiceDTO();
+	    QuestionServiceDTO.setOptionList(optionList);
+	    List<QuestionServiceDTO> QuestionServiceDTOList = new ArrayList<QuestionServiceDTO>();
+	    QuestionServiceDTOList.add(QuestionServiceDTO);
+	   return QuestionServiceDTOList;
 	}
 }
