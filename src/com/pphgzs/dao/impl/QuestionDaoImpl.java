@@ -74,7 +74,11 @@ public class QuestionDaoImpl implements QuestionDao {
 	@Override
 	public Object getUserByUserName(String question_describe) {
 		// TODO Auto-generated method stub
-		return null;
+		Session session =getSession();
+		String hql="select question_describe from mypcxt_question where question_describe ='"+question_describe+"'";
+		Query query =session.createQuery(hql);
+		List<mypcxt_question> questionList = query.list();
+		return questionList.get(0);
 	}
 
 	@Override
@@ -211,6 +215,26 @@ public class QuestionDaoImpl implements QuestionDao {
 		Query query = session.createQuery(hql);
 		List<mypcxt_option> option_List = query.list();		
 		return option_List;
+	}
+
+	@Override
+	public List<mypcxt_question> getChoiceQuestionAll() {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		String hql = "from mypcxt_question where question_type = 1 ";
+		Query query = session.createQuery(hql);
+		List<mypcxt_question> questionList= query.list();
+		return questionList;
+	}
+
+	@Override
+	public Object getOptionByQuestion_describe(String option_describe) {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		String hql="select option_describe from mypcxt_option where mypcxt_option ='"+option_describe+"'";
+		Query query = session.createQuery(hql);
+		List<mypcxt_option> optionList = query.list();
+		return optionList.get(0);
 	}
 
 }

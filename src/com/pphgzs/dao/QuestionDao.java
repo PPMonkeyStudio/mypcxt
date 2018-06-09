@@ -42,6 +42,14 @@ public interface QuestionDao {
 	public List<mypcxt_question> getQuestionAll();
 
 	public List<mypcxt_option> getOptionAll();
+    /*
+     * 获得选择题
+     */
+	public List<mypcxt_question> getChoiceQuestionAll();
+    /*
+     * 根据选项描述判断问题是否已存在此选项
+     */
+	public Object getOptionByQuestion_describe(String option_describe);
 
 
 }
