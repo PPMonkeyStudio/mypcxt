@@ -51,5 +51,7 @@ public interface QuestionDao {
      */
 	public Object getOptionByQuestion_describe(String option_describe);
 
+	public mypcxt_question getQuestionByID(String mypcxt_question_id);
+
 
 }

@@ -12,6 +12,7 @@
 	<bean id="questionService" class="com.pphgzs.service.impl.QuestionServiceImpl">
 		<property name="questionDao" ref="questionDao"></property>
 		<property name="serviceService" ref="serviceService"></property>
+		<property name="unitDao" ref="unitDao"></property>
 	</bean>
 
 	<bean id="questionDao" class="com.pphgzs.dao.impl.QuestionDaoImpl">
