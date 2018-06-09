@@ -10,7 +10,9 @@ import org.hibernate.SessionFactory;
 import com.pphgzs.dao.QuestionDao;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
+import com.pphgzs.domain.DO.mypcxt_service_definition;
 
+@SuppressWarnings("unchecked")
 public class QuestionDaoImpl implements QuestionDao {
 	private SessionFactory sessionFactory;
 
@@ -66,6 +68,52 @@ public class QuestionDaoImpl implements QuestionDao {
 		int count = ((Number) query.uniqueResult()).intValue();
 		session.clear();
 		return count;
+	}
+
+	@Override
+	public Object getUserByUserName(String question_describe) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void saveQuestion(mypcxt_question question) {
+		Session session = getSession();
+		session.save(question);
+		session.flush();
+	}
+
+	@Override
+	public int getMaxQuestionSort_byServiceDefinition(String question_service_definition) {
+
+		Session session = getSession();
+		//
+		String hql = "select question_sort from mypcxt_question where question_service_definition='"
+				+ question_service_definition + "' order by question_sort desc";
+
+		Query query = session.createQuery(hql);
+
+		query.setFirstResult(0);
+
+		query.setMaxResults(1);
+
+		List<Integer> maxQuestionSort_onServiceDefinition = query.list();
+
+		session.clear();
+		// 返回第一个值（最大值）
+		return maxQuestionSort_onServiceDefinition.get(0);
+
+	}
+
+	@Override
+	public List<mypcxt_service_definition> listDefinitionAll() {
+		List<mypcxt_service_definition> definition_List = new ArrayList<mypcxt_service_definition>();
+		Session session = getSession();
+		String hql = "from mypcxt_service_definition";
+		Query query = session.createQuery(hql);
+		definition_List = query.list();
+		session.clear();
+		return definition_List;
 	}
 
 }

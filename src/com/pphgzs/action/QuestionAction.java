@@ -1,6 +1,8 @@
 package com.pphgzs.action;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +14,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 import com.pphgzs.domain.DO.mypcxt_question;
+import com.pphgzs.domain.DO.mypcxt_service_definition;
+import com.pphgzs.domain.DO.mypcxt_user;
 import com.pphgzs.domain.VO.QuestionServiceVO;
 import com.pphgzs.service.QuestionService;
 
@@ -43,7 +47,33 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 		http_response.getWriter().write(gson.toJson(questionServiceVO));
 
 	}
+    /*
+     * 创建问题
+     */
+	public  void addQuestion() throws IOException{
+		if (questionService.saveQuestion(question)) {
+			http_response.setContentType("text/html;charset=utf-8");
+			http_response.getWriter().write("1");
+		} else {
+			http_response.setContentType("text/html;charset=utf-8");
+			http_response.getWriter().write("-1");
+		}
+	}
+	/*
+	 * 获取任务定义列表
+	 */
+	public void getServiceDefinitionList() throws IOException{
+		List<mypcxt_service_definition> definitionList = new ArrayList<mypcxt_service_definition>();
 
+		definitionList = questionService.getDefinitionList();
+
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write(gson.toJson(definitionList));
+	}
+	
 	/*
 	 * 
 	 */

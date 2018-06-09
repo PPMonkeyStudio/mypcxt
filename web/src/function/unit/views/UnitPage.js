@@ -70,7 +70,7 @@ class UnitPage extends Component {
     //加载数据
     //
     store.dispatch(UnitActions.getUnitVO());
-    store.dispatch(UserActions.getUserList());
+
   }
 
   storeChanged() {
@@ -113,6 +113,7 @@ class UnitPage extends Component {
         }}>
         <Button onClick={() => {
             store.dispatch(UnitActions.setAddUnitModalVisible(true));
+
           }}>
           <Icon type="plus"/>
           &nbsp;新增一个单位
@@ -134,7 +135,8 @@ class UnitPage extends Component {
               <Tooltip title="修改">
                 <a onClick={() => {
                     store.dispatch(UnitActions.setUpdateUnitModalVisible(true));
-                    let updateUnitModelState = this.state.updateUnitModelState;
+                    store.dispatch(UserActions.getUserList());
+                      let updateUnitModelState =Object.assign({}, this.state.updateUnitModelState);
                     updateUnitModelState.unit_name = record.unit.unit_name;
                     updateUnitModelState.unit_correction_man = record.unit.unit_correction_man;
                     this.setState({updateUnitModelState: updateUnitModelState});
@@ -166,7 +168,7 @@ class UnitPage extends Component {
         <Form>
           <FormItem label="单位名称">
             <Input onChange={(event) => {
-                let addUnitModelState = this.state.addUnitModelState;
+                  let addUnitModelState =Object.assign({}, this.state.addUnitModelState);
                 addUnitModelState.unit_name = event.target.value;
                 this.setState({addUnitModelState: addUnitModelState});
               }}/>
@@ -181,14 +183,14 @@ class UnitPage extends Component {
         <Form>
           <FormItem label="单位名称">
             <Input onChange={(event) => {
-                let updateUnitModelState = this.state.updateUnitModelState;
+                      let updateUnitModelState =Object.assign({}, this.state.updateUnitModelState);
                 updateUnitModelState.unit_name = event.target.value;
                 this.setState({updateUnitModelState: updateUnitModelState});
               }} value={this.state.updateUnitModelState.unit_name}/>
           </FormItem>
           <FormItem label="整改员">
             <Select value={this.state.updateUnitModelState.unit_correction_man} onChange={(value) => {
-                let updateUnitModelState = this.state.updateUnitModelState;
+                  let updateUnitModelState =Object.assign({}, this.state.updateUnitModelState);
                 updateUnitModelState.unit_correction_man = value;
                 this.setState({updateUnitModelState: updateUnitModelState});
               }}>
