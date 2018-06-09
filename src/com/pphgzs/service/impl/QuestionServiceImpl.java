@@ -93,6 +93,9 @@ public class QuestionServiceImpl implements QuestionService {
 			String time = TimeUtil.getStringSecond();
 			question.setQuestion_gmt_create(time);
 			question.setQuestion_gmt_modified(time);
+			if(question.getQuestion_father_question()!="none"){
+				question.setQuestion_service_definition(questionDao.getServiceDefinitionByFatherQuestion(question.getQuestion_father_question()));	
+			}
 			questionDao.saveQuestion(question);
 			return true;
 		} else {

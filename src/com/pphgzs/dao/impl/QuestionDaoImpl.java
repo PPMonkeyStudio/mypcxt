@@ -247,4 +247,14 @@ public class QuestionDaoImpl implements QuestionDao {
 		return question;
 	}
 
+	@Override
+	public String getServiceDefinitionByFatherQuestion(String question_father_question) {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		String hql = "select question_service_definition from mypcxt_question where question_father_question='"+question_father_question+"'";
+		Query query = session.createQuery(hql);
+		mypcxt_question question = (mypcxt_question) query.uniqueResult();
+		return question.getQuestion_service_definition();
+	}
+
 }
