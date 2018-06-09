@@ -148,15 +148,9 @@ class QuestionServicePage extends Component {
               <a onClick={() => {
                   this.setState({questionDetailsModalVisible: true});
                   let questionDetails = Object.assign({}, this.state.questionDetails);
-
                   questionDetails = record;
                   this.setState({questionDetails: questionDetails});
                   this.setState({updateQuestionState: questionDetails.question});
-
-                  //
-                  //
-                  //
-
                 }}>{record.question.question_describe}</a>
             </Tooltip>);
           }}/>
@@ -182,7 +176,6 @@ class QuestionServicePage extends Component {
           width: "200px",
           textAlign: "center",
         }}>共{this.state.questionServiceVO.totalRecords}条记录</div>
-      // 查看问题模态框
       <Modal title="问题详情" visible={this.state.questionDetailsModalVisible} onCancel={() => {
           this.setState({questionDetailsModalVisible: false});
         }} footer={(
@@ -198,7 +191,7 @@ class QuestionServicePage extends Component {
             </Button>,
             <Button icon="check" onClick={() => {
                 this.setState({questionDetailsModalVisible: false});
-                store.dispatch(QuestionActions.updateQuestion(this.state.questionDetails.question));
+                store.dispatch(QuestionActions.updateQuestion(this.state.updateQuestionState));
               }}>保存问题描述的修改</Button>,
           ]
           : [
@@ -270,7 +263,6 @@ class QuestionServicePage extends Component {
       </Modal>
       {/* 创建问题模态框 */}
       <Modal title="创建问题" visible={this.state.addQuestionModalVisible} wrapClassName="vertical-center-modal" onOk={() => {
-          // 确认创建问题
           store.dispatch(QuestionActions.addQuestion(this.state.addQuestionModelState));
           this.setState({addQuestionModalVisible: false});
         }} onCancel={() => {
