@@ -14,6 +14,11 @@ public interface ServiceService {
 
 	public ServiceDistributionVO getServiceDistributionVO();
 
+	/**
+	 * 
+	 * @param serviceDefinitionID
+	 * @return
+	 */
 	public ServiceDefinitionDTO getServiceDefinitionDTO_byServiceDefinitionID(String serviceDefinitionID);
 
 	public ServiceInstanceDTO getServiceInstanceDTO_byServiceInstanceID(String serviceInstanceID);
