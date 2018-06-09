@@ -11,6 +11,7 @@ import com.pphgzs.dao.QuestionDao;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
 import com.pphgzs.domain.DO.mypcxt_service_definition;
+import com.pphgzs.domain.DO.mypcxt_unit;
 
 @SuppressWarnings("unchecked")
 public class QuestionDaoImpl implements QuestionDao {
@@ -114,6 +115,82 @@ public class QuestionDaoImpl implements QuestionDao {
 		definition_List = query.list();
 		session.clear();
 		return definition_List;
+	}
+
+	@Override
+	public List<mypcxt_unit> listUnitAll() {
+		// TODO Auto-generated method stub
+		List<mypcxt_unit> unit_List = new ArrayList<mypcxt_unit>();
+		Session session = getSession();
+		String hql = "from mypcxt_unit";
+		Query query = session.createQuery(hql);
+		unit_List = query.list();
+		session.clear();
+		return unit_List;
+	}
+
+	@Override
+	public int getMaxOption_Sort_byQuestionID(String  option_question) {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		//
+		String hql = "select option_sort from mypcxt_option where option_question='"
+				+ option_question + "' order by option_sort desc";
+
+		Query query = session.createQuery(hql);
+
+		query.setFirstResult(0);
+
+		query.setMaxResults(1);
+
+		List<Integer> maxOptionSort_onQuestion = query.list();
+
+		session.clear();
+		// 返回第一个值（最大值）
+		return maxOptionSort_onQuestion.get(0);
+		
+	}
+
+	@Override
+	public void addOption(mypcxt_option option) {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		session.save(option);
+		session.flush();
+	}
+
+	@Override
+	public mypcxt_option getOpion_QuestionByOptionID(String mypcxt_option_id) {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		String hql = "from mypcxt_option where mypcxt_option_id='"
+				+ mypcxt_option_id + "'";
+
+		Query query = session.createQuery(hql);
+		mypcxt_option option = (mypcxt_option) query.uniqueResult();
+		return option;
+	}
+
+	@Override
+	public List<mypcxt_option> getOptionByQuestion(String option_question) {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		String hql = "from mypcxt_option where option_question='"
+				+ option_question + "'";
+
+		Query query = session.createQuery(hql);
+		List<mypcxt_option> optionList = new ArrayList<mypcxt_option>();
+		optionList = query.list();
+		return optionList;
+		
+	}
+
+	@Override
+	public void updateQuestion(mypcxt_question question) {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		session.update(question);
+		session.flush();
 	}
 
 }
