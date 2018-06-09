@@ -196,14 +196,19 @@ public class QuestionServiceImpl implements QuestionService {
 	@Override
 	public void updateQuestion(mypcxt_question question) {
 		// TODO Auto-generated method stub
-		questionDao.updateQuestion(question);
-
+		mypcxt_question oldQuestion = questionDao.getQuestionByID(question.getMypcxt_question_id());
+		oldQuestion.setQuestion_describe(question.getQuestion_describe());
+		//oldQuestion.setQuestion_father_question(question.getQuestion_father_question());
+		String time =  TimeUtil.getStringSecond();
+		oldQuestion.setQuestion_gmt_modified(time);
+		questionDao.updateQuestion(oldQuestion);
 	}
 
 	@Override
 	public List<QuestionServiceDTO> getQuestionFatherList() {
 		// TODO Auto-generated method stub
 		QuestionServiceDTO QuestionServiceDTO;
+		List<QuestionServiceDTO> QuestionServiceDTOList = new ArrayList<QuestionServiceDTO>();
 		List<mypcxt_question> questionList = questionDao.getQuestionAll();
 		for (mypcxt_question question : questionList) {
 			QuestionServiceDTO = new QuestionServiceDTO();
@@ -218,7 +223,6 @@ public class QuestionServiceImpl implements QuestionService {
 		List<mypcxt_option> optionList = questionDao.getOptionAll();
 		QuestionServiceDTO = new QuestionServiceDTO();
 		QuestionServiceDTO.setOptionList(optionList);
-		List<QuestionServiceDTO> QuestionServiceDTOList = new ArrayList<QuestionServiceDTO>();
 		QuestionServiceDTOList.add(QuestionServiceDTO);
 		return QuestionServiceDTOList;
 	}

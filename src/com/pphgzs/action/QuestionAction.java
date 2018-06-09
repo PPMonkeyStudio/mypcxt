@@ -15,7 +15,6 @@ import com.google.gson.GsonBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
-import com.pphgzs.domain.DTO.QuestionServiceDTO;
 import com.pphgzs.domain.DTO.ServiceDefinitionDTO;
 import com.pphgzs.domain.VO.QuestionServiceVO;
 import com.pphgzs.service.QuestionService;
@@ -56,13 +55,8 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	 */
 	public void addQuestion() throws IOException {
 		if (questionService.saveQuestion(question)) {
-			GsonBuilder gsonBuilder = new GsonBuilder();
-			gsonBuilder.setPrettyPrinting();// 格式化json数据
-			Gson gson = gsonBuilder.create();
-			List<mypcxt_question> questionList = questionService.getChoiceQuestionAll();
 			http_response.setContentType("text/html;charset=utf-8");
 			http_response.getWriter().write("1");
-			http_response.getWriter().write(gson.toJson(questionList));
 		} else {
 			http_response.setContentType("text/html;charset=utf-8");
 			http_response.getWriter().write("-1");
@@ -124,15 +118,12 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	 * 获取问题列表
 	 */
 	public void getQuestionFatherList() throws IOException {
-		List<QuestionServiceDTO> QuestionServiceDTOList = new ArrayList<QuestionServiceDTO>();
-
-		QuestionServiceDTOList = questionService.getQuestionFatherList();
-
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
+		List<mypcxt_question> questionList = questionService.getChoiceQuestionAll();
 		http_response.setContentType("text/html;charset=utf-8");
-		http_response.getWriter().write(gson.toJson(QuestionServiceDTOList));
+		http_response.getWriter().write(gson.toJson(questionList));
 	}
 
 	/*
