@@ -41,7 +41,7 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 		QuestionServiceVO questionServiceVO = new QuestionServiceVO();
 
 		questionServiceVO = questionService.getQuestionServiceVO();
-
+		// System.out.println("questionServiceVO"+questionServiceVO);
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
@@ -108,10 +108,10 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	/*
 	 * 修改问题
 	 */
-	public void updateQuestion() {
+	public void updateQuestion() throws IOException {
 		questionService.updateQuestion(question);
 		http_response.setContentType("text/html;charset=utf-8");
-
+		http_response.getWriter().write("1");
 	}
 
 	/*
