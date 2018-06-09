@@ -45,10 +45,10 @@ export const getQuestionServiceVO = () => {
     });
   };
 }
-export const updateQuestion = (question) => {
+export const updateQuestion = (updateQuestionState) => {
   return(dispatch) => {
     let formData = new FormData();
-    formData.append("question.question_describe", question.question_describe);
+    formData.append("question.question_describe", updateQuestionState.question_describe);
     fetch('/mypcxt/Question/updateQuestion', {
       method: 'POST',
       body: formData
