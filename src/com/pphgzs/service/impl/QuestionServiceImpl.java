@@ -124,13 +124,15 @@ public class QuestionServiceImpl implements QuestionService {
 	public boolean addOption(mypcxt_option option) {
 		// TODO Auto-generated method stub
 		if(option.getOption_question()!=null && option.getOption_describe()!=null && option.getOption_grade()!=null){
-			option.setMypcxt_option_id(uuidUtil.getUuid());
-			option.setOption_sort(questionDao.getMaxOption_Sort_byQuestionID(option.getOption_question())+1);
-			String time = TimeUtil.getStringSecond();
-			option.setOption_gmt_create(time);
-			option.setOption_gmt_modified(time);
-			questionDao.addOption(option);
-			return true;
+			if(questionDao.getOptionByQuestion_describe(option.getOption_describe())==null){
+				option.setMypcxt_option_id(uuidUtil.getUuid());
+				option.setOption_sort(questionDao.getMaxOption_Sort_byQuestionID(option.getOption_question())+1);
+				String time = TimeUtil.getStringSecond();
+				option.setOption_gmt_create(time);
+				option.setOption_gmt_modified(time);
+				questionDao.addOption(option);
+				return true;
+			}else{return false;}
 		}else{
 			return false;
 		}
@@ -195,6 +197,29 @@ public class QuestionServiceImpl implements QuestionService {
 	@Override
 	public List<QuestionServiceDTO> getQuestionFatherList() {
 		// TODO Auto-generated method stub
-		return null;
+		QuestionServiceDTO QuestionServiceDTO;
+	    List<mypcxt_question> questionList = questionDao.getQuestionAll();
+	    for(mypcxt_question question : questionList){
+	    	QuestionServiceDTO = new QuestionServiceDTO();
+	    	QuestionServiceDTO.setQuestion(question);
+	    }
+	    List<ServiceDefinitionDTO> serviceDefinitionDTOList =getServiceDefinitionDTOList();
+	    for(ServiceDefinitionDTO serviceDefinitionDTO :serviceDefinitionDTOList){
+	    	QuestionServiceDTO = new QuestionServiceDTO();
+	    	QuestionServiceDTO.setServiceDefinitionDTO(serviceDefinitionDTO);
+	    }
+	    List<mypcxt_option> optionList = questionDao.getOptionAll();
+	    QuestionServiceDTO = new QuestionServiceDTO();
+	    QuestionServiceDTO.setOptionList(optionList);
+	    List<QuestionServiceDTO> QuestionServiceDTOList = new ArrayList<QuestionServiceDTO>();
+	    QuestionServiceDTOList.add(QuestionServiceDTO);
+	   return QuestionServiceDTOList;
+	}
+
+	@Override
+	public List<mypcxt_question> getChoiceQuestionAll() {
+		// TODO Auto-generated method stub
+		List<mypcxt_question> questionList= questionDao.getChoiceQuestionAll();
+		return questionList;
 	}
 }

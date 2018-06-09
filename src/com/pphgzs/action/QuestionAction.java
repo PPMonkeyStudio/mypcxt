@@ -56,8 +56,13 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	 */
 	public void addQuestion() throws IOException {
 		if (questionService.saveQuestion(question)) {
+			GsonBuilder gsonBuilder = new GsonBuilder();
+			gsonBuilder.setPrettyPrinting();// 格式化json数据
+			Gson gson = gsonBuilder.create();
+			List<mypcxt_question> questionList = questionService.getChoiceQuestionAll();
 			http_response.setContentType("text/html;charset=utf-8");
 			http_response.getWriter().write("1");
+			http_response.getWriter().write(gson.toJson(questionList));
 		} else {
 			http_response.setContentType("text/html;charset=utf-8");
 			http_response.getWriter().write("-1");

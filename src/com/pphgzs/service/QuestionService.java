@@ -30,5 +30,9 @@ public interface QuestionService {
 	public void updateQuestion(mypcxt_question question);
 
 	public List<QuestionServiceDTO> getQuestionFatherList();
+    /*
+     * 获得选择题
+     */
+	public List<mypcxt_question> getChoiceQuestionAll();
 
 }
