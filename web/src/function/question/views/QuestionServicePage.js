@@ -85,6 +85,7 @@ class QuestionServicePage extends Component {
         option_question: "",
         option_grade: "",
       },
+      questionFatherList: [],
       serviceDefinitionList: [],
       updateQuestionState: {
         mypcxt_question_id: '',
@@ -122,6 +123,12 @@ class QuestionServicePage extends Component {
         tableLoading: store.getState()["QuestionReducer"]["QuestionService"]["tableLoading"]
       });
     }
+    // 更新父问题列表
+    if (this.state.questionFatherList !== store.getState()["QuestionReducer"]["QuestionService"]["questionFatherList"]) {
+      this.setState({
+        questionFatherList: store.getState()["QuestionReducer"]["QuestionService"]["questionFatherList"]
+      });
+    }
   }
   componentDidMount() {
     store.subscribe(this.storeChanged);
@@ -136,7 +143,7 @@ class QuestionServicePage extends Component {
         <Button onClick={() => {
             this.setState({addQuestionModalVisible: true});
             store.dispatch(QuestionActions.getServiceDefinitionList());
-
+            store.dispatch(QuestionActions.getQuestionFatherList());
           }}>
           <Icon type="plus"/>
           &nbsp;创建问题
@@ -262,7 +269,7 @@ class QuestionServicePage extends Component {
 
       </Modal>
       {/* 创建问题模态框 */}
-      <Modal title="创建问题" visible={this.state.addQuestionModalVisible} wrapClassName="vertical-center-modal" onOk={() => {
+      <Modal title="创建一个新的业务问题" visible={this.state.addQuestionModalVisible} wrapClassName="vertical-center-modal" onOk={() => {
           store.dispatch(QuestionActions.addQuestion(this.state.addQuestionModelState));
           this.setState({addQuestionModalVisible: false});
         }} onCancel={() => {
@@ -299,9 +306,23 @@ class QuestionServicePage extends Component {
               }
             </Select>
           </FormItem>
+          <FormItem label="父问题">
+            <Select defaultValue="none" onChange={(value) => {
+                let addQuestionModelState = Object.assign({}, this.state.addQuestionModelState);
+                addQuestionModelState.question_father_question = value;
+                this.setState({addQuestionModelState: addQuestionModelState});
+              }}>
+              <Option value="none">无</Option>
+              {
+                this.state.questionFatherList.map(function(question) {
+                  return <Option value={question.mypcxt_question_id}>{question.question_describe}</Option>
+                })
+              }
+            </Select>
+          </FormItem>
         </Form>
       </Modal>
-      <Modal title="创建选项" visible={this.state.addOptionModalVisible} wrapClassName="vertical-center-modal" onOk={() => {
+      <Modal title="创建一个选择题的选项" visible={this.state.addOptionModalVisible} wrapClassName="vertical-center-modal" onOk={() => {
           store.dispatch(QuestionActions.addOption(this.state.addOptionModelState));
           this.setState({addOptionModalVisible: false});
         }} onCancel={() => {

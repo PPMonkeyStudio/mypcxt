@@ -1,4 +1,3 @@
-
 export default(state = [], action) => {
   switch (action.type) {
     case 'updateQuestionVO':
@@ -9,18 +8,25 @@ export default(state = [], action) => {
         newState["QuestionService"]["questionServiceVO"]["totalRecords"] = action.questionServiceVO.totalRecords;
         return newState;
       }
-    case 'setQuestionDetailsModalVisible':
-      {
-        const newState = Object.assign({}, state);
-        newState["QuestionService"]["questionDetailsModalVisible"] = action.questionDetailsModalVisible;
-        return newState;
-      }
     case 'updateServiceDefinitionList':
       {
         const newState = Object.assign({}, state);
         newState["QuestionService"]["serviceDefinitionList"] = action.serviceDefinitionList;
         return newState;
       }
+    case 'updateQuestionFatherList':
+      {
+        const newState = Object.assign({}, state);
+        newState["QuestionService"]["questionFatherList"] = action.questionFatherList;
+        return newState;
+      }
+    case 'setQuestionDetailsModalVisible':
+      {
+        const newState = Object.assign({}, state);
+        newState["QuestionService"]["questionDetailsModalVisible"] = action.questionDetailsModalVisible;
+        return newState;
+      }
+
     case 'setQuestionServiceTableLoading':
       {
         const newState = Object.assign({}, state);
