@@ -314,11 +314,7 @@ class QuestionServicePage extends Component {
                 this.setState({addQuestionModelState: addQuestionModelState});
               }}>
               <Option value="none">无</Option>
-              {
-                this.state.questionFatherList.map(function(question) {
-                  return <Option value={question.mypcxt_question_id}>{question.question_describe}</Option>
-                })
-              }
+
             </Select>
           </FormItem>
         </Form>
