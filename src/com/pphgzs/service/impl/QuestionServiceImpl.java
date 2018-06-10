@@ -85,7 +85,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public boolean saveQuestion(mypcxt_question question) {
-		if (questionDao.getUserByUserName(question.getQuestion_describe()) == null) {
+	
 			question.setMypcxt_question_id(uuidUtil.getUuid());
 			List<mypcxt_question> questionList = new ArrayList<mypcxt_question>();
 			question.setQuestion_sort(
@@ -98,10 +98,7 @@ public class QuestionServiceImpl implements QuestionService {
 			}
 			questionDao.saveQuestion(question);
 			return true;
-		} else {
-			return false;
-		}
-
+		
 	}
 
 	@Override
@@ -216,17 +213,13 @@ public class QuestionServiceImpl implements QuestionService {
 		for (mypcxt_question question : questionList) {
 			QuestionServiceDTO = new QuestionServiceDTO();
 			QuestionServiceDTO.setQuestion(question);
-			
-		}
-		List<ServiceDefinitionDTO> serviceDefinitionDTOList = getServiceDefinitionDTOList();
-		for (ServiceDefinitionDTO serviceDefinitionDTO : serviceDefinitionDTOList) {
-			QuestionServiceDTO = new QuestionServiceDTO();
+			QuestionServiceDTO.setOptionList(questionDao.getOptionByQuestion(question.getMypcxt_question_id()));
+			mypcxt_service_definition service_definition =	questionDao.getServiceDefinitionByQuestionServiceDefinition(question.getQuestion_service_definition());
+			ServiceDefinitionDTO  serviceDefinitionDTO=new ServiceDefinitionDTO();
+			serviceDefinitionDTO = serviceService.getServiceDefinitionDTO_byServiceDefinitionID(service_definition.getMypcxt_service_definition_id());
 			QuestionServiceDTO.setServiceDefinitionDTO(serviceDefinitionDTO);
+			QuestionServiceDTOList.add(QuestionServiceDTO);
 		}
-		List<mypcxt_option> optionList = questionDao.getOptionAll();
-		QuestionServiceDTO = new QuestionServiceDTO();
-		QuestionServiceDTO.setOptionList(optionList);
-		QuestionServiceDTOList.add(QuestionServiceDTO);
 		return QuestionServiceDTOList;
 	}
 

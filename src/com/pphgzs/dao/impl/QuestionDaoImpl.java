@@ -180,7 +180,7 @@ public class QuestionDaoImpl implements QuestionDao {
 		// TODO Auto-generated method stub
 		Session session = getSession();
 		String hql = "from mypcxt_option where option_question='"
-				+ option_question + "'";
+				+ option_question + "' order by option_sort desc";
 
 		Query query = session.createQuery(hql);
 		List<mypcxt_option> optionList = new ArrayList<mypcxt_option>();
@@ -255,6 +255,17 @@ public class QuestionDaoImpl implements QuestionDao {
 		Query query = session.createQuery(hql);
 		mypcxt_question question = (mypcxt_question) query.uniqueResult();
 		return question.getQuestion_service_definition();
+	}
+
+	@Override
+	public mypcxt_service_definition getServiceDefinitionByQuestionServiceDefinition(
+			String question_service_definition) {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		String hql = "from mypcxt_service_definition where mypcxt_service_definition_id ='"+question_service_definition+"'";
+		Query query = session.createQuery(hql);
+		mypcxt_service_definition service_definition = (mypcxt_service_definition) query.uniqueResult();
+		return service_definition;
 	}
 
 }
