@@ -1,8 +1,32 @@
 export const updateQuestionVO = (questionServiceVO) => ({type: 'updateQuestionVO', questionServiceVO: questionServiceVO})
-export const updateServiceDefinitionList = (serviceDefinitionList) => ({type: 'updateServiceDefinitionList', serviceDefinitionList: serviceDefinitionList})
+export const updateServiceDefinitionList = (serviceDefinitionDTOList) => ({type: 'updateServiceDefinitionList', serviceDefinitionDTOList: serviceDefinitionDTOList})
+export const updateQuestionFatherList = (questionFatherList) => ({type: 'updateQuestionFatherList', questionFatherList: questionFatherList})
+
+
 export const setQuestionDetailsModalVisible = (questionDetailsModalVisible) => ({type: 'setQuestionDetailsModalVisible', questionDetailsModalVisible: questionDetailsModalVisible})
 export const setQuestionServiceTableLoading = (tableLoading) => ({type: 'setQuestionServiceTableLoading', tableLoading: tableLoading})
 
+
+export const getQuestionFatherList = () => {
+  return(dispatch) => {
+    fetch('/mypcxt/Question/getQuestionFatherList', {
+      method: 'POST',
+      headers: {},
+    }).then((response) => {
+      if (response.status === 200) {
+        response.json().then((responseJson) => {
+          dispatch(updateQuestionFatherList(responseJson));
+        }).catch((error) => {
+          console.error(error);
+        });
+      } else {
+        console.error(response.status);
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  };
+}
 export const getServiceDefinitionList = () => {
   return(dispatch) => {
     fetch('/mypcxt/Question/getServiceDefinitionList', {
@@ -45,10 +69,11 @@ export const getQuestionServiceVO = () => {
     });
   };
 }
-export const updateQuestion = (question) => {
+export const updateQuestion = (updateQuestionState) => {
   return(dispatch) => {
     let formData = new FormData();
-    formData.append("question.question_describe", question.question_describe);
+    formData.append("question.mypcxt_question_id", updateQuestionState.mypcxt_question_id);
+    formData.append("question.question_describe", updateQuestionState.question_describe);
     fetch('/mypcxt/Question/updateQuestion', {
       method: 'POST',
       body: formData
@@ -70,7 +95,7 @@ export const updateQuestion = (question) => {
 export const moveOption = (moveOptionID, moveOptionAction) => {
   return(dispatch) => {
     let formData = new FormData();
-    formData.append("moveOptionID", moveOptionID);
+    formData.append("option.mypcxt_option_id", moveOptionID);
     formData.append("moveOptionAction", moveOptionAction);
     fetch('/mypcxt/Question/moveOption', {
       method: 'POST',
