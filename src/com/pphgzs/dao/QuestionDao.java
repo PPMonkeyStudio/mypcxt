@@ -53,5 +53,12 @@ public interface QuestionDao {
 
 	public mypcxt_question getQuestionByID(String mypcxt_question_id);
 
+	public String getServiceDefinitionByFatherQuestion(String question_father_question);
+
+	public mypcxt_service_definition getServiceDefinitionByQuestionServiceDefinition(
+			String question_service_definition);
+     
+	
+
 
 }
