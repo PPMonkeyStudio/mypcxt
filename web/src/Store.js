@@ -100,7 +100,17 @@ const initialState = {
       'serviceDefinitionDTOList': [],
       'questionFatherList': [],
       'tableLoading': false,
-    }
+    },
+    'Questionnaire': {
+      'questionnaireVO': {
+        'questionnaireDTOList': [],
+        'totalRecords': 0,
+      },
+      'tableLoading': false,
+    },
+    'Model_Questionnaire': {
+      questionnaireModalVisible:false,
+    },
   },
 };
 

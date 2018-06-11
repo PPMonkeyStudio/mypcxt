@@ -8,6 +8,14 @@ export default(state = [], action) => {
         newState["QuestionService"]["questionServiceVO"]["totalRecords"] = action.questionServiceVO.totalRecords;
         return newState;
       }
+    case 'updateQuestionnaireVO':
+      {
+        const newState = Object.assign({}, state);
+        //
+        newState["QuestionService"]["questionnaireVO"]["questionnaireDTOList"] = action.questionnaireVO.questionnaireDTOList;
+        newState["QuestionService"]["questionnaireVO"]["totalRecords"] = action.questionnaireVO.totalRecords;
+        return newState;
+      }
     case 'updateServiceDefinitionList':
       {
         const newState = Object.assign({}, state);
@@ -27,12 +35,25 @@ export default(state = [], action) => {
         return newState;
       }
 
+    case 'setQuestionnaireTableLoading':
+      {
+        const newState = Object.assign({}, state);
+        newState["Questionnaire"]["tableLoading"] = action.tableLoading;
+        return newState;
+      }
     case 'setQuestionServiceTableLoading':
       {
         const newState = Object.assign({}, state);
         newState["QuestionService"]["tableLoading"] = action.tableLoading;
         return newState;
       }
+    case 'set_questionnaireModalVisible':
+      {
+        const newState = Object.assign({}, state);
+        newState["Model_Questionnaire"]["questionnaireModalVisible"] = action.questionnaireModalVisible;
+        return newState;
+      }
+
     default:
       {
         return state;
