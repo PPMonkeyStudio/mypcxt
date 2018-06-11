@@ -286,4 +286,73 @@ public class QuestionServiceImpl implements QuestionService {
      
 		return questionnaireVO;
 	}
+
+	@Override
+	public QuestionnaireDTO getquestionnaireDTO_byServiceDefinitionID(String ServiceDefinitionID) {
+		QuestionnaireDTO questionnaireDTO = new QuestionnaireDTO();
+		//查询所有该业务定义下的问题，并装载进问卷
+		List<QuestionServiceDTO> questionDTOList=listQuestionDTO_byDefinitionID(ServiceDefinitionID);
+		questionnaireDTO.setQuestionServiceDTOList(questionDTOList);
+		ServiceDefinitionDTO serviceDefinitionDTO=serviceService
+				.getServiceDefinitionDTO_byServiceDefinitionID(ServiceDefinitionID);
+		questionnaireDTO.setServiceDefinitionDTO(serviceDefinitionDTO);
+		return questionnaireDTO;
+	}
+
+	@Override
+	public boolean moveQuestion(int moveQuestionAction, String mypcxt_question_id) {
+		if (mypcxt_question_id != null) {
+			/*
+			 * 查询对应ID的问题记录
+			 */
+			mypcxt_question question = questionDao.get_Question_byID(mypcxt_question_id);
+			List<mypcxt_question> questionList = new ArrayList<mypcxt_question>();
+			/*
+			 * 查询一条业务定义下的所有问题
+			 */
+			questionList = questionDao.list_Question_byDefinitionID(question.getQuestion_service_definition());
+			if (moveQuestionAction == 2) {
+				for (mypcxt_question question2 : questionList) {
+					int a, b, temp;
+					a = question2.getQuestion_sort();
+					b = question.getQuestion_sort();
+					if ((question2.getQuestion_sort()) - (question.getQuestion_sort()) == 1) {
+						temp = a;
+						a = b;
+						b = temp;
+						question2.setQuestion_sort(a);
+						questionDao.saveQuestion(question2);
+						question.setQuestion_sort(b);
+						questionDao.saveQuestion(question);
+
+					}
+				}
+			} else if (moveQuestionAction == 1) {
+				for (mypcxt_question question1 : questionList) {
+					int a, b, temp;
+					a = question1.getQuestion_sort();
+					b = question.getQuestion_sort();
+					if ((question.getQuestion_sort()) - (question1.getQuestion_sort()) == 1) {
+						temp = a;
+						a = b;
+						b = temp;
+						question1.setQuestion_sort(a);
+						questionDao.saveQuestion(question1);
+						question.setQuestion_sort(b);
+						questionDao.saveQuestion(question);
+					}
+				}
+
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public void updateOption(mypcxt_option option) {
+		//mypcxt_option old_option = questionDao.
+		
+	}
 }

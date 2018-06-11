@@ -15,6 +15,8 @@ import com.google.gson.GsonBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
+import com.pphgzs.domain.DO.mypcxt_service_definition;
+import com.pphgzs.domain.DTO.QuestionnaireDTO;
 import com.pphgzs.domain.DTO.ServiceDefinitionDTO;
 import com.pphgzs.domain.VO.QuestionServiceVO;
 import com.pphgzs.domain.VO.QuestionnaireVO;
@@ -34,6 +36,8 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	private mypcxt_option option;
 	private int moveOptionAction;
 	private QuestionnaireVO questionnaireVO;
+	private mypcxt_service_definition service_definition;
+	private int moveQuestionAction;
 
 	/*
 	 *  
@@ -141,6 +145,41 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	}
 
 	/*
+	 * 根据业务定义ID得到业务问卷
+	 */
+	public void getquestionnaireDTO_byServiceDefinitionID() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		QuestionnaireDTO questionnaireDTO = questionService
+				.getquestionnaireDTO_byServiceDefinitionID(service_definition.getMypcxt_service_definition_id());
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write(gson.toJson(questionnaireDTO));
+	}
+
+	/*
+	 * 移动问题
+	 */
+	public void moveQuestion() throws IOException {
+		if (questionService.moveQuestion(moveQuestionAction, question.getMypcxt_question_id())) {
+			http_response.setContentType("text/html;charset=utf-8");
+			http_response.getWriter().write("1");
+		} else {
+			http_response.setContentType("text/html;charset=utf-8");
+			http_response.getWriter().write("-1");
+		}
+	}
+
+	/*
+	 * 更新选择题选项
+	 */
+	public void updateOption() throws IOException {
+		questionService.updateOption(option);
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write("1");
+	}
+
+	/*
 	 */
 	@Override
 	public void setServletRequest(HttpServletRequest http_request) {
@@ -199,6 +238,26 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 
 	public void setMoveOptionAction(int moveOptionAction) {
 		this.moveOptionAction = moveOptionAction;
+	}
+
+	public mypcxt_service_definition getService_definition() {
+		return service_definition;
+	}
+
+	public void setService_definition(mypcxt_service_definition service_definition) {
+		this.service_definition = service_definition;
+	}
+
+	public int getMoveQuestionAction() {
+		return moveQuestionAction;
+	}
+
+	public void setMoveQuestionAction(int moveQuestionAction) {
+		this.moveQuestionAction = moveQuestionAction;
+	}
+
+	public void setQuestionnaireVO(QuestionnaireVO questionnaireVO) {
+		this.questionnaireVO = questionnaireVO;
 	}
 
 	/*
