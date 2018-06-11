@@ -20,12 +20,12 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag
+  Tag,
 } from 'antd';
 import * as QuestionActions from '../QuestionActions.js';
 
 const FormItem = Form.Item;
-const {Column, ColumnGroup} = Table;
+const {Column, ColumnGroup,} = Table;
 const Option = Select.Option;
 const {TextArea} = Input;
 //
@@ -39,7 +39,7 @@ class QuestionServicePage extends Component {
     this.state = {
       questionServiceVO: {
         questionServiceDTOList: [],
-        totalRecords: 0,
+        totalRecords: 0
       },
       tableLoading: false,
       questionDetailsModalVisible: false,
@@ -52,7 +52,7 @@ class QuestionServicePage extends Component {
           question_sort: 0,
           question_father_question: '',
           question_gmt_create: '',
-          question_gmt_modified: '',
+          question_gmt_modified: ''
         },
         serviceDefinitionDTO: {
           serviceDefinition: {
@@ -60,32 +60,33 @@ class QuestionServicePage extends Component {
             service_definition_describe: '',
             service_definition_unit: '',
             service_definition_gmt_create: '',
-            service_definition_gmt_modified: ''
+            service_definition_gmt_modified: '',
           },
           unit: {
             mypcxt_unit_id: '',
             unit_name: '',
             unit_correction_man: '',
             unit_gmt_create: '',
-            unit_gmt_modified: '',
-          },
+            unit_gmt_modified: ''
+          }
         },
-        optionList: []
+        optionList: [],
       },
       addQuestionModalVisible: false,
       addQuestionModelState: {
         question_describe: "",
         question_type: "",
         question_service_definition: "",
-        question_father_question: "",
+        question_father_question: ""
       },
       addOptionModalVisible: false,
       addOptionModelState: {
         option_describe: "",
         option_question: "",
-        option_grade: "",
+        option_grade: ""
       },
-      serviceDefinitionList: [],
+      questionFatherList: [],
+      serviceDefinitionDTOList: [],
       updateQuestionState: {
         mypcxt_question_id: '',
         question_describe: '',
@@ -112,14 +113,20 @@ class QuestionServicePage extends Component {
         questionDetailsModalVisible: store.getState()["QuestionReducer"]["QuestionService"]["questionDetailsModalVisible"]
       });
     }
-    if (this.state.serviceDefinitionList !== store.getState()["QuestionReducer"]["QuestionService"]["serviceDefinitionList"]) {
+    if (this.state.serviceDefinitionDTOList !== store.getState()["QuestionReducer"]["QuestionService"]["serviceDefinitionDTOList"]) {
       this.setState({
-        serviceDefinitionList: store.getState()["QuestionReducer"]["QuestionService"]["serviceDefinitionList"]
+        serviceDefinitionDTOList: store.getState()["QuestionReducer"]["QuestionService"]["serviceDefinitionDTOList"]
       });
     }
     if (this.state.tableLoading !== store.getState()["QuestionReducer"]["QuestionService"]["tableLoading"]) {
       this.setState({
         tableLoading: store.getState()["QuestionReducer"]["QuestionService"]["tableLoading"]
+      });
+    }
+    // 更新父问题列表
+    if (this.state.questionFatherList !== store.getState()["QuestionReducer"]["QuestionService"]["questionFatherList"]) {
+      this.setState({
+        questionFatherList: store.getState()["QuestionReducer"]["QuestionService"]["questionFatherList"]
       });
     }
   }
@@ -131,12 +138,12 @@ class QuestionServicePage extends Component {
     return (<div>
       <div style={{
           height: "34px",
-          margin: "0 0 20px 0"
+          margin: "0 0 20px 0",
         }}>
         <Button onClick={() => {
             this.setState({addQuestionModalVisible: true});
             store.dispatch(QuestionActions.getServiceDefinitionList());
-
+            store.dispatch(QuestionActions.getQuestionFatherList());
           }}>
           <Icon type="plus"/>
           &nbsp;创建问题
@@ -174,8 +181,9 @@ class QuestionServicePage extends Component {
       <div style={{
           margin: "20px auto 10px",
           width: "200px",
-          textAlign: "center",
+          textAlign: "center"
         }}>共{this.state.questionServiceVO.totalRecords}条记录</div>
+
       <Modal title="问题详情" visible={this.state.questionDetailsModalVisible} onCancel={() => {
           this.setState({questionDetailsModalVisible: false});
         }} footer={(
@@ -262,7 +270,7 @@ class QuestionServicePage extends Component {
 
       </Modal>
       {/* 创建问题模态框 */}
-      <Modal title="创建问题" visible={this.state.addQuestionModalVisible} wrapClassName="vertical-center-modal" onOk={() => {
+      <Modal title="创建一个新的业务问题" visible={this.state.addQuestionModalVisible} wrapClassName="vertical-center-modal" onOk={() => {
           store.dispatch(QuestionActions.addQuestion(this.state.addQuestionModelState));
           this.setState({addQuestionModalVisible: false});
         }} onCancel={() => {
@@ -293,15 +301,25 @@ class QuestionServicePage extends Component {
                 this.setState({addQuestionModelState: addQuestionModelState});
               }}>
               {
-                this.state.serviceDefinitionList.map(function(serviceDefinition) {
-                  return <Option value={serviceDefinition.mypcxt_service_definition_id}>{serviceDefinition.service_definition_describe}</Option>
+                this.state.serviceDefinitionDTOList.map(function(serviceDefinitionDTO) {
+                  return <Option value={serviceDefinitionDTO.serviceDefinition.mypcxt_service_definition_id}>{serviceDefinitionDTO.serviceDefinition.service_definition_describe}</Option>
                 })
               }
             </Select>
           </FormItem>
+          <FormItem label="父问题">
+            <Select defaultValue="none" onChange={(value) => {
+                let addQuestionModelState = Object.assign({}, this.state.addQuestionModelState);
+                addQuestionModelState.question_father_question = value;
+                this.setState({addQuestionModelState: addQuestionModelState});
+              }}>
+              <Option value="none">无</Option>
+
+            </Select>
+          </FormItem>
         </Form>
       </Modal>
-      <Modal title="创建选项" visible={this.state.addOptionModalVisible} wrapClassName="vertical-center-modal" onOk={() => {
+      <Modal title="创建一个选择题的选项" visible={this.state.addOptionModalVisible} wrapClassName="vertical-center-modal" onOk={() => {
           store.dispatch(QuestionActions.addOption(this.state.addOptionModelState));
           this.setState({addOptionModalVisible: false});
         }} onCancel={() => {
