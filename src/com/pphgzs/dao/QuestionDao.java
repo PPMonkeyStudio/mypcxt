@@ -93,6 +93,10 @@ public interface QuestionDao {
       * 通过业务定义ID得到该业务定义下的所有问题
       */
 	public List<mypcxt_question> list_Question_byDefinitionID(String definitionID);
+	/*
+	 * 更新选择题选项
+	 */
+	public void updateOption(mypcxt_option old_option);
 	
 	
 

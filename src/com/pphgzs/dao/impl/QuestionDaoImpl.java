@@ -256,4 +256,11 @@ public class QuestionDaoImpl implements QuestionDao {
 		return questionList;
 	}
 
+	@Override
+	public void updateOption(mypcxt_option old_option) {
+		Session session = getSession();
+		session.update(old_option);
+		session.flush();
+	}
+
 }

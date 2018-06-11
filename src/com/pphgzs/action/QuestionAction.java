@@ -33,6 +33,7 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	 * 
 	 */
 	private mypcxt_question question;
+
 	private mypcxt_option option;
 	private int moveOptionAction;
 	private QuestionnaireVO questionnaireVO;
