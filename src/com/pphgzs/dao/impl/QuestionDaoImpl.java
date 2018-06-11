@@ -71,7 +71,6 @@ public class QuestionDaoImpl implements QuestionDao {
 		return count;
 	}
 
-
 	@Override
 	public void saveQuestion(mypcxt_question question) {
 		Session session = getSession();
@@ -263,6 +262,5 @@ public class QuestionDaoImpl implements QuestionDao {
 		session.update(old_option);
 		session.flush();
 	}
-
 
 }
