@@ -6,6 +6,7 @@ import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
 import com.pphgzs.domain.DO.mypcxt_service_definition;
 import com.pphgzs.domain.DTO.QuestionServiceDTO;
+import com.pphgzs.domain.DTO.QuestionnaireDTO;
 import com.pphgzs.domain.DTO.ServiceDefinitionDTO;
 import com.pphgzs.domain.VO.QuestionServiceVO;
 import com.pphgzs.domain.VO.QuestionnaireVO;
@@ -41,5 +42,9 @@ public interface QuestionService {
 	public QuestionnaireVO getQuestionnaireVO();
 
 	public List<QuestionServiceDTO> listQuestionDTO_byDefinitionID(String DefinitionID);
+    /*
+     * 根据业务定义ID得到业务问卷
+     */
+	public QuestionnaireDTO getquestionnaireDTO_byServiceDefinitionID(String ServiceDefinitionID);
 
 }

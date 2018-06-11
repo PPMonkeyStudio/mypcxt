@@ -286,4 +286,16 @@ public class QuestionServiceImpl implements QuestionService {
      
 		return questionnaireVO;
 	}
+
+	@Override
+	public QuestionnaireDTO getquestionnaireDTO_byServiceDefinitionID(String ServiceDefinitionID) {
+		QuestionnaireDTO questionnaireDTO = new QuestionnaireDTO();
+		//查询所有该业务定义下的问题，并装载进问卷
+		List<QuestionServiceDTO> questionDTOList=listQuestionDTO_byDefinitionID(ServiceDefinitionID);
+		questionnaireDTO.setQuestionServiceDTOList(questionDTOList);
+		ServiceDefinitionDTO serviceDefinitionDTO=serviceService
+				.getServiceDefinitionDTO_byServiceDefinitionID(ServiceDefinitionID);
+		questionnaireDTO.setServiceDefinitionDTO(serviceDefinitionDTO);
+		return questionnaireDTO;
+	}
 }

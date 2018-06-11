@@ -15,6 +15,8 @@ import com.google.gson.GsonBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
+import com.pphgzs.domain.DO.mypcxt_service_definition;
+import com.pphgzs.domain.DTO.QuestionnaireDTO;
 import com.pphgzs.domain.DTO.ServiceDefinitionDTO;
 import com.pphgzs.domain.VO.QuestionServiceVO;
 import com.pphgzs.domain.VO.QuestionnaireVO;
@@ -34,6 +36,7 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	private mypcxt_option   option;
     private int moveOptionAction;
     private QuestionnaireVO questionnaireVO;
+    private mypcxt_service_definition service_definition;
 	/*
 	 *  
 	 */
@@ -136,6 +139,17 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 		questionnaireVO = questionService.getQuestionnaireVO();
 		http_response.setContentType("text/html;charset=utf-8");
 		http_response.getWriter().write(gson.toJson(questionnaireVO));
+	}
+	/*
+	 * 根据业务定义ID得到业务问卷
+	 */
+	public void getquestionnaireDTO_byServiceDefinitionID() throws IOException{
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		QuestionnaireDTO questionnaireDTO = questionService.getquestionnaireDTO_byServiceDefinitionID(service_definition.getMypcxt_service_definition_id());
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write(gson.toJson(questionnaireDTO));
 	}
 	/*
 	 */
