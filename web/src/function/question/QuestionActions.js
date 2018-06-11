@@ -2,7 +2,6 @@ export const updateQuestionVO = (questionServiceVO) => ({type: 'updateQuestionVO
 export const updateServiceDefinitionList = (serviceDefinitionDTOList) => ({type: 'updateServiceDefinitionList', serviceDefinitionDTOList: serviceDefinitionDTOList})
 export const updateQuestionFatherList = (questionFatherList) => ({type: 'updateQuestionFatherList', questionFatherList: questionFatherList})
 
-
 export const setQuestionDetailsModalVisible = (questionDetailsModalVisible) => ({type: 'setQuestionDetailsModalVisible', questionDetailsModalVisible: questionDetailsModalVisible})
 export const setQuestionServiceTableLoading = (tableLoading) => ({type: 'setQuestionServiceTableLoading', tableLoading: tableLoading})
 
@@ -57,6 +56,7 @@ export const getQuestionServiceVO = () => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
           dispatch(updateQuestionVO(responseJson));
+
           dispatch(setQuestionServiceTableLoading(false));
         }).catch((error) => {
           console.error(error);
@@ -103,6 +103,7 @@ export const moveOption = (moveOptionID, moveOptionAction) => {
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
+
           dispatch(getQuestionServiceVO());
         }).catch((error) => {
           console.error(error);
