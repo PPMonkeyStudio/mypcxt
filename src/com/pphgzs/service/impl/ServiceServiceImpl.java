@@ -115,6 +115,16 @@ public class ServiceServiceImpl implements ServiceService {
 		//
 		return serviceDefinitionDTO;
 	}
+	@Override
+	public List<ServiceDefinitionDTO> listServiceDefinitionDTO_all(){
+		List<ServiceDefinitionDTO> serviceDefinitionDTOList=new ArrayList<ServiceDefinitionDTO>();
+		List<mypcxt_service_definition> serviceDefinitionList = serviceDao.listServiceDefinitionAll();
+		for(mypcxt_service_definition serviceDefinition:serviceDefinitionList){
+			ServiceDefinitionDTO serviceDefinitionDTO=getServiceDefinitionDTO_byServiceDefinitionID(serviceDefinition.getMypcxt_service_definition_id());
+			serviceDefinitionDTOList.add(serviceDefinitionDTO);
+		}
+		return serviceDefinitionDTOList;
+	}
 
 	@Override
 	public ServiceInstanceDTO getServiceInstanceDTO_byServiceInstanceID(String serviceInstanceID) {

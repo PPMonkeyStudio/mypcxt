@@ -8,6 +8,7 @@ import com.pphgzs.domain.DO.mypcxt_service_definition;
 import com.pphgzs.domain.DTO.QuestionServiceDTO;
 import com.pphgzs.domain.DTO.ServiceDefinitionDTO;
 import com.pphgzs.domain.VO.QuestionServiceVO;
+import com.pphgzs.domain.VO.QuestionnaireVO;
 
 public interface QuestionService {
 
@@ -34,5 +35,11 @@ public interface QuestionService {
      * 获得选择题
      */
 	public List<mypcxt_question> getChoiceQuestionAll();
+     /*
+      * 获得页面问卷
+      */
+	public QuestionnaireVO getQuestionnaireVO();
+
+	public List<QuestionServiceDTO> listQuestionDTO_byDefinitionID(String DefinitionID);
 
 }

@@ -17,6 +17,7 @@ import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
 import com.pphgzs.domain.DTO.ServiceDefinitionDTO;
 import com.pphgzs.domain.VO.QuestionServiceVO;
+import com.pphgzs.domain.VO.QuestionnaireVO;
 import com.pphgzs.service.QuestionService;
 
 @SuppressWarnings("serial")
@@ -32,6 +33,7 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	private mypcxt_question question;
 	private mypcxt_option option;
 	private int moveOptionAction;
+	private QuestionnaireVO questionnaireVO;
 
 	/*
 	 *  
@@ -124,6 +126,18 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 		List<mypcxt_question> questionList = questionService.getChoiceQuestionAll();
 		http_response.setContentType("text/html;charset=utf-8");
 		http_response.getWriter().write(gson.toJson(questionList));
+	}
+
+	/*
+	 * 获取页面问卷
+	 */
+	public void getQuestionnaireVO() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		questionnaireVO = questionService.getQuestionnaireVO();
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write(gson.toJson(questionnaireVO));
 	}
 
 	/*
