@@ -1,5 +1,5 @@
 export const updateQuestionVO = (questionServiceVO) => ({type: 'updateQuestionVO', questionServiceVO: questionServiceVO})
-export const updateQuestionnaireVO = (questionnaireVO) => ({type: 'updateQuestionnaireVO', questionnaireVO: questionnaireVO})
+
 
 export const updateServiceDefinitionList = (serviceDefinitionDTOList) => ({type: 'updateServiceDefinitionList', serviceDefinitionDTOList: serviceDefinitionDTOList})
 export const updateQuestionFatherList = (questionFatherList) => ({type: 'updateQuestionFatherList', questionFatherList: questionFatherList})
@@ -7,30 +7,9 @@ export const updateQuestionFatherList = (questionFatherList) => ({type: 'updateQ
 export const setQuestionDetailsModalVisible = (questionDetailsModalVisible) => ({type: 'setQuestionDetailsModalVisible', questionDetailsModalVisible: questionDetailsModalVisible})
 
 export const setQuestionServiceTableLoading = (tableLoading) => ({type: 'setQuestionServiceTableLoading', tableLoading: tableLoading})
-export const setQuestionnaireTableLoading = (tableLoading) => ({type: 'setQuestionnaireTableLoading', tableLoading: tableLoading})
 
-export const getQuestionnaireVO = () => {
-  return(dispatch) => {
-    dispatch(setQuestionnaireTableLoading(true));
-    fetch('/mypcxt/Question/getQuestionnaireVO', {
-      method: 'POST',
-      headers: {},
-    }).then((response) => {
-      if (response.status === 200) {
-        response.json().then((responseJson) => {
-          dispatch(updateQuestionnaireVO(responseJson));
-          dispatch(setQuestionnaireTableLoading(false));
-        }).catch((error) => {
-          console.error(error);
-        });
-      } else {
-        console.error(response.status);
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
-  };
-}
+
+
 export const getQuestionFatherList = () => {
   return(dispatch) => {
     fetch('/mypcxt/Question/getQuestionFatherList', {
