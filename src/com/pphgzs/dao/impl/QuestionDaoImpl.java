@@ -71,14 +71,6 @@ public class QuestionDaoImpl implements QuestionDao {
 		return count;
 	}
 
-	@Override
-	public Object getUserByUserName(String question_describe) {
-		Session session =getSession();
-		String hql="select question_describe from mypcxt_question where question_describe ='"+question_describe+"'";
-		Query query =session.createQuery(hql);
-		List<mypcxt_question> questionList = query.list();
-		return questionList.get(0);
-	}
 
 	@Override
 	public void saveQuestion(mypcxt_question question) {
@@ -264,5 +256,6 @@ public class QuestionDaoImpl implements QuestionDao {
 		
 		return questionList;
 	}
+
 
 }

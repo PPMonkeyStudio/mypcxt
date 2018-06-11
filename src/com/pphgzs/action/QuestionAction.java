@@ -37,6 +37,7 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
     private int moveOptionAction;
     private QuestionnaireVO questionnaireVO;
     private mypcxt_service_definition service_definition;
+    private int moveQuestionAction;
 	/*
 	 *  
 	 */
@@ -152,6 +153,26 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 		http_response.getWriter().write(gson.toJson(questionnaireDTO));
 	}
 	/*
+	 * 移动问题
+	 */
+	public void moveQuestion() throws IOException{
+		if (questionService.moveQuestion(moveQuestionAction, question.getMypcxt_question_id())) {
+			http_response.setContentType("text/html;charset=utf-8");
+			http_response.getWriter().write("1");
+		} else {
+			http_response.setContentType("text/html;charset=utf-8");
+			http_response.getWriter().write("-1");
+		}
+	}
+	/*
+	 * 更新选择题选项
+	 */
+	public void updateOption() throws IOException{
+		questionService.updateOption(option);
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write("1");
+	}
+	/*
 	 */
 	@Override
 	public void setServletRequest(HttpServletRequest http_request) {
@@ -210,6 +231,26 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 
 	public void setMoveOptionAction(int moveOptionAction) {
 		this.moveOptionAction = moveOptionAction;
+	}
+
+	public mypcxt_service_definition getService_definition() {
+		return service_definition;
+	}
+
+	public void setService_definition(mypcxt_service_definition service_definition) {
+		this.service_definition = service_definition;
+	}
+
+	public int getMoveQuestionAction() {
+		return moveQuestionAction;
+	}
+
+	public void setMoveQuestionAction(int moveQuestionAction) {
+		this.moveQuestionAction = moveQuestionAction;
+	}
+
+	public void setQuestionnaireVO(QuestionnaireVO questionnaireVO) {
+		this.questionnaireVO = questionnaireVO;
 	}
 
 	/*
