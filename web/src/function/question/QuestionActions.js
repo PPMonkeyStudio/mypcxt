@@ -1,3 +1,5 @@
+import * as QuestionnaireActions from '../question/QuestionnaireActions.js';
+
 export const updateQuestionVO = (questionServiceVO) => ({type: 'updateQuestionVO', questionServiceVO: questionServiceVO})
 
 
@@ -109,8 +111,30 @@ export const moveOption = (moveOptionID, moveOptionAction) => {
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
-
-          dispatch(getQuestionServiceVO());
+          dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(responseJson));
+        }).catch((error) => {
+          console.error(error);
+        });
+      } else {
+        console.error(response.status);
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  };
+}
+export const moveQuestion = (moveQuestionID, moveQuestionAction) => {
+  return(dispatch) => {
+    let formData = new FormData();
+    formData.append("question.mypcxt_question_id", moveQuestionID);
+    formData.append("moveQuestionAction", moveQuestionAction);
+    fetch('/mypcxt/Question/moveQuestion', {
+      method: 'POST',
+      body: formData
+    }).then((response) => {
+      if (response.status === 200) {
+        response.json().then((responseJson) => {
+          dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(responseJson));
         }).catch((error) => {
           console.error(error);
         });

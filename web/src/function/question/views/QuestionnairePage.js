@@ -80,7 +80,7 @@ class QuestionnairePage extends Component {
         <Column title="业务问卷" dataIndex="questionnaireDTO" align="center" render={(text, record) => {
             return (<a onClick={() => {
                 store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(true));
-                store.dispatch(QuestionnaireActions.set_questionnaireModalState(record));
+                store.dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(record.serviceDefinitionDTO.serviceDefinition.mypcxt_service_definition_id));
               }}>{record.serviceDefinitionDTO.serviceDefinition.service_definition_describe}</a>);
           }}/>
       </Table>
