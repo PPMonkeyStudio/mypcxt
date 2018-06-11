@@ -73,7 +73,6 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public Object getUserByUserName(String question_describe) {
-		// TODO Auto-generated method stub
 		Session session =getSession();
 		String hql="select question_describe from mypcxt_question where question_describe ='"+question_describe+"'";
 		Query query =session.createQuery(hql);
@@ -123,7 +122,6 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public List<mypcxt_unit> listUnitAll() {
-		// TODO Auto-generated method stub
 		List<mypcxt_unit> unit_List = new ArrayList<mypcxt_unit>();
 		Session session = getSession();
 		String hql = "from mypcxt_unit";
@@ -135,7 +133,6 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public int getMaxOption_Sort_byQuestionID(String  option_question) {
-		// TODO Auto-generated method stub
 		Session session = getSession();
 		//
 		String hql = "select option_sort from mypcxt_option where option_question='"
@@ -157,7 +154,6 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public void addOption(mypcxt_option option) {
-		// TODO Auto-generated method stub
 		Session session = getSession();
 		session.save(option);
 		session.flush();
@@ -165,7 +161,6 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public mypcxt_option getOpion_QuestionByOptionID(String mypcxt_option_id) {
-		// TODO Auto-generated method stub
 		Session session = getSession();
 		String hql = "from mypcxt_option where mypcxt_option_id='"
 				+ mypcxt_option_id + "'";
@@ -177,7 +172,6 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public List<mypcxt_option> getOptionByQuestion(String option_question) {
-		// TODO Auto-generated method stub
 		Session session = getSession();
 		String hql = "from mypcxt_option where option_question='"
 				+ option_question + "' order by option_sort desc";
@@ -191,7 +185,6 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public void updateQuestion(mypcxt_question question) {
-		// TODO Auto-generated method stub
 		Session session = getSession();
 		session.update(question);
 		session.flush();
@@ -199,7 +192,6 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public List<mypcxt_question> getQuestionAll() {
-		// TODO Auto-generated method stub
 		Session session = getSession();
 		String hql = "from mypcxt_question ";
 		Query query = session.createQuery(hql);
@@ -209,7 +201,6 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public List<mypcxt_option> getOptionAll() {
-		// TODO Auto-generated method stub
 		Session session = getSession();
 		String hql = "from mypcxt_option ";
 		Query query = session.createQuery(hql);
@@ -219,7 +210,6 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public List<mypcxt_question> getChoiceQuestionAll() {
-		// TODO Auto-generated method stub
 		Session session = getSession();
 		String hql = "from mypcxt_question where question_type = 1 ";
 		Query query = session.createQuery(hql);
@@ -229,7 +219,6 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public Object getOptionByQuestion_describe(String option_describe) {
-		// TODO Auto-generated method stub
 		Session session = getSession();
 		String hql="select option_describe from mypcxt_option where mypcxt_option ='"+option_describe+"'";
 		Query query = session.createQuery(hql);
@@ -239,7 +228,6 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public mypcxt_question getQuestionByID(String mypcxt_question_id) {
-		// TODO Auto-generated method stub
 		Session session = getSession();
 		String hql = "from mypcxt_question where mypcxt_question_id = '"+mypcxt_question_id+"'";
 		Query query = session.createQuery(hql);
@@ -249,7 +237,6 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public String getServiceDefinitionByFatherQuestion(String question_father_question) {
-		// TODO Auto-generated method stub
 		Session session = getSession();
 		String hql = "select question_service_definition from mypcxt_question where question_father_question='"+question_father_question+"'";
 		Query query = session.createQuery(hql);
@@ -260,12 +247,22 @@ public class QuestionDaoImpl implements QuestionDao {
 	@Override
 	public mypcxt_service_definition getServiceDefinitionByQuestionServiceDefinition(
 			String question_service_definition) {
-		// TODO Auto-generated method stub
 		Session session = getSession();
 		String hql = "from mypcxt_service_definition where mypcxt_service_definition_id ='"+question_service_definition+"'";
 		Query query = session.createQuery(hql);
 		mypcxt_service_definition service_definition = (mypcxt_service_definition) query.uniqueResult();
 		return service_definition;
+	}
+
+	@Override
+	public List<mypcxt_question> list_Question_byDefinitionID(String definitionID) {
+		
+		Session session = getSession();
+		String hql = "from mypcxt_question where question_service_definition = '"+definitionID+"' ";
+		Query query = session.createQuery(hql);
+		List<mypcxt_question> questionList= query.list();
+		
+		return questionList;
 	}
 
 }

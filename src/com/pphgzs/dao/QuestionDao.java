@@ -57,6 +57,8 @@ public interface QuestionDao {
 
 	public mypcxt_service_definition getServiceDefinitionByQuestionServiceDefinition(
 			String question_service_definition);
+
+	public List<mypcxt_question> list_Question_byDefinitionID(String definitionID);
      
 	
 

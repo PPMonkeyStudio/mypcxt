@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.pphgzs.dao.QuestionDao;
+import com.pphgzs.dao.ServiceDao;
 import com.pphgzs.dao.UnitDao;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
 import com.pphgzs.domain.DO.mypcxt_service_definition;
 import com.pphgzs.domain.DO.mypcxt_unit;
 import com.pphgzs.domain.DTO.QuestionServiceDTO;
+import com.pphgzs.domain.DTO.QuestionnaireDTO;
 import com.pphgzs.domain.DTO.ServiceDefinitionDTO;
 import com.pphgzs.domain.VO.QuestionServiceVO;
+import com.pphgzs.domain.VO.QuestionnaireVO;
+import com.pphgzs.domain.VO.ServiceDefinitionVO;
 import com.pphgzs.service.QuestionService;
 import com.pphgzs.service.ServiceService;
 import com.pphgzs.util.TimeUtil;
@@ -22,7 +26,8 @@ public class QuestionServiceImpl implements QuestionService {
 	private QuestionDao questionDao;
 	private UnitDao unitDao;
 	private ServiceService serviceService;
-
+	private ServiceDao serviceDao;
+	
 	public ServiceService getServiceService() {
 		return serviceService;
 	}
@@ -38,10 +43,19 @@ public class QuestionServiceImpl implements QuestionService {
 	public void setQuestionDao(QuestionDao questionDao) {
 		this.questionDao = questionDao;
 	}
+	
 	/*
 	 * 
 	 * 
 	 */
+
+	public ServiceDao getServiceDao() {
+		return serviceDao;
+	}
+
+	public void setServiceDao(ServiceDao serviceDao) {
+		this.serviceDao = serviceDao;
+	}
 
 	public UnitDao getUnitDao() {
 		return unitDao;
@@ -228,5 +242,48 @@ public class QuestionServiceImpl implements QuestionService {
 		// TODO Auto-generated method stub
 		List<mypcxt_question> questionList = questionDao.getChoiceQuestionAll();
 		return questionList;
+	}
+	@Override
+	public List<QuestionServiceDTO> listQuestionDTO_byDefinitionID(String DefinitionID) {
+	
+		List<QuestionServiceDTO> questionServiceDTOList=new ArrayList<QuestionServiceDTO>();
+		
+		List<mypcxt_question> questionList=questionDao.list_Question_byDefinitionID(DefinitionID);
+		
+		for(mypcxt_question question:questionList){
+			QuestionServiceDTO questionServiceDTO=getQuestionServiceDTO_byQuestionID(question.getMypcxt_question_id());
+		
+			questionServiceDTOList.add(questionServiceDTO);
+		}
+		
+		return questionServiceDTOList;
+	}
+	@Override
+	public QuestionnaireVO getQuestionnaireVO() {
+		// TODO Auto-generated method stub
+		/*页面问卷VO*/
+		QuestionnaireVO questionnaireVO = new QuestionnaireVO();
+		/*业务问卷DTO*/
+		List<QuestionnaireDTO> questionnaireDTOList =new ArrayList<QuestionnaireDTO>();
+		
+		
+		/*查询所有业务*/
+		List<ServiceDefinitionDTO> serviceDefinitionDTOList  = serviceService.listServiceDefinitionDTO_all();
+       
+		for(ServiceDefinitionDTO serviceDefinitionDTO:serviceDefinitionDTOList){
+			QuestionnaireDTO questionnaireDTO=new QuestionnaireDTO();
+			//装载业务定义进问卷
+			questionnaireDTO.setServiceDefinitionDTO(serviceDefinitionDTO);
+			//查询所有该业务定义下的问题，并装载进问卷
+			List<QuestionServiceDTO> questionDTOList=listQuestionDTO_byDefinitionID(serviceDefinitionDTO.getServiceDefinition().getMypcxt_service_definition_id());
+			questionnaireDTO.setQuestionServiceDTOList(questionDTOList);
+			//将问卷装进问卷列表中
+			questionnaireDTOList.add(questionnaireDTO);
+		}
+		questionnaireVO.setQuestionnaireDTOList(questionnaireDTOList);
+		
+		questionnaireVO.setTotalRecords(serviceDao.getServiceDefinitionTotalRecords());
+     
+		return questionnaireVO;
 	}
 }
