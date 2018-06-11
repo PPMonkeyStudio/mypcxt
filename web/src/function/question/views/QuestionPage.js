@@ -31,6 +31,7 @@ import {
   Pagination,
 } from 'antd';
 import QuestionServicePage from '../../question/views/QuestionServicePage.js';
+import QuestionnairePage from '../../question/views/QuestionnairePage.js';
 //
 //
 //
@@ -101,7 +102,7 @@ class QuestionPage extends Component {
           });
         }}>
         <Switch>
-          <WelcomeQuestionPage path="/NavbarPage/ManagePage/QuestionPage/QuestionnairePage"/>
+          <QuestionnairePage path="/NavbarPage/ManagePage/QuestionPage/QuestionnairePage"/>
           <QuestionServicePage path="/NavbarPage/ManagePage/QuestionPage/QuestionServicePage"/>
         </Switch>
       </Card>

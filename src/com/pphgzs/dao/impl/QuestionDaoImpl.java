@@ -43,7 +43,7 @@ public class QuestionDaoImpl implements QuestionDao {
 		List<mypcxt_option> optionList = new ArrayList<mypcxt_option>();
 
 		Session session = getSession();
-		String hql = "from mypcxt_option where option_question='" + questionID + "'";
+		String hql = "from mypcxt_option where option_question='" + questionID + "' order by option_sort desc";
 		Query query = session.createQuery(hql);
 		optionList = query.list();
 		session.clear();
@@ -124,11 +124,11 @@ public class QuestionDaoImpl implements QuestionDao {
 	}
 
 	@Override
-	public int getMaxOption_Sort_byQuestionID(String  option_question) {
+	public int getMaxOption_Sort_byQuestionID(String option_question) {
 		Session session = getSession();
 		//
-		String hql = "select option_sort from mypcxt_option where option_question='"
-				+ option_question + "' order by option_sort desc";
+		String hql = "select option_sort from mypcxt_option where option_question='" + option_question
+				+ "' order by option_sort desc";
 
 		Query query = session.createQuery(hql);
 
@@ -141,7 +141,7 @@ public class QuestionDaoImpl implements QuestionDao {
 		session.clear();
 		// 返回第一个值（最大值）
 		return maxOptionSort_onQuestion.get(0);
-		
+
 	}
 
 	@Override
@@ -154,8 +154,7 @@ public class QuestionDaoImpl implements QuestionDao {
 	@Override
 	public mypcxt_option getOpion_QuestionByOptionID(String mypcxt_option_id) {
 		Session session = getSession();
-		String hql = "from mypcxt_option where mypcxt_option_id='"
-				+ mypcxt_option_id + "'";
+		String hql = "from mypcxt_option where mypcxt_option_id='" + mypcxt_option_id + "'";
 
 		Query query = session.createQuery(hql);
 		mypcxt_option option = (mypcxt_option) query.uniqueResult();
@@ -165,14 +164,13 @@ public class QuestionDaoImpl implements QuestionDao {
 	@Override
 	public List<mypcxt_option> getOptionByQuestion(String option_question) {
 		Session session = getSession();
-		String hql = "from mypcxt_option where option_question='"
-				+ option_question + "' order by option_sort desc";
+		String hql = "from mypcxt_option where option_question='" + option_question + "' order by option_sort desc";
 
 		Query query = session.createQuery(hql);
 		List<mypcxt_option> optionList = new ArrayList<mypcxt_option>();
 		optionList = query.list();
 		return optionList;
-		
+
 	}
 
 	@Override
@@ -187,7 +185,7 @@ public class QuestionDaoImpl implements QuestionDao {
 		Session session = getSession();
 		String hql = "from mypcxt_question ";
 		Query query = session.createQuery(hql);
-		List<mypcxt_question> question_List = query.list();		
+		List<mypcxt_question> question_List = query.list();
 		return question_List;
 	}
 
@@ -196,7 +194,7 @@ public class QuestionDaoImpl implements QuestionDao {
 		Session session = getSession();
 		String hql = "from mypcxt_option ";
 		Query query = session.createQuery(hql);
-		List<mypcxt_option> option_List = query.list();		
+		List<mypcxt_option> option_List = query.list();
 		return option_List;
 	}
 
@@ -205,14 +203,14 @@ public class QuestionDaoImpl implements QuestionDao {
 		Session session = getSession();
 		String hql = "from mypcxt_question where question_type = 1 ";
 		Query query = session.createQuery(hql);
-		List<mypcxt_question> questionList= query.list();
+		List<mypcxt_question> questionList = query.list();
 		return questionList;
 	}
 
 	@Override
 	public Object getOptionByQuestion_describe(String option_describe) {
 		Session session = getSession();
-		String hql="select option_describe from mypcxt_option where mypcxt_option ='"+option_describe+"'";
+		String hql = "select option_describe from mypcxt_option where mypcxt_option ='" + option_describe + "'";
 		Query query = session.createQuery(hql);
 		List<mypcxt_option> optionList = query.list();
 		return optionList.get(0);
@@ -221,7 +219,7 @@ public class QuestionDaoImpl implements QuestionDao {
 	@Override
 	public mypcxt_question getQuestionByID(String mypcxt_question_id) {
 		Session session = getSession();
-		String hql = "from mypcxt_question where mypcxt_question_id = '"+mypcxt_question_id+"'";
+		String hql = "from mypcxt_question where mypcxt_question_id = '" + mypcxt_question_id + "'";
 		Query query = session.createQuery(hql);
 		mypcxt_question question = (mypcxt_question) query.uniqueResult();
 		return question;
@@ -230,7 +228,8 @@ public class QuestionDaoImpl implements QuestionDao {
 	@Override
 	public String getServiceDefinitionByFatherQuestion(String question_father_question) {
 		Session session = getSession();
-		String hql = "select question_service_definition from mypcxt_question where question_father_question='"+question_father_question+"'";
+		String hql = "select question_service_definition from mypcxt_question where question_father_question='"
+				+ question_father_question + "'";
 		Query query = session.createQuery(hql);
 		mypcxt_question question = (mypcxt_question) query.uniqueResult();
 		return question.getQuestion_service_definition();
@@ -240,7 +239,8 @@ public class QuestionDaoImpl implements QuestionDao {
 	public mypcxt_service_definition getServiceDefinitionByQuestionServiceDefinition(
 			String question_service_definition) {
 		Session session = getSession();
-		String hql = "from mypcxt_service_definition where mypcxt_service_definition_id ='"+question_service_definition+"'";
+		String hql = "from mypcxt_service_definition where mypcxt_service_definition_id ='"
+				+ question_service_definition + "'";
 		Query query = session.createQuery(hql);
 		mypcxt_service_definition service_definition = (mypcxt_service_definition) query.uniqueResult();
 		return service_definition;
@@ -248,12 +248,12 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public List<mypcxt_question> list_Question_byDefinitionID(String definitionID) {
-		
+
 		Session session = getSession();
-		String hql = "from mypcxt_question where question_service_definition = '"+definitionID+"' ";
+		String hql = "from mypcxt_question where question_service_definition = '" + definitionID + "' ";
 		Query query = session.createQuery(hql);
-		List<mypcxt_question> questionList= query.list();
-		
+		List<mypcxt_question> questionList = query.list();
+
 		return questionList;
 	}
 

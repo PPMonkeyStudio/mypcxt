@@ -20,12 +20,12 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag,
+  Tag
 } from 'antd';
 import * as QuestionActions from '../QuestionActions.js';
 
 const FormItem = Form.Item;
-const {Column, ColumnGroup,} = Table;
+const {Column, ColumnGroup} = Table;
 const Option = Select.Option;
 const {TextArea} = Input;
 //
@@ -39,7 +39,7 @@ class QuestionServicePage extends Component {
     this.state = {
       questionServiceVO: {
         questionServiceDTOList: [],
-        totalRecords: 0
+        totalRecords: 0,
       },
       tableLoading: false,
       questionDetailsModalVisible: false,
@@ -52,7 +52,7 @@ class QuestionServicePage extends Component {
           question_sort: 0,
           question_father_question: '',
           question_gmt_create: '',
-          question_gmt_modified: ''
+          question_gmt_modified: '',
         },
         serviceDefinitionDTO: {
           serviceDefinition: {
@@ -60,30 +60,30 @@ class QuestionServicePage extends Component {
             service_definition_describe: '',
             service_definition_unit: '',
             service_definition_gmt_create: '',
-            service_definition_gmt_modified: '',
+            service_definition_gmt_modified: ''
           },
           unit: {
             mypcxt_unit_id: '',
             unit_name: '',
             unit_correction_man: '',
             unit_gmt_create: '',
-            unit_gmt_modified: ''
-          }
+            unit_gmt_modified: '',
+          },
         },
-        optionList: [],
+        optionList: []
       },
       addQuestionModalVisible: false,
       addQuestionModelState: {
         question_describe: "",
         question_type: "",
         question_service_definition: "",
-        question_father_question: ""
+        question_father_question: "",
       },
       addOptionModalVisible: false,
       addOptionModelState: {
         option_describe: "",
         option_question: "",
-        option_grade: ""
+        option_grade: "",
       },
       questionFatherList: [],
       serviceDefinitionDTOList: [],
@@ -95,8 +95,8 @@ class QuestionServicePage extends Component {
         question_sort: 0,
         question_father_question: '',
         question_gmt_create: '',
-        question_gmt_modified: '',
-      },
+        question_gmt_modified: ''
+      }
     }
     //
     //
@@ -104,8 +104,9 @@ class QuestionServicePage extends Component {
   }
   storeChanged() {
     if (this.state.questionServiceVO !== store.getState()["QuestionReducer"]["QuestionService"]["questionServiceVO"]) {
+
       this.setState({
-        questionServiceVO: store.getState()["QuestionReducer"]["QuestionService"]["questionServiceVO"]
+        questionServiceVO: store.getState()["QuestionReducer"]["QuestionService"]["questionServiceVO"],
       });
     }
     if (this.state.questionDetailsModalVisible !== store.getState()["QuestionReducer"]["QuestionService"]["questionDetailsModalVisible"]) {
@@ -138,7 +139,7 @@ class QuestionServicePage extends Component {
     return (<div>
       <div style={{
           height: "34px",
-          margin: "0 0 20px 0",
+          margin: "0 0 20px 0"
         }}>
         <Button onClick={() => {
             this.setState({addQuestionModalVisible: true});
@@ -153,10 +154,12 @@ class QuestionServicePage extends Component {
         <Column title="问题" dataIndex="question.question_describe" align="center" render={(text, record) => {
             return (<Tooltip title="查看">
               <a onClick={() => {
-                  this.setState({questionDetailsModalVisible: true});
+                  store.dispatch(QuestionActions.setQuestionDetailsModalVisible(true));
+                  //
                   let questionDetails = Object.assign({}, this.state.questionDetails);
                   questionDetails = record;
                   this.setState({questionDetails: questionDetails});
+                  //
                   this.setState({updateQuestionState: questionDetails.question});
                 }}>{record.question.question_describe}</a>
             </Tooltip>);
@@ -181,19 +184,24 @@ class QuestionServicePage extends Component {
       <div style={{
           margin: "20px auto 10px",
           width: "200px",
-          textAlign: "center"
+          textAlign: "center",
         }}>共{this.state.questionServiceVO.totalRecords}条记录</div>
 
       <Modal title="问题详情" visible={this.state.questionDetailsModalVisible} onCancel={() => {
-          this.setState({questionDetailsModalVisible: false});
+          store.dispatch(QuestionActions.setQuestionDetailsModalVisible(false));
         }} footer={(
           this.state.questionDetails.question.question_type === "1")
           ? [
             <Button onClick={() => {
-                this.setState({questionDetailsModalVisible: false});
+                store.dispatch(QuestionActions.setQuestionDetailsModalVisible(false));
               }}>返回</Button>,
             <Button icon="plus" onClick={() => {
                 this.setState({addOptionModalVisible: true});
+                //设置所属问题
+                let addOptionModelState = Object.assign({}, this.state.addOptionModelState);
+                addOptionModelState.option_question = this.state.questionDetails.question.mypcxt_question_id;
+                addOptionModelState.option_grade = 1;
+                this.setState({addOptionModelState: addOptionModelState});
               }}>
               创建新的选项
             </Button>,
@@ -233,13 +241,13 @@ class QuestionServicePage extends Component {
                           <Divider type="vertical"/>
                           <Tooltip title="上移">
                             <a onClick={() => {
-                                store.dispatch(QuestionActions.moveOption(text, "1"));
+                                store.dispatch(QuestionActions.moveOption(record.mypcxt_option_id, "2"));
                               }}><Icon type="arrow-up"/></a>
                           </Tooltip>
                           <Divider type="vertical"/>
                           <Tooltip title="下移">
                             <a onClick={() => {
-                                store.dispatch(QuestionActions.moveOption(text, "2"));
+                                store.dispatch(QuestionActions.moveOption(record.mypcxt_option_id, "1"));
                               }}><Icon type="arrow-down"/></a>
                           </Tooltip>
                           <Divider type="vertical"/>
@@ -295,11 +303,12 @@ class QuestionServicePage extends Component {
             </Select>
           </FormItem>
           <FormItem label="所属业务">
-            <Select onChange={(value) => {
+            <Select defaultValue="none" onChange={(value) => {
                 let addQuestionModelState = Object.assign({}, this.state.addQuestionModelState);
                 addQuestionModelState.question_service_definition = value;
                 this.setState({addQuestionModelState: addQuestionModelState});
               }}>
+              <Option value="none">无</Option>
               {
                 this.state.serviceDefinitionDTOList.map(function(serviceDefinitionDTO) {
                   return <Option value={serviceDefinitionDTO.serviceDefinition.mypcxt_service_definition_id}>{serviceDefinitionDTO.serviceDefinition.service_definition_describe}</Option>
@@ -314,7 +323,11 @@ class QuestionServicePage extends Component {
                 this.setState({addQuestionModelState: addQuestionModelState});
               }}>
               <Option value="none">无</Option>
-
+              {
+                this.state.questionFatherList.map(function(question) {
+                  return <Option value={question.mypcxt_question_id}>{question.question_describe}</Option>
+                })
+              }
             </Select>
           </FormItem>
         </Form>
@@ -334,9 +347,9 @@ class QuestionServicePage extends Component {
               }}/>
           </FormItem>
           <FormItem label="分值">
-            <InputNumber defaultValue={1} onChange={(event) => {
+            <InputNumber value={this.state.addOptionModelState.option_grade} onChange={(value) => {
                 let addOptionModelState = Object.assign({}, this.state.addOptionModelState);
-                addOptionModelState.option_grade = event.target.value;
+                addOptionModelState.option_grade = value;
                 this.setState({addOptionModelState: addOptionModelState});
               }}/>
           </FormItem>
