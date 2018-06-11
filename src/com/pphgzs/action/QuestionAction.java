@@ -172,9 +172,9 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	 * 更新选择题选项
 	 */
 	public void updateOption() throws IOException{
-		questionService.updateOption(option);
+		String service_definition_id = questionService.updateOption(option);
 		http_response.setContentType("text/html;charset=utf-8");
-		http_response.getWriter().write("1");
+		http_response.getWriter().write(service_definition_id);
 	}
 
 	/*

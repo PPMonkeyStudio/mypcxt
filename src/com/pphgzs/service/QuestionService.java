@@ -63,6 +63,6 @@ public interface QuestionService {
      /*
       * 更新选择题选项
       */
-	public void updateOption(mypcxt_option option);
+	public String updateOption(mypcxt_option option);
 
 }

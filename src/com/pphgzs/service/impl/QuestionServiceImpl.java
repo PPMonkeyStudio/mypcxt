@@ -351,12 +351,15 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
-	public void updateOption(mypcxt_option option) {
+	public String updateOption(mypcxt_option option) {
 		mypcxt_option old_option = questionDao.getOpion_QuestionByOptionID(option.getMypcxt_option_id());
 		old_option.setOption_describe(option.getOption_describe());
 		old_option.setOption_sort(option.getOption_sort());
 		String time = TimeUtil.getStringSecond();
 		old_option.setOption_gmt_modified(time);
 		questionDao.updateOption(old_option);
+		mypcxt_service_definition service_definition = questionDao.getServiceDefinitionByQuestionServiceDefinition(old_option.getOption_question());
+		String service_definition_id = service_definition.getMypcxt_service_definition_id();
+		return service_definition_id;
 	}
 }
