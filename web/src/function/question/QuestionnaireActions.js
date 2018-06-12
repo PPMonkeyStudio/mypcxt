@@ -1,5 +1,6 @@
 export const set_questionnaireModalVisible = (questionnaireModalVisible) => ({type: 'set_questionnaireModalVisible', questionnaireModalVisible: questionnaireModalVisible,})
 export const set_questionnaireModalState = (questionnaireDTO) => ({type: 'set_questionnaireModalState', questionnaireDTO: questionnaireDTO,})
+export const set_questionModalState = (questionDTO) => ({type: 'set_questionModalState', questionDTO: questionDTO,})
 export const set_questionModalVisible = (questionModalVisible) => ({type: 'set_questionModalVisible', questionModalVisible: questionModalVisible,})
 
 export const setQuestionnaireTableLoading = (tableLoading) => ({type: 'setQuestionnaireTableLoading', tableLoading: tableLoading,})
@@ -37,7 +38,7 @@ export const getquestionServiceDTO_byQuestionID = (questionID) => {
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
-          dispatch(set_questionnaireModalState(responseJson));
+          dispatch(set_questionModalState(responseJson));
         }).catch((error) => {
           console.error(error);
         });

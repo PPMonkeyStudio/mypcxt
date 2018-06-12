@@ -66,6 +66,13 @@ export default(state = [], action) => {
         newState["Model_Questionnaire"]["questionnaireDTO"] = action.questionnaireDTO;
         return newState;
       }
+      case 'set_questionModalState':
+        {
+
+          const newState = Object.assign({}, state);
+          newState["Model_Question"]["questionDTO"] = action.questionDTO;
+          return newState;
+        }
     default:
       {
         return state;

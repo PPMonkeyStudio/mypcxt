@@ -204,7 +204,6 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
-		questionServiceDTO = new QuestionServiceDTO();
 		questionServiceDTO = questionService
 				.getQuestionServiceDTO_byQuestionID(questionServiceDTO.getQuestion().getMypcxt_question_id());
 		http_response.setContentType("text/html;charset=utf-8");
