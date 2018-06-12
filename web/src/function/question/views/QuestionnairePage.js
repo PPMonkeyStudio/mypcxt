@@ -20,14 +20,14 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag
+  Tag,
 } from 'antd';
 import * as QuestionActions from '../QuestionActions.js';
 import Model_Questionnaire from '../../question/views/model/Model_Questionnaire.js';
 import * as QuestionnaireActions from '../QuestionnaireActions.js';
 
 const FormItem = Form.Item;
-const {Column, ColumnGroup} = Table;
+const {Column, ColumnGroup,} = Table;
 const Option = Select.Option;
 const {TextArea} = Input;
 //
@@ -41,9 +41,9 @@ class QuestionnairePage extends Component {
     this.state = {
       questionnaireVO: {
         questionnaireDTOList: [],
-        totalRecords: 0,
+        totalRecords: 0
       },
-      tableLoading: false,
+      tableLoading: false
     }
     //
     //
@@ -69,7 +69,7 @@ class QuestionnairePage extends Component {
     return (<div>
       <div style={{
           height: "34px",
-          margin: "0 0 20px 0"
+          margin: "0 0 20px 0",
         }}>
         <Button onClick={() => {}}>
           <Icon type="plus"/>
@@ -83,11 +83,12 @@ class QuestionnairePage extends Component {
                 store.dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(record.serviceDefinitionDTO.serviceDefinition.mypcxt_service_definition_id));
               }}>{record.serviceDefinitionDTO.serviceDefinition.service_definition_describe}</a>);
           }}/>
+        <Column title="所属单位" dataIndex="questionnaireDTO.serviceDefinitionDTO.unit.unit_name" align="center"/>
       </Table>
       <div style={{
           margin: "20px auto 10px",
           width: "200px",
-          textAlign: "center",
+          textAlign: "center"
         }}>共{this.state.questionnaireVO.totalRecords}条记录</div>
       <Model_Questionnaire/>
     </div>);
