@@ -161,8 +161,8 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	 * 移动问题
 	 */
 	public void moveQuestion() throws IOException{
-		if (questionService.moveQuestion(moveQuestionAction, question.getMypcxt_question_id())!=null) {
-			String ServiceDefinitionId = questionService.moveQuestion(moveQuestionAction, question.getMypcxt_question_id());
+		String ServiceDefinitionId =questionService.moveQuestion(moveQuestionAction, question.getMypcxt_question_id());
+		if (ServiceDefinitionId!=null) {
 			http_response.setContentType("text/html;charset=utf-8");
 			http_response.getWriter().write(ServiceDefinitionId);
 		} else {
