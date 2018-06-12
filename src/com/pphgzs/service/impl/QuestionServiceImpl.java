@@ -112,7 +112,7 @@ public class QuestionServiceImpl implements QuestionService {
 		questionDao.saveQuestion(question);
 		return true;
 
-	}
+	} 
 
 	@Override
 	public List<mypcxt_service_definition> getDefinitionList() {
@@ -161,48 +161,43 @@ public class QuestionServiceImpl implements QuestionService {
 	public String moveOption(int moveOptionAction, String mypcxt_option_id) {
 		// TODO Auto-generated method stubmoveOptionAction
 		if (mypcxt_option_id != null) {
-			/*
-			 * 查询对应选择题下的所有选择项
-			 */
+			
 			mypcxt_option option = questionDao.getOpion_QuestionByOptionID(mypcxt_option_id);
 			List<mypcxt_option> optionList = new ArrayList<mypcxt_option>();
-			optionList = questionDao.getOptionByQuestion(option.getOption_question());
 			if (moveOptionAction == 2) {
+				optionList = questionDao.getOptionChangeValue(option.getOption_sort(),option.getOption_question());
 				for (mypcxt_option option2 : optionList) {
 					int a, b, temp;
 					a = option2.getOption_sort();
 					b = option.getOption_sort();
-					if ((option2.getOption_sort()) - (option.getOption_sort()) == 1) {
 						temp = a;
 						a = b;
 						b = temp;
 						option2.setOption_sort(a);
-						questionDao.addOption(option2);
+						questionDao.updateOption(option2);
 						option.setOption_sort(b);
-						questionDao.addOption(option);
+						questionDao.updateOption(option);
 
-					}
+					
 				}
 			} else if (moveOptionAction == 1) {
+				optionList = questionDao.getOptionChangeValueSmall(option.getOption_sort(),option.getOption_question());
 				for (mypcxt_option option1 : optionList) {
 					int a, b, temp;
 					a = option1.getOption_sort();
 					b = option.getOption_sort();
-					if ((option.getOption_sort()) - (option1.getOption_sort()) == 1) {
 						temp = a;
 						a = b;
 						b = temp;
 						option1.setOption_sort(a);
-						questionDao.addOption(option1);
+						questionDao.updateOption(option1);
 						option.setOption_sort(b);
-						questionDao.addOption(option);
-					}
+						questionDao.updateOption(option);
+					
 				}
 
 			}
-			mypcxt_question question = questionDao.getQuestionIdByOption_question(option.getOption_question());
-			String service_definition_id = question.getQuestion_service_definition();
-			return service_definition_id;
+			return option.getOption_question();
 		} else {
 			return null;
 		}

@@ -6,6 +6,8 @@ export const updateServiceDefinitionList = (serviceDefinitionDTOList) => ({type:
 export const updateQuestionFatherList = (questionFatherList) => ({type: 'updateQuestionFatherList', questionFatherList: questionFatherList,})
 
 export const setQuestionDetailsModalVisible = (questionDetailsModalVisible) => ({type: 'setQuestionDetailsModalVisible', questionDetailsModalVisible: questionDetailsModalVisible,})
+export const set_addOptionModalVisible = (addOptionModalVisible) => ({type: 'set_addOptionModalVisible', addOptionModalVisible: addOptionModalVisible,})
+export const set_addOptionQuestion = (option_question) => ({type: 'set_addOptionQuestion', option_question: option_question,})
 
 export const setQuestionServiceTableLoading = (tableLoading) => ({type: 'setQuestionServiceTableLoading', tableLoading: tableLoading,})
 
@@ -181,6 +183,11 @@ export const addOption = (addOptionModelState) => {
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
+
+          dispatch(set_addOptionModalVisible(false));
+
+          dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(responseJson));
+
           dispatch(getQuestionServiceVO());
         }).catch((error) => {
           console.error(error);

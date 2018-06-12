@@ -78,7 +78,7 @@ class Model_Questionnaire extends Component {
   //
   //
   render() {
-    return (<Modal width="960px" title={() => (<h2>问题列表</h2>)} visible={this.state.questionnaireModalVisible} onCancel={() => {
+    return (<Modal mask={false} width="960px" title={() => (<h2>问题列表</h2>)} visible={this.state.questionnaireModalVisible} onCancel={() => {
         store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(false));
       }} footer={[
         <Button onClick={() => {
@@ -104,6 +104,7 @@ class Model_Questionnaire extends Component {
                     <a onClick={() => {
                         store.dispatch(QuestionnaireActions.set_questionModalVisible(true));
                         store.dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(record.question.mypcxt_question_id));
+                        store.dispatch(QuestionActions.set_addOptionQuestion(record.question.mypcxt_question_id));
                       }}>{text}</a>
                   </div>);
                 }}/>

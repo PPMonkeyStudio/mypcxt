@@ -81,7 +81,6 @@ class QuestionPage extends Component {
 
   }
   render() {
-    console.debug(this.context.router.history.location.pathname);
     return (<div>
       <Card activeTabKey={this.state.key} tabList={tabList} onTabChange={(key) => {
           this.setState({

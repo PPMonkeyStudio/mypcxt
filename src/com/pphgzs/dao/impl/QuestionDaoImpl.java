@@ -298,4 +298,30 @@ public class QuestionDaoImpl implements QuestionDao {
 		return questionList;
 	}
 
+	@Override
+	public List<mypcxt_option> getOptionChangeValue(int option_sort, String option_question) {
+		Session session = getSession();
+		String hql = "from mypcxt_option where option_question = '" + option_question
+				+ "' and option_sort >'" + option_sort + "' order by option_sort asc";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(0);
+		query.setMaxResults(1);
+		List<mypcxt_option> optionList = query.list();
+
+		return optionList;
+	}
+
+	@Override
+	public List<mypcxt_option> getOptionChangeValueSmall(int option_sort, String option_question) {
+		Session session = getSession();
+		String hql = "from mypcxt_option where option_question = '" + option_question
+				+ "' and option_sort <'" + option_sort + "' order by option_sort desc";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(0);
+		query.setMaxResults(1);
+		List<mypcxt_option> optionList = query.list();
+
+		return optionList;
+	}
+
 }

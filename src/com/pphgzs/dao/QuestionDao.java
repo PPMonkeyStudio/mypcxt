@@ -109,6 +109,8 @@ public interface QuestionDao {
 	 * 根据业务Id得到业务下的一条比该问题排序大一的问题
 	 */
 public	List<mypcxt_question> get_QuestionChangeValue(int question_sort, String question_service_definition);
+public List<mypcxt_option> getOptionChangeValue(int option_sort, String option_question);
+public List<mypcxt_option> getOptionChangeValueSmall(int option_sort, String option_question);
 	
 	
 
