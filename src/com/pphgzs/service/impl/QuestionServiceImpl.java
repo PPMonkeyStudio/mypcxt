@@ -351,7 +351,7 @@ public class QuestionServiceImpl implements QuestionService {
 			}
 			return questionDao.getServiceDefinitionByQuestionServiceDefinition(question.getQuestion_service_definition()).getMypcxt_service_definition_id();
 		} else {
-			return "";
+			return null;
 		}
 	}
 
