@@ -20,7 +20,7 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag,
+  Tag
 } from 'antd';
 //
 //
@@ -33,7 +33,7 @@ import * as QuestionActions from '../../../question/QuestionActions.js';
 //
 //
 const FormItem = Form.Item;
-const {Column, ColumnGroup,} = Table;
+const {Column, ColumnGroup} = Table;
 const Option = Select.Option;
 //
 ////
@@ -48,8 +48,8 @@ class Model_Questionnaire extends Component {
       questionnaireModalVisible: false,
       questionnaireDTO: {
         serviceDefinitionDTO: {},
-        questionServiceDTOList: []
-      }
+        questionServiceDTOList: [],
+      },
     }
 
   }
@@ -75,7 +75,7 @@ class Model_Questionnaire extends Component {
   //
   //
   render() {
-
+    alert();
     return (<Modal width="90%" title="业务问卷" visible={this.state.questionnaireModalVisible} onCancel={() => {
         store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(false));
       }} footer={[
