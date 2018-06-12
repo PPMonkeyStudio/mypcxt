@@ -82,7 +82,8 @@ class QuestionnairePage extends Component {
             return (<a onClick={() => {
                 store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(true));
                 store.dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(record.serviceDefinitionDTO.serviceDefinition.mypcxt_service_definition_id));
-              }}>{record.serviceDefinitionDTO.serviceDefinition.service_definition_describe}</a>);
+
+            }}>{record.serviceDefinitionDTO.serviceDefinition.service_definition_describe}</a>);
           }}/>
         <Column title="所属单位" dataIndex="questionnaireDTO.serviceDefinitionDTO.unit.unit_name" align="center"/>
       </Table>

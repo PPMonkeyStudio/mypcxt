@@ -45,7 +45,12 @@ class Model_Question extends Component {
     this.storeChanged = this.storeChanged.bind(this);
 
     this.state = {
-      questionModalVisible: false
+      questionModalVisible: false,
+      questionDTO: {
+        question: {},
+        serviceDefinitionDTO: {},
+        optionList: [],
+      },
     }
 
   }
@@ -61,6 +66,11 @@ class Model_Question extends Component {
         questionModalVisible: store.getState()["QuestionReducer"]["Model_Question"]["questionModalVisible"]
       });
     }
+    if (this.state.questionDTO !== store.getState()["QuestionReducer"]["Model_Question"]["questionDTO"]) {
+      this.setState({
+        questionDTO: store.getState()["QuestionReducer"]["Model_Question"]["questionDTO"]
+      });
+    }
   }
   //
   //
@@ -72,7 +82,24 @@ class Model_Question extends Component {
         <Button onClick={() => {
             store.dispatch(QuestionnaireActions.set_questionModalVisible(false));
           }}>返回</Button>,
-      ]}></Modal>);
+      ]}>
+      <div>
+        <div>{this.state.questionDTO.question.question_describe}</div>
+        {
+          (typeof this.state.questionDTO.optionList === "undefined")
+            ? <div></div>
+            : <Table width="1000px" size="small" bordered={true} pagination={false} dataSource={this.state.questionnaireDTO.questionServiceDTOList}>
+                <Column title="问题" dataIndex="question.question_describe" align="center" render={(text, record) => {
+                    return (<div>
+                      <a onClick={() => {
+                          store.dispatch(QuestionnaireActions.set_questionModalVisible(true));
+                        }}>{text}</a>
+                    </div>);
+                  }}/>
+              </Table>
+        }
+      </div>
+    </Modal>);
   }
 }
 

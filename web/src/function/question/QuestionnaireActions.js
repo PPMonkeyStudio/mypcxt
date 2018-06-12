@@ -26,6 +26,29 @@ export const getQuestionnaireVO = () => {
     });
   };
 }
+
+export const getquestionServiceDTO_byQuestionID = (questionID) => {
+  return(dispatch) => {
+    let formData = new FormData();
+    formData.append("questionServiceDTO.question.mypcxt_question_id", questionID);
+    fetch('/mypcxt/Question/getquestionServiceDTO_byQuestionID', {
+      method: 'POST',
+      body: formData
+    }).then((response) => {
+      if (response.status === 200) {
+        response.json().then((responseJson) => {
+          dispatch(set_questionnaireModalState(responseJson));
+        }).catch((error) => {
+          console.error(error);
+        });
+      } else {
+        console.error(response.status);
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  };
+}
 export const getquestionnaireDTO_byServiceDefinitionID = (mypcxt_service_definition_id) => {
   return(dispatch) => {
     let formData = new FormData();
