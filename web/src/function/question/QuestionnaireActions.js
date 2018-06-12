@@ -1,5 +1,7 @@
 export const set_questionnaireModalVisible = (questionnaireModalVisible) => ({type: 'set_questionnaireModalVisible', questionnaireModalVisible: questionnaireModalVisible,})
 export const set_questionnaireModalState = (questionnaireDTO) => ({type: 'set_questionnaireModalState', questionnaireDTO: questionnaireDTO,})
+export const set_questionModalVisible = (questionModalVisible) => ({type: 'set_questionModalVisible', questionModalVisible: questionModalVisible,})
+
 export const setQuestionnaireTableLoading = (tableLoading) => ({type: 'setQuestionnaireTableLoading', tableLoading: tableLoading,})
 export const updateQuestionnaireVO = (questionnaireVO) => ({type: 'updateQuestionnaireVO', questionnaireVO: questionnaireVO,})
 export const getQuestionnaireVO = () => {
@@ -13,6 +15,29 @@ export const getQuestionnaireVO = () => {
         response.json().then((responseJson) => {
           dispatch(updateQuestionnaireVO(responseJson));
           dispatch(setQuestionnaireTableLoading(false));
+        }).catch((error) => {
+          console.error(error);
+        });
+      } else {
+        console.error(response.status);
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  };
+}
+
+export const getquestionServiceDTO_byQuestionID = (questionID) => {
+  return(dispatch) => {
+    let formData = new FormData();
+    formData.append("questionServiceDTO.question.mypcxt_question_id", questionID);
+    fetch('/mypcxt/Question/getquestionServiceDTO_byQuestionID', {
+      method: 'POST',
+      body: formData
+    }).then((response) => {
+      if (response.status === 200) {
+        response.json().then((responseJson) => {
+          dispatch(set_questionnaireModalState(responseJson));
         }).catch((error) => {
           console.error(error);
         });

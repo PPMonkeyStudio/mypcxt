@@ -20,7 +20,7 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag
+  Tag,
 } from 'antd';
 //
 //
@@ -33,7 +33,7 @@ import * as QuestionActions from '../../../question/QuestionActions.js';
 //
 //
 const FormItem = Form.Item;
-const {Column, ColumnGroup} = Table;
+const {Column, ColumnGroup,} = Table;
 const Option = Select.Option;
 //
 ////
@@ -48,8 +48,8 @@ class Model_Questionnaire extends Component {
       questionnaireModalVisible: false,
       questionnaireDTO: {
         serviceDefinitionDTO: {},
-        questionServiceDTOList: [],
-      },
+        questionServiceDTOList: []
+      }
     }
 
   }
@@ -75,7 +75,7 @@ class Model_Questionnaire extends Component {
   //
   //
   render() {
-    return (<Modal width="90%" title="业务问卷" visible={this.state.questionnaireModalVisible} onCancel={() => {
+    return (<Modal width="960px" title={() => (<h2>问题列表</h2>)} visible={this.state.questionnaireModalVisible} onCancel={() => {
         store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(false));
       }} footer={[
         <Button onClick={() => {
@@ -85,22 +85,32 @@ class Model_Questionnaire extends Component {
       {
         (typeof this.state.questionnaireDTO.questionServiceDTOList === "undefined")
           ? <div></div>
-          : <Table size="small" bordered={true} pagination={false} dataSource={this.state.questionnaireDTO.questionServiceDTOList}>
+          : <Table width="1000px" size="small" bordered={true} pagination={false} dataSource={this.state.questionnaireDTO.questionServiceDTOList}>
               <Column title="问题" dataIndex="question.question_describe" align="center" render={(text, record) => {
                   return (<div>
-                    <div>{text}</div>
+                    <a onClick={() => {
+                        store.dispatch(QuestionnaireActions.set_questionModalVisible(true));
+                        store.dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(record.question.mypcxt_question_id));
+                      }}>{text}</a>
                   </div>);
                 }}/>
-              <Column title="操作" width="150px" dataIndex="question.mypcxt_question_id" align="center" render={(text, record) => {
+              <Column title="问题类型" dataIndex="question.question_type" align="center" render={(text, record) => {
                   return (<div>
-                    <a onClick={() => {}}><Icon type="edit"/></a>
-                    <Divider type="vertical"/>
+                    {
+                      (text === "1")
+                        ? <Tag color="#108ee9">选择题</Tag>
+                        : <Tag color="#87d068">开放题</Tag>
+                    }
+                  </div>);
+                }}/>
+              <Column title="操作" dataIndex="question.mypcxt_question_id" align="center" render={(text, record) => {
+                  return (<div>
                     <a onClick={() => {
-                        store.dispatch(QuestionActions.moveQuestion(text, "2"));
+                        store.dispatch(QuestionActions.moveQuestion(text, 2));
                       }}><Icon type="arrow-up"/></a>
                     <Divider type="vertical"/>
                     <a onClick={() => {
-                        store.dispatch(QuestionActions.moveQuestion(text, "1"));
+                        store.dispatch(QuestionActions.moveQuestion(text, 1));
                       }}><Icon type="arrow-down"/></a>
                     <Divider type="vertical"/>
                     <a onClick={() => {}}><Icon type="delete"/></a>

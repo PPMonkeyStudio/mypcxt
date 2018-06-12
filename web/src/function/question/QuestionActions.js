@@ -2,15 +2,12 @@ import * as QuestionnaireActions from '../question/QuestionnaireActions.js';
 
 export const updateQuestionVO = (questionServiceVO) => ({type: 'updateQuestionVO', questionServiceVO: questionServiceVO})
 
-
 export const updateServiceDefinitionList = (serviceDefinitionDTOList) => ({type: 'updateServiceDefinitionList', serviceDefinitionDTOList: serviceDefinitionDTOList})
 export const updateQuestionFatherList = (questionFatherList) => ({type: 'updateQuestionFatherList', questionFatherList: questionFatherList})
 
 export const setQuestionDetailsModalVisible = (questionDetailsModalVisible) => ({type: 'setQuestionDetailsModalVisible', questionDetailsModalVisible: questionDetailsModalVisible})
 
 export const setQuestionServiceTableLoading = (tableLoading) => ({type: 'setQuestionServiceTableLoading', tableLoading: tableLoading})
-
-
 
 export const getQuestionFatherList = () => {
   return(dispatch) => {
@@ -52,7 +49,6 @@ export const getServiceDefinitionList = () => {
     });
   };
 }
-
 
 export const getQuestionServiceVO = () => {
   return(dispatch) => {
@@ -111,7 +107,8 @@ export const moveOption = (moveOptionID, moveOptionAction) => {
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
-          dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(responseJson));
+          dispatch(QuestionnaireActions.getQuestionnaireVO());
+          dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(JSON.stringify(responseJson)));
         }).catch((error) => {
           console.error(error);
         });
@@ -134,7 +131,8 @@ export const moveQuestion = (moveQuestionID, moveQuestionAction) => {
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
-          dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(responseJson));
+          dispatch(QuestionnaireActions.getQuestionnaireVO());
+          dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(JSON.stringify(responseJson)));
         }).catch((error) => {
           console.error(error);
         });

@@ -111,7 +111,12 @@ const initialState = {
     'Model_Questionnaire': {
       questionnaireModalVisible: false,
       questionnaireDTO: {},
+    },
+    'Model_Question': {
+      questionModalVisible: false,
+      questionDTO: {},
     }
+
   }
 };
 

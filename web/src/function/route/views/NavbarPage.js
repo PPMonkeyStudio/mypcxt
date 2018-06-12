@@ -75,20 +75,20 @@ class NavbarPage extends Component {
         <div style={{
             margin: "0 50px 0 0",
             float: "left",
-          }}>公安业务评测系统</div>
+          }}>公安业务分析测评系统</div>
         <Menu mode="horizontal" selectedKeys={this.state.currentNavbarMenuItem} style={{
             lineHeight: '64px'
           }}>
           <Menu.Item key="IndexPage" onClick={() => {
               this.context.router.history.push("/NavbarPage/IndexPage");
             }}><Icon type="home"/>首页</Menu.Item>
-          <Menu.Item key="2"><Icon type="global"/>业务评测</Menu.Item>
-          <Menu.Item key="3"><Icon type="pie-chart"/>数据统计</Menu.Item>
+          <Menu.Item key="2"><Icon type="global"/>测评业务</Menu.Item>
+          <Menu.Item key="3"><Icon type="pie-chart"/>统计数据</Menu.Item>
           <Menu.Item key="ManagePage" onClick={() => {
               if (this.context.router.history.location.pathname.includes("/NavbarPage/ManagePage")) {} else {
                 this.context.router.history.push("/NavbarPage/ManagePage");
               }
-            }}><Icon type="setting"/>管理</Menu.Item>
+            }}><Icon type="setting"/>管理数据</Menu.Item>
           <Menu.Item key="5" style={{
               float: "right"
             }}><Icon type="user"/>管理员</Menu.Item>
