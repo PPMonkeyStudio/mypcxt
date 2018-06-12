@@ -101,6 +101,7 @@ public interface QuestionDao {
 	 * 根据选项的所属问题得到问题记录
 	 */
 	public mypcxt_question getQuestionIdByOption_question(String option_question);
+	public List<mypcxt_question> list_Questionmin_byDefinitionID(String question_service_definition);
 	
 	
 

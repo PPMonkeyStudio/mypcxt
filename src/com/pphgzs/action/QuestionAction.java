@@ -103,8 +103,8 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	 * 移动选择题选项
 	 */
 	public void moveOption() throws IOException {
-		if (questionService.moveOption(moveOptionAction, option.getMypcxt_option_id())!=null) {
-			String ServiceDefinitionId = questionService.moveOption(moveOptionAction, option.getMypcxt_option_id());
+		String ServiceDefinitionId = questionService.moveOption(moveOptionAction, option.getMypcxt_option_id());
+		if (ServiceDefinitionId!=null) {
 			http_response.setContentType("text/html;charset=utf-8");
 			http_response.getWriter().write(ServiceDefinitionId);
 		} else {
@@ -178,7 +178,17 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 		http_response.setContentType("text/html;charset=utf-8");
 		http_response.getWriter().write(service_definition_id);
 	}
-
+    /*
+     * 
+     */
+	public void getquestionDTO_byQuestionID(){
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		//QuestionDTO questionDTO = questionService
+		http_response.setContentType("text/html;charset=utf-8");
+		//http_response.getWriter().write(gson.toJson(questionnaireDTO));
+	}
 	/*
 	 */
 	@Override

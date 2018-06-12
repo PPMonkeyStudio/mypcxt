@@ -249,8 +249,10 @@ public class QuestionDaoImpl implements QuestionDao {
 	public List<mypcxt_question> list_Question_byDefinitionID(String definitionID) {
 
 		Session session = getSession();
-		String hql = "from mypcxt_question where question_service_definition = '" + definitionID + "' ";
+		String hql = "from mypcxt_question where question_service_definition > '" + definitionID + "' order by question_sort desc";
 		Query query = session.createQuery(hql);
+		query.setFirstResult(0);
+		query.setMaxResults(1);
 		List<mypcxt_question> questionList = query.list();
 
 		return questionList;
@@ -270,6 +272,18 @@ public class QuestionDaoImpl implements QuestionDao {
 		Query query = session.createQuery(hql);
 		mypcxt_question question = (mypcxt_question) query.uniqueResult();
 		return question;
+	}
+
+	@Override
+	public List<mypcxt_question> list_Questionmin_byDefinitionID(String question_service_definition) {
+		Session session = getSession();
+		String hql = "from mypcxt_question where question_service_definition < '" + question_service_definition + "' order by question_sort desc";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(0);
+		query.setMaxResults(1);
+		List<mypcxt_question> questionList = query.list();
+
+		return questionList;
 	}
 
 }
