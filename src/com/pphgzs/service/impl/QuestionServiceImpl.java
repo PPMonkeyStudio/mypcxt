@@ -9,13 +9,11 @@ import com.pphgzs.dao.UnitDao;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
 import com.pphgzs.domain.DO.mypcxt_service_definition;
-import com.pphgzs.domain.DO.mypcxt_unit;
 import com.pphgzs.domain.DTO.QuestionServiceDTO;
 import com.pphgzs.domain.DTO.QuestionnaireDTO;
 import com.pphgzs.domain.DTO.ServiceDefinitionDTO;
 import com.pphgzs.domain.VO.QuestionServiceVO;
 import com.pphgzs.domain.VO.QuestionnaireVO;
-import com.pphgzs.domain.VO.ServiceDefinitionVO;
 import com.pphgzs.service.QuestionService;
 import com.pphgzs.service.ServiceService;
 import com.pphgzs.util.TimeUtil;
@@ -27,7 +25,7 @@ public class QuestionServiceImpl implements QuestionService {
 	private UnitDao unitDao;
 	private ServiceService serviceService;
 	private ServiceDao serviceDao;
-	
+
 	public ServiceService getServiceService() {
 		return serviceService;
 	}
@@ -43,7 +41,7 @@ public class QuestionServiceImpl implements QuestionService {
 	public void setQuestionDao(QuestionDao questionDao) {
 		this.questionDao = questionDao;
 	}
-	
+
 	/*
 	 * 
 	 * 
@@ -99,20 +97,21 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public boolean saveQuestion(mypcxt_question question) {
-	
-			question.setMypcxt_question_id(uuidUtil.getUuid());
-			List<mypcxt_question> questionList = new ArrayList<mypcxt_question>();
-			question.setQuestion_sort(
-					questionDao.getMaxQuestionSort_byServiceDefinition(question.getQuestion_service_definition()) + 1);
-			String time = TimeUtil.getStringSecond();
-			question.setQuestion_gmt_create(time);
-			question.setQuestion_gmt_modified(time);
-			if(question.getQuestion_father_question()!="none"){
-				question.setQuestion_service_definition(questionDao.getServiceDefinitionByFatherQuestion(question.getQuestion_father_question()));	
-			}
-			questionDao.saveQuestion(question);
-			return true;
-		
+
+		question.setMypcxt_question_id(uuidUtil.getUuid());
+		List<mypcxt_question> questionList = new ArrayList<mypcxt_question>();
+		question.setQuestion_sort(
+				questionDao.getMaxQuestionSort_byServiceDefinition(question.getQuestion_service_definition()) + 1);
+		String time = TimeUtil.getStringSecond();
+		question.setQuestion_gmt_create(time);
+		question.setQuestion_gmt_modified(time);
+		if (question.getQuestion_father_question() != "none") {
+			question.setQuestion_service_definition(
+					questionDao.getServiceDefinitionByFatherQuestion(question.getQuestion_father_question()));
+		}
+		questionDao.saveQuestion(question);
+		return true;
+
 	}
 
 	@Override
@@ -214,13 +213,15 @@ public class QuestionServiceImpl implements QuestionService {
 		// TODO Auto-generated method stub
 		mypcxt_question oldQuestion = questionDao.getQuestionByID(question.getMypcxt_question_id());
 		oldQuestion.setQuestion_describe(question.getQuestion_describe());
-		//oldQuestion.setQuestion_father_question(question.getQuestion_father_question());
-		String time =  TimeUtil.getStringSecond();
+		// oldQuestion.setQuestion_father_question(question.getQuestion_father_question());
+		String time = TimeUtil.getStringSecond();
 		oldQuestion.setQuestion_gmt_modified(time);
 		questionDao.updateQuestion(oldQuestion);
-		return questionDao.getServiceDefinitionByQuestionServiceDefinition(oldQuestion.getQuestion_service_definition()).getMypcxt_service_definition_id();
-	//	mypcxt_service_definition service_definition = questionDao.getServiceDefinitionByQuestionServiceDefinition()
-		//return "";
+		return questionDao.getServiceDefinitionByQuestionServiceDefinition(oldQuestion.getQuestion_service_definition())
+				.getMypcxt_service_definition_id();
+		// mypcxt_service_definition service_definition =
+		// questionDao.getServiceDefinitionByQuestionServiceDefinition()
+		// return "";
 	}
 
 	@Override
@@ -233,9 +234,11 @@ public class QuestionServiceImpl implements QuestionService {
 			QuestionServiceDTO = new QuestionServiceDTO();
 			QuestionServiceDTO.setQuestion(question);
 			QuestionServiceDTO.setOptionList(questionDao.getOptionByQuestion(question.getMypcxt_question_id()));
-			mypcxt_service_definition service_definition =	questionDao.getServiceDefinitionByQuestionServiceDefinition(question.getQuestion_service_definition());
-			ServiceDefinitionDTO  serviceDefinitionDTO=new ServiceDefinitionDTO();
-			serviceDefinitionDTO = serviceService.getServiceDefinitionDTO_byServiceDefinitionID(service_definition.getMypcxt_service_definition_id());
+			mypcxt_service_definition service_definition = questionDao
+					.getServiceDefinitionByQuestionServiceDefinition(question.getQuestion_service_definition());
+			ServiceDefinitionDTO serviceDefinitionDTO = new ServiceDefinitionDTO();
+			serviceDefinitionDTO = serviceService.getServiceDefinitionDTO_byServiceDefinitionID(
+					service_definition.getMypcxt_service_definition_id());
 			QuestionServiceDTO.setServiceDefinitionDTO(serviceDefinitionDTO);
 			QuestionServiceDTOList.add(QuestionServiceDTO);
 		}
@@ -248,57 +251,60 @@ public class QuestionServiceImpl implements QuestionService {
 		List<mypcxt_question> questionList = questionDao.getChoiceQuestionAll();
 		return questionList;
 	}
+
 	@Override
 	public List<QuestionServiceDTO> listQuestionDTO_byDefinitionID(String DefinitionID) {
-	
-		List<QuestionServiceDTO> questionServiceDTOList=new ArrayList<QuestionServiceDTO>();
-		
-		List<mypcxt_question> questionList=questionDao.list_Question_byDefinitionID(DefinitionID);
-		
-		for(mypcxt_question question:questionList){
-			QuestionServiceDTO questionServiceDTO=getQuestionServiceDTO_byQuestionID(question.getMypcxt_question_id());
-		
+
+		List<QuestionServiceDTO> questionServiceDTOList = new ArrayList<QuestionServiceDTO>();
+
+		List<mypcxt_question> questionList = questionDao.list_Question_byDefinitionID(DefinitionID);
+
+		for (mypcxt_question question : questionList) {
+			QuestionServiceDTO questionServiceDTO = getQuestionServiceDTO_byQuestionID(
+					question.getMypcxt_question_id());
+
 			questionServiceDTOList.add(questionServiceDTO);
 		}
-		
+
 		return questionServiceDTOList;
 	}
+
 	@Override
 	public QuestionnaireVO getQuestionnaireVO() {
 		// TODO Auto-generated method stub
-		/*页面问卷VO*/
+		/* 页面问卷VO */
 		QuestionnaireVO questionnaireVO = new QuestionnaireVO();
-		/*业务问卷DTO*/
-		List<QuestionnaireDTO> questionnaireDTOList =new ArrayList<QuestionnaireDTO>();
-		
-		
-		/*查询所有业务*/
-		List<ServiceDefinitionDTO> serviceDefinitionDTOList  = serviceService.listServiceDefinitionDTO_all();
-       
-		for(ServiceDefinitionDTO serviceDefinitionDTO:serviceDefinitionDTOList){
-			QuestionnaireDTO questionnaireDTO=new QuestionnaireDTO();
-			//装载业务定义进问卷
+		/* 业务问卷DTO */
+		List<QuestionnaireDTO> questionnaireDTOList = new ArrayList<QuestionnaireDTO>();
+
+		/* 查询所有业务 */
+		List<ServiceDefinitionDTO> serviceDefinitionDTOList = serviceService.listServiceDefinitionDTO_all();
+
+		for (ServiceDefinitionDTO serviceDefinitionDTO : serviceDefinitionDTOList) {
+			QuestionnaireDTO questionnaireDTO = new QuestionnaireDTO();
+			// 装载业务定义进问卷
 			questionnaireDTO.setServiceDefinitionDTO(serviceDefinitionDTO);
-			//查询所有该业务定义下的问题，并装载进问卷
-			List<QuestionServiceDTO> questionDTOList=listQuestionDTO_byDefinitionID(serviceDefinitionDTO.getServiceDefinition().getMypcxt_service_definition_id());
+			// 查询所有该业务定义下的问题，并装载进问卷
+			List<QuestionServiceDTO> questionDTOList = listQuestionDTO_byDefinitionID(
+					serviceDefinitionDTO.getServiceDefinition().getMypcxt_service_definition_id());
 			questionnaireDTO.setQuestionServiceDTOList(questionDTOList);
-			//将问卷装进问卷列表中
+			// 将问卷装进问卷列表中
 			questionnaireDTOList.add(questionnaireDTO);
 		}
 		questionnaireVO.setQuestionnaireDTOList(questionnaireDTOList);
-		
+
 		questionnaireVO.setTotalRecords(serviceDao.getServiceDefinitionTotalRecords());
-     
+
 		return questionnaireVO;
 	}
 
 	@Override
 	public QuestionnaireDTO getquestionnaireDTO_byServiceDefinitionID(String ServiceDefinitionID) {
 		QuestionnaireDTO questionnaireDTO = new QuestionnaireDTO();
-		//查询所有该业务定义下的问题，并装载进问卷
-		List<QuestionServiceDTO> questionDTOList=listQuestionDTO_byDefinitionID(ServiceDefinitionID);
+		// 查询所有该业务定义下的问题，并装载进问卷
+		List<QuestionServiceDTO> questionDTOList = listQuestionDTO_byDefinitionID(ServiceDefinitionID);
 		questionnaireDTO.setQuestionServiceDTOList(questionDTOList);
-		ServiceDefinitionDTO serviceDefinitionDTO=serviceService
+		ServiceDefinitionDTO serviceDefinitionDTO = serviceService
 				.getServiceDefinitionDTO_byServiceDefinitionID(ServiceDefinitionID);
 		questionnaireDTO.setServiceDefinitionDTO(serviceDefinitionDTO);
 		return questionnaireDTO;
@@ -312,18 +318,16 @@ public class QuestionServiceImpl implements QuestionService {
 			 */
 			mypcxt_question question = questionDao.get_Question_byID(mypcxt_question_id);
 			List<mypcxt_question> questionList = new ArrayList<mypcxt_question>();
-			
-			
+			/*
+			 * 查询一条业务定义下的所有问题
+			 */
+			questionList = questionDao.list_Question_byDefinitionID(question.getQuestion_service_definition());
 			if (moveQuestionAction == 2) {
-				/*
-				 * 查询一条业务定义下的大一的问题
-				 */
-				questionList = questionDao.list_Question_byDefinitionID(question.getQuestion_service_definition());
 				for (mypcxt_question question2 : questionList) {
 					int a, b, temp;
 					a = question2.getQuestion_sort();
 					b = question.getQuestion_sort();
-					
+					if ((question2.getQuestion_sort()) - (question.getQuestion_sort()) == 1) {
 						temp = a;
 						a = b;
 						b = temp;
@@ -331,16 +335,15 @@ public class QuestionServiceImpl implements QuestionService {
 						questionDao.saveQuestion(question2);
 						question.setQuestion_sort(b);
 						questionDao.saveQuestion(question);
+
+					}
 				}
 			} else if (moveQuestionAction == 1) {
-				/*
-				 * 查询一条业务定义下小一的问题
-				 */
-				questionList = questionDao.list_Questionmin_byDefinitionID(question.getQuestion_service_definition());
 				for (mypcxt_question question1 : questionList) {
 					int a, b, temp;
 					a = question1.getQuestion_sort();
 					b = question.getQuestion_sort();
+					if ((question.getQuestion_sort()) - (question1.getQuestion_sort()) == 1) {
 						temp = a;
 						a = b;
 						b = temp;
@@ -348,10 +351,13 @@ public class QuestionServiceImpl implements QuestionService {
 						questionDao.saveQuestion(question1);
 						question.setQuestion_sort(b);
 						questionDao.saveQuestion(question);
+					}
 				}
 
 			}
-			 return question.getQuestion_service_definition();
+			return questionDao
+					.getServiceDefinitionByQuestionServiceDefinition(question.getQuestion_service_definition())
+					.getMypcxt_service_definition_id();
 		} else {
 			return null;
 		}
