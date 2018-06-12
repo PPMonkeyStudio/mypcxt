@@ -103,9 +103,10 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	 * 移动选择题选项
 	 */
 	public void moveOption() throws IOException {
-		if (questionService.moveOption(moveOptionAction, option.getMypcxt_option_id())) {
+		if (questionService.moveOption(moveOptionAction, option.getMypcxt_option_id())!=null) {
+			String ServiceDefinitionId = questionService.moveOption(moveOptionAction, option.getMypcxt_option_id());
 			http_response.setContentType("text/html;charset=utf-8");
-			http_response.getWriter().write("1");
+			http_response.getWriter().write(ServiceDefinitionId);
 		} else {
 			http_response.setContentType("text/html;charset=utf-8");
 			http_response.getWriter().write("-1");
@@ -116,9 +117,9 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	 * 修改问题
 	 */
 	public void updateQuestion() throws IOException {
-		questionService.updateQuestion(question);
+		String ServiceDefinitionId = questionService.updateQuestion(question);
 		http_response.setContentType("text/html;charset=utf-8");
-		http_response.getWriter().write("1");
+		http_response.getWriter().write(ServiceDefinitionId);
 	}
 
 	/*
@@ -160,9 +161,10 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	 * 移动问题
 	 */
 	public void moveQuestion() throws IOException{
-		if (questionService.moveQuestion(moveQuestionAction, question.getMypcxt_question_id())) {
+		if (questionService.moveQuestion(moveQuestionAction, question.getMypcxt_question_id())!="") {
+			String ServiceDefinitionId = questionService.moveQuestion(moveQuestionAction, question.getMypcxt_question_id());
 			http_response.setContentType("text/html;charset=utf-8");
-			http_response.getWriter().write("1");
+			http_response.getWriter().write(ServiceDefinitionId);
 		} else {
 			http_response.setContentType("text/html;charset=utf-8");
 			http_response.getWriter().write("-1");

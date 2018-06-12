@@ -97,6 +97,10 @@ public interface QuestionDao {
 	 * 更新选择题选项
 	 */
 	public void updateOption(mypcxt_option old_option);
+	/*
+	 * 根据选项的所属问题得到问题记录
+	 */
+	public mypcxt_question getQuestionIdByOption_question(String option_question);
 	
 	
 
