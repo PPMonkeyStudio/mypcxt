@@ -35,9 +35,10 @@ public class test {
 	public void addQuestion(){
 		question.setQuestion_describe("你好");
 		question.setQuestion_type("1");
-		
-		String question_service_definition="1aec59e9-f856-4cb3-b356-896d5b140c1d";
-		//questionService.saveQuestion();
+		//String question_service_definition="1aec59e9-f856-4cb3-b356-896d5b140c1d";
+		question.setQuestion_service_definition("1aec59e9-f856-4cb3-b356-896d5b140c1d");
+		question.setQuestion_father_question("none");
+		questionService.saveQuestion(question);
 	}
 }
 

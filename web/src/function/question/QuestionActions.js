@@ -107,7 +107,7 @@ export const moveOption = (moveOptionID, moveOptionAction) => {
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
-          dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(JSON.stringify(responseJson)));
+          dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(responseJson));
           dispatch(QuestionnaireActions.getQuestionnaireVO());
         }).catch((error) => {
           console.error(error);
