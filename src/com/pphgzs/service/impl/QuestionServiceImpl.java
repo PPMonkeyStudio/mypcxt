@@ -159,7 +159,7 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
-	public boolean moveOption(int moveOptionAction, String mypcxt_option_id) {
+	public String moveOption(int moveOptionAction, String mypcxt_option_id) {
 		// TODO Auto-generated method stubmoveOptionAction
 		if (mypcxt_option_id != null) {
 			/*
@@ -201,14 +201,16 @@ public class QuestionServiceImpl implements QuestionService {
 				}
 
 			}
-			return true;
+			mypcxt_question question = questionDao.getQuestionIdByOption_question(option.getOption_question());
+			String service_definition_id = question.getQuestion_service_definition();
+			return service_definition_id;
 		} else {
-			return false;
+			return null;
 		}
 	}
 
 	@Override
-	public void updateQuestion(mypcxt_question question) {
+	public String updateQuestion(mypcxt_question question) {
 		// TODO Auto-generated method stub
 		mypcxt_question oldQuestion = questionDao.getQuestionByID(question.getMypcxt_question_id());
 		oldQuestion.setQuestion_describe(question.getQuestion_describe());
@@ -216,6 +218,9 @@ public class QuestionServiceImpl implements QuestionService {
 		String time =  TimeUtil.getStringSecond();
 		oldQuestion.setQuestion_gmt_modified(time);
 		questionDao.updateQuestion(oldQuestion);
+		return questionDao.getServiceDefinitionByQuestionServiceDefinition(oldQuestion.getQuestion_service_definition()).getMypcxt_service_definition_id();
+	//	mypcxt_service_definition service_definition = questionDao.getServiceDefinitionByQuestionServiceDefinition()
+		//return "";
 	}
 
 	@Override
@@ -300,7 +305,7 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
-	public boolean moveQuestion(int moveQuestionAction, String mypcxt_question_id) {
+	public String moveQuestion(int moveQuestionAction, String mypcxt_question_id) {
 		if (mypcxt_question_id != null) {
 			/*
 			 * 查询对应ID的问题记录
@@ -324,7 +329,7 @@ public class QuestionServiceImpl implements QuestionService {
 						questionDao.saveQuestion(question2);
 						question.setQuestion_sort(b);
 						questionDao.saveQuestion(question);
-
+                        
 					}
 				}
 			} else if (moveQuestionAction == 1) {
@@ -344,9 +349,9 @@ public class QuestionServiceImpl implements QuestionService {
 				}
 
 			}
-			return true;
+			return questionDao.getServiceDefinitionByQuestionServiceDefinition(question.getQuestion_service_definition()).getMypcxt_service_definition_id();
 		} else {
-			return false;
+			return "";
 		}
 	}
 
@@ -358,8 +363,8 @@ public class QuestionServiceImpl implements QuestionService {
 		String time = TimeUtil.getStringSecond();
 		old_option.setOption_gmt_modified(time);
 		questionDao.updateOption(old_option);
-		mypcxt_service_definition service_definition = questionDao.getServiceDefinitionByQuestionServiceDefinition(old_option.getOption_question());
-		String service_definition_id = service_definition.getMypcxt_service_definition_id();
+		mypcxt_question question = questionDao.getQuestionIdByOption_question(old_option.getOption_question());
+		String service_definition_id = question.getQuestion_service_definition();
 		return service_definition_id;
 	}
 }

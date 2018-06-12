@@ -263,4 +263,13 @@ public class QuestionDaoImpl implements QuestionDao {
 		session.flush();
 	}
 
+	@Override
+	public mypcxt_question getQuestionIdByOption_question(String option_question) {
+		Session session = getSession();
+		String hql = "from mypcxt_question where mypcxt_question_id = '" + option_question + "' ";
+		Query query = session.createQuery(hql);
+		mypcxt_question question = (mypcxt_question) query.uniqueResult();
+		return question;
+	}
+
 }

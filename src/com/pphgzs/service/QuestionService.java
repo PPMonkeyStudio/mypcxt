@@ -33,11 +33,11 @@ public interface QuestionService {
      /*
       *  移动选择题选项
       */
-	public boolean moveOption(int moveOptionAction, String mypcxt_option_id);
+	public String moveOption(int moveOptionAction, String mypcxt_option_id);
     /*
      * 更新问题
      */
-	public void updateQuestion(mypcxt_question question);
+	public String updateQuestion(mypcxt_question question);
      
 	public List<QuestionServiceDTO> getQuestionFatherList();
     /*
@@ -59,7 +59,7 @@ public interface QuestionService {
     /*
      * 移动问题
      */
-	public boolean moveQuestion(int moveQuestionAction, String mypcxt_question_id);
+	public String moveQuestion(int moveQuestionAction, String mypcxt_question_id);
      /*
       * 更新选择题选项
       */
