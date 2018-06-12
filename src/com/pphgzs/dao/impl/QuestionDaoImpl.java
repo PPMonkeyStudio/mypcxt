@@ -295,4 +295,10 @@ public class QuestionDaoImpl implements QuestionDao {
 		return questionList;
 	}
 
+	@Override
+	public List<mypcxt_option> getOptionChangeValue(int option_sort, String option_question) {
+		
+		return null;
+	}
+
 }
