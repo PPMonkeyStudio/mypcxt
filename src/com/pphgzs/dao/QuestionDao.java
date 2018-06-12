@@ -90,7 +90,7 @@ public interface QuestionDao {
 	public mypcxt_service_definition getServiceDefinitionByQuestionServiceDefinition(
 			String question_service_definition);
      /*
-      * 根据业务Id得到业务下的一条比该问题排序大一的问题
+      * 通过业务定义ID得到所有改业务定义下的所有问题
       */
 	public List<mypcxt_question> list_Question_byDefinitionID(String definitionID);
 	/*
@@ -105,6 +105,10 @@ public interface QuestionDao {
 	 * 根据业务Id得到业务下的一条比该问题排序小一的问题
 	 */
 	public List<mypcxt_question> list_Questionmin_byDefinitionID(String question_service_definition);
+	/*
+	 * 根据业务Id得到业务下的一条比该问题排序大一的问题
+	 */
+	public List<mypcxt_question> list_QuestionMax_byDefinitionID(String question_service_definition);
 	
 	
 

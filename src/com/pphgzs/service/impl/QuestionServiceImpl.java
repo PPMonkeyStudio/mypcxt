@@ -318,16 +318,17 @@ public class QuestionServiceImpl implements QuestionService {
 			 */
 			mypcxt_question question = questionDao.get_Question_byID(mypcxt_question_id);
 			List<mypcxt_question> questionList = new ArrayList<mypcxt_question>();
-			/*
-			 * 查询一条业务定义下的所有问题
-			 */
-			questionList = questionDao.list_Question_byDefinitionID(question.getQuestion_service_definition());
+			
+			
 			if (moveQuestionAction == 2) {
+				/*
+				 * 查询一条业务定义下的所有问题
+				 */
+			questionList = questionDao.list_QuestionMax_byDefinitionID(question.getQuestion_service_definition());	
 				for (mypcxt_question question2 : questionList) {
 					int a, b, temp;
 					a = question2.getQuestion_sort();
 					b = question.getQuestion_sort();
-					if ((question2.getQuestion_sort()) - (question.getQuestion_sort()) == 1) {
 						temp = a;
 						a = b;
 						b = temp;
@@ -336,14 +337,14 @@ public class QuestionServiceImpl implements QuestionService {
 						question.setQuestion_sort(b);
 						questionDao.saveQuestion(question);
 
-					}
 				}
 			} else if (moveQuestionAction == 1) {
+				questionList = questionDao.list_Questionmin_byDefinitionID(question.getQuestion_service_definition());	
 				for (mypcxt_question question1 : questionList) {
+					
 					int a, b, temp;
 					a = question1.getQuestion_sort();
 					b = question.getQuestion_sort();
-					if ((question.getQuestion_sort()) - (question1.getQuestion_sort()) == 1) {
 						temp = a;
 						a = b;
 						b = temp;
@@ -351,13 +352,10 @@ public class QuestionServiceImpl implements QuestionService {
 						questionDao.saveQuestion(question1);
 						question.setQuestion_sort(b);
 						questionDao.saveQuestion(question);
-					}
 				}
 
 			}
-			return questionDao
-					.getServiceDefinitionByQuestionServiceDefinition(question.getQuestion_service_definition())
-					.getMypcxt_service_definition_id();
+			return question.getQuestion_service_definition();
 		} else {
 			return null;
 		}
