@@ -86,7 +86,7 @@ class Model_Question extends Component {
           }}>返回</Button>,
         <Button onClick={() => {
             store.dispatch(QuestionActions.set_addOptionModalVisible(true));
-          }}>增加选项</Button>,
+          }}>添加选项到此问题</Button>,
       ]}>
       <div>
         {

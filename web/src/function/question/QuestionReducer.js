@@ -59,13 +59,18 @@ export default(state = [], action) => {
         newState["Model_Question"]["questionModalVisible"] = action.questionModalVisible;
         return newState;
       }
-
     case 'set_addOptionModalVisible':
       {
         const newState = Object.assign({}, state);
         newState["Model_addOption"]["addOptionModalVisible"] = action.addOptionModalVisible;
         return newState;
       }
+      case 'set_addQuestionModalVisible':
+        {
+          const newState = Object.assign({}, state);
+          newState["Model_addQuestion"]["addQuestionModalVisible"] = action.addQuestionModalVisible;
+          return newState;
+        }
     case 'set_questionnaireModalState':
       {
 

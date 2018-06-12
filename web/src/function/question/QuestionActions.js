@@ -8,6 +8,9 @@ export const updateQuestionFatherList = (questionFatherList) => ({type: 'updateQ
 export const setQuestionDetailsModalVisible = (questionDetailsModalVisible) => ({type: 'setQuestionDetailsModalVisible', questionDetailsModalVisible: questionDetailsModalVisible,})
 export const set_addOptionModalVisible = (addOptionModalVisible) => ({type: 'set_addOptionModalVisible', addOptionModalVisible: addOptionModalVisible,})
 export const set_addOptionQuestion = (option_question) => ({type: 'set_addOptionQuestion', option_question: option_question,})
+export const set_addQuestionModalVisible = (addQuestionModalVisible) => ({type: 'set_addQuestionModalVisible', addQuestionModalVisible: addQuestionModalVisible,})
+
+
 
 export const setQuestionServiceTableLoading = (tableLoading) => ({type: 'setQuestionServiceTableLoading', tableLoading: tableLoading,})
 
@@ -159,6 +162,10 @@ export const addQuestion = (addQuestionModelState) => {
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
+          dispatch(set_addQuestionModalVisible(false));
+
+          dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(responseJson));
+
           dispatch(getQuestionServiceVO());
         }).catch((error) => {
           console.error(error);

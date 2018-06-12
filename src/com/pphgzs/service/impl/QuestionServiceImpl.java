@@ -141,7 +141,10 @@ public class QuestionServiceImpl implements QuestionService {
 		// TODO Auto-generated method stub
 		if (option.getOption_question() != null && option.getOption_describe() != null
 				&& option.getOption_grade() != null) {
-			if (questionDao.getOptionByQuestion_describe(option.getOption_describe()) == null) {
+		String option_describe = questionDao.getOptionByQuestion_describe(option.getOption_describe());
+		System.out.println("s"+option_describe);	
+		if (option_describe == null) {
+				System.out.println("aaa");
 				option.setMypcxt_option_id(uuidUtil.getUuid());
 				option.setOption_sort(questionDao.getMaxOption_Sort_byQuestionID(option.getOption_question()) + 1);
 				String time = TimeUtil.getStringSecond();
@@ -150,6 +153,7 @@ public class QuestionServiceImpl implements QuestionService {
 				questionDao.addOption(option);
 				return true;
 			} else {
+				System.out.println("bbb");
 				return false;
 			}
 		} else {
