@@ -289,7 +289,7 @@ public class QuestionDaoImpl implements QuestionDao {
 	public List<mypcxt_question> get_QuestionChangeValue(int question_sort, String question_service_definition) {
 		Session session = getSession();
 		String hql = "from mypcxt_question where question_service_definition = '" + question_service_definition
-				+ "' and question_sort >'" + question_sort + "' order by question_sort desc";
+				+ "' and question_sort >'" + question_sort + "' order by question_sort asc";
 		Query query = session.createQuery(hql);
 		query.setFirstResult(0);
 		query.setMaxResults(1);
