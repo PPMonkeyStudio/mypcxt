@@ -170,7 +170,6 @@ public class QuestionServiceImpl implements QuestionService {
 					int a, b, temp;
 					a = option2.getOption_sort();
 					b = option.getOption_sort();
-					if ((option2.getOption_sort()) - (option.getOption_sort()) == 1) {
 						temp = a;
 						a = b;
 						b = temp;
@@ -179,14 +178,14 @@ public class QuestionServiceImpl implements QuestionService {
 						option.setOption_sort(b);
 						questionDao.updateOption(option);
 
-					}
+					
 				}
 			} else if (moveOptionAction == 1) {
+				optionList = questionDao.getOptionChangeValueSmall(option.getOption_sort(),option.getOption_question());
 				for (mypcxt_option option1 : optionList) {
 					int a, b, temp;
 					a = option1.getOption_sort();
 					b = option.getOption_sort();
-					if ((option.getOption_sort()) - (option1.getOption_sort()) == 1) {
 						temp = a;
 						a = b;
 						b = temp;
@@ -194,13 +193,11 @@ public class QuestionServiceImpl implements QuestionService {
 						questionDao.updateOption(option1);
 						option.setOption_sort(b);
 						questionDao.updateOption(option);
-					}
+					
 				}
 
 			}
-			mypcxt_question question = questionDao.getQuestionIdByOption_question(option.getOption_question());
-			String service_definition_id = question.getQuestion_service_definition();
-			return service_definition_id;
+			return option.getOption_question();
 		} else {
 			return null;
 		}

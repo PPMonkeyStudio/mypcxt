@@ -95,7 +95,9 @@ class Model_Question extends Component {
                       : <Tag color="#87d068">开放题</Tag>
                   }
                 </div>
+                <br/>
                 <div>{this.state.questionDTO.question.question_describe}</div>
+                <br/>
               </div>
         }
         {

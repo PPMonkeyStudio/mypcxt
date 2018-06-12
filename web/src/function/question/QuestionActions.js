@@ -1,19 +1,19 @@
 import * as QuestionnaireActions from '../question/QuestionnaireActions.js';
 
-export const updateQuestionVO = (questionServiceVO) => ({type: 'updateQuestionVO', questionServiceVO: questionServiceVO})
+export const updateQuestionVO = (questionServiceVO) => ({type: 'updateQuestionVO', questionServiceVO: questionServiceVO,})
 
-export const updateServiceDefinitionList = (serviceDefinitionDTOList) => ({type: 'updateServiceDefinitionList', serviceDefinitionDTOList: serviceDefinitionDTOList})
-export const updateQuestionFatherList = (questionFatherList) => ({type: 'updateQuestionFatherList', questionFatherList: questionFatherList})
+export const updateServiceDefinitionList = (serviceDefinitionDTOList) => ({type: 'updateServiceDefinitionList', serviceDefinitionDTOList: serviceDefinitionDTOList,})
+export const updateQuestionFatherList = (questionFatherList) => ({type: 'updateQuestionFatherList', questionFatherList: questionFatherList,})
 
-export const setQuestionDetailsModalVisible = (questionDetailsModalVisible) => ({type: 'setQuestionDetailsModalVisible', questionDetailsModalVisible: questionDetailsModalVisible})
+export const setQuestionDetailsModalVisible = (questionDetailsModalVisible) => ({type: 'setQuestionDetailsModalVisible', questionDetailsModalVisible: questionDetailsModalVisible,})
 
-export const setQuestionServiceTableLoading = (tableLoading) => ({type: 'setQuestionServiceTableLoading', tableLoading: tableLoading})
+export const setQuestionServiceTableLoading = (tableLoading) => ({type: 'setQuestionServiceTableLoading', tableLoading: tableLoading,})
 
 export const getQuestionFatherList = () => {
   return(dispatch) => {
     fetch('/mypcxt/Question/getQuestionFatherList', {
       method: 'POST',
-      headers: {},
+      headers: {}
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
@@ -33,7 +33,7 @@ export const getServiceDefinitionList = () => {
   return(dispatch) => {
     fetch('/mypcxt/Question/getServiceDefinitionList', {
       method: 'POST',
-      headers: {},
+      headers: {}
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
@@ -55,7 +55,7 @@ export const getQuestionServiceVO = () => {
     dispatch(setQuestionServiceTableLoading(true));
     fetch('/mypcxt/Question/getQuestionServiceVO', {
       method: 'POST',
-      headers: {},
+      headers: {}
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
@@ -80,7 +80,7 @@ export const updateQuestion = (updateQuestionState) => {
     formData.append("question.question_describe", updateQuestionState.question_describe);
     fetch('/mypcxt/Question/updateQuestion', {
       method: 'POST',
-      body: formData
+      body: formData,
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
@@ -103,12 +103,12 @@ export const moveOption = (moveOptionID, moveOptionAction) => {
     formData.append("moveOptionAction", moveOptionAction);
     fetch('/mypcxt/Question/moveOption', {
       method: 'POST',
-      body: formData
+      body: formData,
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
-          dispatch(QuestionnaireActions.getQuestionnaireVO());
           dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(JSON.stringify(responseJson)));
+          dispatch(QuestionnaireActions.getQuestionnaireVO());
         }).catch((error) => {
           console.error(error);
         });
@@ -127,12 +127,12 @@ export const moveQuestion = (moveQuestionID, moveQuestionAction) => {
     formData.append("moveQuestionAction", moveQuestionAction);
     fetch('/mypcxt/Question/moveQuestion', {
       method: 'POST',
-      body: formData
+      body: formData,
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
+          dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(responseJson));
           dispatch(QuestionnaireActions.getQuestionnaireVO());
-          dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(JSON.stringify(responseJson)));
         }).catch((error) => {
           console.error(error);
         });
@@ -153,7 +153,7 @@ export const addQuestion = (addQuestionModelState) => {
     formData.append("question.question_father_question", "none");
     fetch('/mypcxt/Question/addQuestion', {
       method: 'POST',
-      body: formData
+      body: formData,
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
@@ -177,7 +177,7 @@ export const addOption = (addOptionModelState) => {
     formData.append("option.option_grade", addOptionModelState.option_grade);
     fetch('/mypcxt/Question/addOption', {
       method: 'POST',
-      body: formData
+      body: formData,
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {

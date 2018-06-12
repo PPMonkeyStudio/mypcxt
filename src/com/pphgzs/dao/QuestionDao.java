@@ -110,6 +110,7 @@ public interface QuestionDao {
 	 */
 public	List<mypcxt_question> get_QuestionChangeValue(int question_sort, String question_service_definition);
 public List<mypcxt_option> getOptionChangeValue(int option_sort, String option_question);
+public List<mypcxt_option> getOptionChangeValueSmall(int option_sort, String option_question);
 	
 	
 

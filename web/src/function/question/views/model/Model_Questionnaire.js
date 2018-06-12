@@ -47,7 +47,10 @@ class Model_Questionnaire extends Component {
     this.state = {
       questionnaireModalVisible: false,
       questionnaireDTO: {
-        serviceDefinitionDTO: {},
+        serviceDefinitionDTO: {
+          serviceDefinition: {},
+          unit: {},
+        },
         questionServiceDTOList: []
       }
     }
@@ -82,6 +85,16 @@ class Model_Questionnaire extends Component {
             store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(false));
           }}>返回</Button>,
       ]}>
+      {
+        (typeof this.state.questionnaireDTO.serviceDefinitionDTO === "undefined")
+          ? <div></div>
+          : <div>
+              <h2>所属单位：{this.state.questionnaireDTO.serviceDefinitionDTO.unit.unit_name}</h2>
+              <br/>
+              <h2>所属业务：{this.state.questionnaireDTO.serviceDefinitionDTO.serviceDefinition.service_definition_describe}</h2>
+              <br/>
+            </div>
+      }
       {
         (typeof this.state.questionnaireDTO.questionServiceDTOList === "undefined")
           ? <div></div>

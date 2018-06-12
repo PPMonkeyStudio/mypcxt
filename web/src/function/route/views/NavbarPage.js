@@ -7,14 +7,20 @@ import {
   BrowserRouter,
   Router,
   Redirect,
-  withRouter,
+  withRouter
 } from 'react-router-dom';
 import PropTypes from 'prop-types'
 /**
  * antd
  * @type {[type]}
  */
-import {Button, Menu, Layout, Breadcrumb, Icon} from 'antd';
+import {
+  Button,
+  Menu,
+  Layout,
+  Breadcrumb,
+  Icon,
+} from 'antd';
 
 //
 //
@@ -22,6 +28,8 @@ import {Button, Menu, Layout, Breadcrumb, Icon} from 'antd';
 import IndexPage from './IndexPage.js';
 import store from '../../../Store.js';
 import ManagePage from '../../manage/views/ManagePage.js';
+import EvaluationPage from '../../evaluation/views/EvaluationPage.js';
+
 import * as RouteActions from '../RouteActions.js';
 //
 //
@@ -29,7 +37,7 @@ import * as RouteActions from '../RouteActions.js';
 //
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
-const {Header, Content, Footer,} = Layout;
+const {Header, Content, Footer} = Layout;
 //
 //
 const title_my = (<span>
@@ -70,11 +78,11 @@ class NavbarPage extends Component {
     return (<Layout >
       <Header style={{
           position: 'fixed',
-          width: '100%',
+          width: '100%'
         }}>
         <div style={{
             margin: "0 50px 0 0",
-            float: "left",
+            float: "left"
           }}>公安业务分析测评系统</div>
         <Menu mode="horizontal" selectedKeys={this.state.currentNavbarMenuItem} style={{
             lineHeight: '64px'
@@ -82,7 +90,11 @@ class NavbarPage extends Component {
           <Menu.Item key="IndexPage" onClick={() => {
               this.context.router.history.push("/NavbarPage/IndexPage");
             }}><Icon type="home"/>首页</Menu.Item>
-          <Menu.Item key="2"><Icon type="global"/>测评业务</Menu.Item>
+          <Menu.Item key="EvaluationPage" onClick={() => {
+              if (this.context.router.history.location.pathname.includes("/NavbarPage/EvaluationPage")) {} else {
+                this.context.router.history.push("/NavbarPage/EvaluationPage");
+              }
+            }}><Icon type="global"/>测评业务</Menu.Item>
           <Menu.Item key="3"><Icon type="pie-chart"/>统计数据</Menu.Item>
           <Menu.Item key="ManagePage" onClick={() => {
               if (this.context.router.history.location.pathname.includes("/NavbarPage/ManagePage")) {} else {
@@ -96,10 +108,11 @@ class NavbarPage extends Component {
       </Header>
       <Content style={{
           padding: '50px 50px 0',
-          margin: "64px 0 0 0",
+          margin: "64px 0 0 0"
         }}>
 
         {/************************************************/}
+        <Route path="/NavbarPage/EvaluationPage" component={EvaluationPage}></Route>
         <Route path="/NavbarPage/ManagePage" component={ManagePage}></Route>
         <Route path="/NavbarPage/IndexPage" component={IndexPage}></Route>
         {/************************************************/}

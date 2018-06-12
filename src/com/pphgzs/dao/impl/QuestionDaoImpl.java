@@ -249,7 +249,8 @@ public class QuestionDaoImpl implements QuestionDao {
 	public List<mypcxt_question> list_Question_byDefinitionID(String definitionID) {
 
 		Session session = getSession();
-		String hql = "from mypcxt_question where question_service_definition = '" + definitionID + "' order by question_sort desc";
+		String hql = "from mypcxt_question where question_service_definition = '" + definitionID
+				+ "' order by question_sort desc";
 		Query query = session.createQuery(hql);
 		List<mypcxt_question> questionList = query.list();
 		return questionList;
@@ -272,9 +273,10 @@ public class QuestionDaoImpl implements QuestionDao {
 	}
 
 	@Override
-	public List<mypcxt_question> get_QuestionChangeValueSmall(int question_sort ,String question_service_definition) {
+	public List<mypcxt_question> get_QuestionChangeValueSmall(int question_sort, String question_service_definition) {
 		Session session = getSession();
-		String hql = "from mypcxt_question where question_service_definition = '" + question_service_definition + "' and question_sort <'"+question_sort+"' order by question_sort desc";
+		String hql = "from mypcxt_question where question_service_definition = '" + question_service_definition
+				+ "' and question_sort <'" + question_sort + "' order by question_sort desc";
 		Query query = session.createQuery(hql);
 		query.setFirstResult(0);
 		query.setMaxResults(1);
@@ -284,9 +286,10 @@ public class QuestionDaoImpl implements QuestionDao {
 	}
 
 	@Override
-	public List<mypcxt_question> get_QuestionChangeValue(int question_sort,String question_service_definition) {
+	public List<mypcxt_question> get_QuestionChangeValue(int question_sort, String question_service_definition) {
 		Session session = getSession();
-		String hql = "from mypcxt_question where question_service_definition = '" + question_service_definition + "' and question_sort >'"+question_sort+"' order by question_sort desc";
+		String hql = "from mypcxt_question where question_service_definition = '" + question_service_definition
+				+ "' and question_sort >'" + question_sort + "' order by question_sort asc";
 		Query query = session.createQuery(hql);
 		query.setFirstResult(0);
 		query.setMaxResults(1);
@@ -297,8 +300,28 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	@Override
 	public List<mypcxt_option> getOptionChangeValue(int option_sort, String option_question) {
-		
-		return null;
+		Session session = getSession();
+		String hql = "from mypcxt_option where option_question = '" + option_question
+				+ "' and option_sort >'" + option_sort + "' order by option_sort asc";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(0);
+		query.setMaxResults(1);
+		List<mypcxt_option> optionList = query.list();
+
+		return optionList;
+	}
+
+	@Override
+	public List<mypcxt_option> getOptionChangeValueSmall(int option_sort, String option_question) {
+		Session session = getSession();
+		String hql = "from mypcxt_option where option_question = '" + option_question
+				+ "' and option_sort <'" + option_sort + "' order by option_sort desc";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(0);
+		query.setMaxResults(1);
+		List<mypcxt_option> optionList = query.list();
+
+		return optionList;
 	}
 
 }

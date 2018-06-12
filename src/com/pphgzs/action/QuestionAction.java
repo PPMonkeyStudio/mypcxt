@@ -107,10 +107,10 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
-		String ServiceDefinitionId = questionService.moveOption(moveOptionAction, option.getMypcxt_option_id());
-		if (ServiceDefinitionId!=null) {
+		String QuestionId = questionService.moveOption(moveOptionAction, option.getMypcxt_option_id());
+		if (QuestionId!=null) {
 			http_response.setContentType("text/html;charset=utf-8");
-			http_response.getWriter().write(gson.toJson(ServiceDefinitionId));
+			http_response.getWriter().write(gson.toJson(QuestionId));
 		} else {
 			http_response.setContentType("text/html;charset=utf-8");
 			http_response.getWriter().write("-1");

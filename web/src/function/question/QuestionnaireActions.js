@@ -31,7 +31,7 @@ export const getquestionServiceDTO_byQuestionID = (questionID) => {
   return(dispatch) => {
     let formData = new FormData();
     formData.append("questionServiceDTO.question.mypcxt_question_id", questionID);
-    fetch('/mypcxt/Question/getquestionDTO_byQuestionID', {
+    fetch('/mypcxt/Question/getquestionServiceDTO_byQuestionID', {
       method: 'POST',
       body: formData
     }).then((response) => {
