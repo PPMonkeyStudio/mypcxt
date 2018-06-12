@@ -16,6 +16,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
 import com.pphgzs.domain.DO.mypcxt_service_definition;
+import com.pphgzs.domain.DTO.QuestionServiceDTO;
 import com.pphgzs.domain.DTO.QuestionnaireDTO;
 import com.pphgzs.domain.DTO.ServiceDefinitionDTO;
 import com.pphgzs.domain.VO.QuestionServiceVO;
@@ -179,15 +180,16 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 		http_response.getWriter().write(service_definition_id);
 	}
     /*
-     * 
+     * 根据问题Id得到业务问题
      */
-	public void getquestionDTO_byQuestionID(){
+	public void getquestionDTO_byQuestionID() throws IOException{
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
-		//QuestionDTO questionDTO = questionService
+		QuestionServiceDTO questionDTO = new QuestionServiceDTO();
+		questionDTO = questionService.getQuestionServiceDTO_byQuestionID(questionDTO.getQuestion().getMypcxt_question_id());
 		http_response.setContentType("text/html;charset=utf-8");
-		//http_response.getWriter().write(gson.toJson(questionnaireDTO));
+		http_response.getWriter().write(gson.toJson(questionDTO));
 	}
 	/*
 	 */
