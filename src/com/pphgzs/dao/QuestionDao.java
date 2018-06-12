@@ -104,11 +104,11 @@ public interface QuestionDao {
 	/*
 	 * 根据业务Id得到业务下的一条比该问题排序小一的问题
 	 */
-	public List<mypcxt_question> list_Questionmin_byDefinitionID(String question_service_definition);
+	public List<mypcxt_question> get_QuestionChangeValueSmall(int question_sort , String question_service_definition);
 	/*
 	 * 根据业务Id得到业务下的一条比该问题排序大一的问题
 	 */
-	public List<mypcxt_question> list_QuestionMax_byDefinitionID(String question_service_definition);
+public	List<mypcxt_question> get_QuestionChangeValue(int question_sort, String question_service_definition);
 	
 	
 
