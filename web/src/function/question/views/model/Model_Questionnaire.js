@@ -106,11 +106,11 @@ class Model_Questionnaire extends Component {
               <Column title="操作" dataIndex="question.mypcxt_question_id" align="center" render={(text, record) => {
                   return (<div>
                     <a onClick={() => {
-                        store.dispatch(QuestionActions.moveQuestion(text, "2"));
+                        store.dispatch(QuestionActions.moveQuestion(text, 2));
                       }}><Icon type="arrow-up"/></a>
                     <Divider type="vertical"/>
                     <a onClick={() => {
-                        store.dispatch(QuestionActions.moveQuestion(text, "1"));
+                        store.dispatch(QuestionActions.moveQuestion(text, 1));
                       }}><Icon type="arrow-down"/></a>
                     <Divider type="vertical"/>
                     <a onClick={() => {}}><Icon type="delete"/></a>

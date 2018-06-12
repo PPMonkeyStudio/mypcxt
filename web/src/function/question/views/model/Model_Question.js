@@ -20,7 +20,7 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag,
+  Tag
 } from 'antd';
 //
 //
@@ -33,7 +33,7 @@ import * as QuestionActions from '../../../question/QuestionActions.js';
 //
 //
 const FormItem = Form.Item;
-const {Column, ColumnGroup,} = Table;
+const {Column, ColumnGroup} = Table;
 const Option = Select.Option;
 //
 ////
@@ -49,8 +49,8 @@ class Model_Question extends Component {
       questionDTO: {
         question: {},
         serviceDefinitionDTO: {},
-        optionList: [],
-      },
+        optionList: []
+      }
     }
 
   }
@@ -84,12 +84,32 @@ class Model_Question extends Component {
           }}>返回</Button>,
       ]}>
       <div>
-        <div>{this.state.questionDTO.question.question_describe}</div>
+        {
+          (typeof this.state.questionDTO.question === "undefined")
+            ? <div></div>
+            : <div>
+                <div>
+                  {
+                    (this.state.questionDTO.question.question_type === "1")
+                      ? <Tag color="#108ee9">选择题</Tag>
+                      : <Tag color="#87d068">开放题</Tag>
+                  }
+                </div>
+                <div>{this.state.questionDTO.question.question_describe}</div>
+              </div>
+        }
         {
           (typeof this.state.questionDTO.optionList === "undefined")
             ? <div></div>
-            : <Table width="1000px" size="small" bordered={true} pagination={false} dataSource={this.state.questionnaireDTO.questionServiceDTOList}>
-                <Column title="问题" dataIndex="question.question_describe" align="center" render={(text, record) => {
+            : <Table width="1000px" size="small" bordered={true} pagination={false} dataSource={this.state.questionDTO.optionList}>
+                <Column title="选项" dataIndex="option.option_describe" align="center" render={(text, record) => {
+                    return (<div>
+                      <a onClick={() => {
+                          store.dispatch(QuestionnaireActions.set_questionModalVisible(true));
+                        }}>{text}</a>
+                    </div>);
+                  }}/>
+                <Column title="选项" dataIndex="option.option_grade" align="center" render={(text, record) => {
                     return (<div>
                       <a onClick={() => {
                           store.dispatch(QuestionnaireActions.set_questionModalVisible(true));
