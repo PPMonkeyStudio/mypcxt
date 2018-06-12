@@ -19,7 +19,9 @@ public class test {
 		this.questionService = questionService;
 	}@Test
 	public void moveQuestion(){
-		String id="qqqq";
-		questionService.getquestionnaireDTO_byServiceDefinitionID(id);
+		int moveQuestionAction;
+		String id="e8a96761-f190-47c1-ad13-92ffbf21b54e";
+		String ServiceDefinitionId = questionService.moveQuestion(1, id);
+		System.out.println(ServiceDefinitionId);
 	}
 }
