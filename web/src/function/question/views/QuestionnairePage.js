@@ -24,6 +24,7 @@ import {
 } from 'antd';
 import * as QuestionActions from '../QuestionActions.js';
 import Model_Questionnaire from '../../question/views/model/Model_Questionnaire.js';
+import Model_Question from '../../question/views/model/Model_Question.js';
 import * as QuestionnaireActions from '../QuestionnaireActions.js';
 
 const FormItem = Form.Item;
@@ -91,6 +92,7 @@ class QuestionnairePage extends Component {
           textAlign: "center"
         }}>共{this.state.questionnaireVO.totalRecords}条记录</div>
       <Model_Questionnaire/>
+      <Model_Question/>
     </div>);
 
   }
