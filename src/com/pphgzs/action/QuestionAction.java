@@ -16,6 +16,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
 import com.pphgzs.domain.DO.mypcxt_service_definition;
+import com.pphgzs.domain.DTO.QuestionServiceDTO;
 import com.pphgzs.domain.DTO.QuestionnaireDTO;
 import com.pphgzs.domain.DTO.ServiceDefinitionDTO;
 import com.pphgzs.domain.VO.QuestionServiceVO;
@@ -103,10 +104,13 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	 * 移动选择题选项
 	 */
 	public void moveOption() throws IOException {
-		if (questionService.moveOption(moveOptionAction, option.getMypcxt_option_id())!=null) {
-			String ServiceDefinitionId = questionService.moveOption(moveOptionAction, option.getMypcxt_option_id());
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		String ServiceDefinitionId = questionService.moveOption(moveOptionAction, option.getMypcxt_option_id());
+		if (ServiceDefinitionId!=null) {
 			http_response.setContentType("text/html;charset=utf-8");
-			http_response.getWriter().write(ServiceDefinitionId);
+			http_response.getWriter().write(gson.toJson(ServiceDefinitionId));
 		} else {
 			http_response.setContentType("text/html;charset=utf-8");
 			http_response.getWriter().write("-1");
@@ -117,9 +121,12 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	 * 修改问题
 	 */
 	public void updateQuestion() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
 		String ServiceDefinitionId = questionService.updateQuestion(question);
 		http_response.setContentType("text/html;charset=utf-8");
-		http_response.getWriter().write(ServiceDefinitionId);
+		http_response.getWriter().write(gson.toJson(ServiceDefinitionId));
 	}
 
 	/*
@@ -161,10 +168,13 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	 * 移动问题
 	 */
 	public void moveQuestion() throws IOException{
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
 		String ServiceDefinitionId =questionService.moveQuestion(moveQuestionAction, question.getMypcxt_question_id());
 		if (ServiceDefinitionId!=null) {
 			http_response.setContentType("text/html;charset=utf-8");
-			http_response.getWriter().write(ServiceDefinitionId);
+			http_response.getWriter().write(gson.toJson(ServiceDefinitionId));
 		} else {
 			http_response.setContentType("text/html;charset=utf-8");
 			http_response.getWriter().write("-1");
@@ -174,11 +184,25 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	 * 更新选择题选项
 	 */
 	public void updateOption() throws IOException{
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
 		String service_definition_id = questionService.updateOption(option);
 		http_response.setContentType("text/html;charset=utf-8");
-		http_response.getWriter().write(service_definition_id);
+		http_response.getWriter().write(gson.toJson(service_definition_id));
 	}
-
+     /*
+      * 根据问题Id获得业务问题
+      */
+	public void   getquestionServiceDTO_byQuestionID() throws IOException{
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		QuestionServiceDTO questionServiceDTO = new QuestionServiceDTO();
+		questionServiceDTO = questionService.getQuestionServiceDTO_byQuestionID(questionServiceDTO.getQuestion().getMypcxt_question_id());
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write(gson.toJson(questionServiceDTO));
+	}
 	/*
 	 */
 	@Override
