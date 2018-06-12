@@ -23,7 +23,7 @@ public class test {
 	public void moveQuestion() {
 		int moveQuestionAction;
 		String id = "e8a96761-f190-47c1-ad13-92ffbf21b54e";
-		String ServiceDefinitionId = questionService.moveQuestion(1, id);
+		String ServiceDefinitionId = questionService.moveQuestion(2, id);
 		System.out.println(ServiceDefinitionId);
 	}
 }
