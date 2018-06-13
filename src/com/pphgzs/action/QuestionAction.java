@@ -13,6 +13,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.opensymphony.xwork2.ActionSupport;
+import com.pphgzs.domain.DO.mypcxt_answer_choice;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
 import com.pphgzs.domain.DO.mypcxt_service_definition;
@@ -42,6 +43,8 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	private int moveQuestionAction;
 	private QuestionnaireDTO questionnaireDTO;
 	private QuestionServiceDTO questionServiceDTO;
+	private mypcxt_answer_choice AnswerChoice;
+	private String 	BatchQuestionID;//删除问题的字符串ID
 
 	/*
 	 *  
@@ -219,6 +222,39 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 		http_response.getWriter().write(gson.toJson(questionServiceDTO));
 	}
 	/*
+	 * 删除问题
+	 */
+	public void deleteQuestion() throws IOException{
+		if(questionService.deleteQuestion(BatchQuestionID)){
+			http_response.setContentType("text/html;charset=utf-8");
+			http_response.getWriter().write("1");
+		}else{
+			http_response.setContentType("text/html;charset=utf-8");
+			http_response.getWriter().write("-1");
+		}
+	}
+	/*
+	 * 添加选择题回答
+	 */
+	public void addAnswerChoice() throws IOException{
+		if(questionService.addAnswerChoice(AnswerChoice)){
+			http_response.setContentType("text/html;charset=utf-8");
+			http_response.getWriter().write("1");
+		}else{
+			http_response.setContentType("text/html;charset=utf-8");
+			http_response.getWriter().write("-1");
+		}
+	}
+	/*
+	 * 获取所有单位列表
+	 */
+	public void listUnitAll(){
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		
+	}
+	/*
 	 */
 	@Override
 	public void setServletRequest(HttpServletRequest http_request) {
@@ -313,6 +349,22 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 
 	public void setQuestionServiceDTO(QuestionServiceDTO questionServiceDTO) {
 		this.questionServiceDTO = questionServiceDTO;
+	}
+
+	public mypcxt_answer_choice getAnswerChoice() {
+		return AnswerChoice;
+	}
+
+	public void setAnswerChoice(mypcxt_answer_choice answerChoice) {
+		AnswerChoice = answerChoice;
+	}
+
+	public String getBatchQuestionID() {
+		return BatchQuestionID;
+	}
+
+	public void setBatchQuestionID(String batchQuestionID) {
+		BatchQuestionID = batchQuestionID;
 	}
 
 	/*

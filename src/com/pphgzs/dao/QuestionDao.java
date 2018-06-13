@@ -2,6 +2,8 @@ package com.pphgzs.dao;
 
 import java.util.List;
 
+import com.pphgzs.domain.DO.mypcxt_answer_choice;
+import com.pphgzs.domain.DO.mypcxt_answer_open;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
 import com.pphgzs.domain.DO.mypcxt_service_definition;
@@ -111,6 +113,13 @@ public interface QuestionDao {
 public	List<mypcxt_question> get_QuestionChangeValue(int question_sort, String question_service_definition);
 public List<mypcxt_option> getOptionChangeValue(int option_sort, String option_question);
 public List<mypcxt_option> getOptionChangeValueSmall(int option_sort, String option_question);
+public List<mypcxt_answer_choice> getAnswerChoiceByOptionQuestion(String option_question);
+public List<mypcxt_answer_open> getAnswerOpenByQuestionId(String QuestionId);
+public void deleteAnswerChoice(mypcxt_answer_choice answerChoice);
+public void deleteOption(mypcxt_option option);
+public void deleteQuestion(mypcxt_question question);
+public void deleteAnswerOpen(mypcxt_answer_open answerOpen);
+public boolean addAnswerChoice(mypcxt_answer_choice answerChoice);
 	
 	
 

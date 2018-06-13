@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-13 9:00:29 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.pphgzs.domain.DO.mypcxt_answer_choice" table="MYPCXT_ANSWER_CHOICE">
+        <id name="mypcxt_answer_choice_id" type="java.lang.String">
+            <column name="MYPCXT_ANSWER_CHOICE_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="answer_choice_mypcxt_service_instance" type="java.lang.String">
+            <column name="ANSWER_CHOICE_MYPCXT_SERVICE_INSTANCE" />
+        </property>
+        <property name="answer_choice_option" type="java.lang.String">
+            <column name="ANSWER_CHOICE_OPTION" />
+        </property>
+        <property name="answer_choice_question" type="java.lang.String">
+            <column name="ANSWER_CHOICE_QUESTION" />
+        </property>
+        <property name="answer_choice_gmt_create" type="java.lang.String">
+            <column name="ANSWER_CHOICE_GMT_CREATE" />
+        </property>
+        <property name="answer_choice_gmt_modified" type="java.lang.String">
+            <column name="ANSWER_CHOICE_GMT_MODIFIED" />
+        </property>
+    </class>
+</hibernate-mapping>

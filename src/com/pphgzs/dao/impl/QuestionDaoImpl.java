@@ -8,6 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.pphgzs.dao.QuestionDao;
+import com.pphgzs.domain.DO.mypcxt_answer_choice;
+import com.pphgzs.domain.DO.mypcxt_answer_open;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
 import com.pphgzs.domain.DO.mypcxt_service_definition;
@@ -142,11 +144,13 @@ public class QuestionDaoImpl implements QuestionDao {
 		query.setMaxResults(1);
 
 		List<Integer> maxOptionSort_onQuestion = query.list();
-
 		session.clear();
-		// 返回第一个值（最大值）
-		return maxOptionSort_onQuestion.get(0);
-
+        if(maxOptionSort_onQuestion.size()==0){
+        	return 0;
+        }else{
+        	// 返回第一个值（最大值）
+        	return maxOptionSort_onQuestion.get(0);
+        }
 	}
 
 	@Override
@@ -332,6 +336,68 @@ public class QuestionDaoImpl implements QuestionDao {
 		List<mypcxt_option> optionList = query.list();
 
 		return optionList;
+	}
+
+	@Override
+	public List<mypcxt_answer_choice> getAnswerChoiceByOptionQuestion(String option_question) {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		String hql = "from mypcxt_answer_choice where answer_choice_question='"+option_question+"'";
+		Query query = session.createQuery(hql);
+		List<mypcxt_answer_choice> AnswerChoiceList = query.list();
+		session.clear();
+		return AnswerChoiceList;
+	}
+
+	@Override
+	public List<mypcxt_answer_open> getAnswerOpenByQuestionId(String QuestionId) {
+		// TODO Auto-generated method stub
+		Session session =getSession();
+		String hql="from mypcxt_answer_open where answer_open_question='"+QuestionId+"'";
+		Query query = session.createQuery(hql);
+		List<mypcxt_answer_open> AnswerOpenList = query.list();
+		return AnswerOpenList;
+	}
+
+	@Override
+	public void deleteAnswerChoice(mypcxt_answer_choice answerChoice) {
+		// TODO Auto-generated method stub
+	            Session session = getSession();
+	            session.delete(answerChoice);
+	            session.flush();
+	}
+
+	@Override
+	public void deleteOption(mypcxt_option option) {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		session.delete(option);
+		session.flush();
+	}
+
+	@Override
+	public void deleteQuestion(mypcxt_question question) {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		session.delete(question);
+		session.flush();
+	}
+
+	@Override
+	public void deleteAnswerOpen(mypcxt_answer_open answerOpen) {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		session.delete(answerOpen);
+		session.flush();
+	}
+
+	@Override
+	public boolean addAnswerChoice(mypcxt_answer_choice answerChoice) {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		session.save(answerChoice);
+		session.flush();
+		return true;
 	}
 
 }
