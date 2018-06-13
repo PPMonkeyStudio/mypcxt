@@ -194,11 +194,8 @@ export const addOption = (addOptionModelState) => {
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
-
           dispatch(set_addOptionModalVisible(false));
-
           dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(addOptionModelState.option_question));
-
           dispatch(getQuestionServiceVO());
         }).catch((error) => {
           console.error(error);

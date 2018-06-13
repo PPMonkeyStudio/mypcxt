@@ -115,6 +115,12 @@ export default(state = [], action) => {
         newState["Model_addService"]["addServiceModalVisible"] = action.addServiceModalVisible;
         return newState;
       }
+      case 'set_addServiceModelUnitList':
+        {
+          const newState = Object.assign({}, state);
+          newState["Model_addService"]["unitList"] = action.unitList;
+          return newState;
+        }
     default:
       {
         return state;

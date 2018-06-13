@@ -20,7 +20,7 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag,
+  Tag
 } from 'antd';
 import * as QuestionActions from '../QuestionActions.js';
 import * as UnitActions from '../../unit/UnitActions.js';
@@ -32,7 +32,7 @@ import Model_addService from '../../question/views/model/Model_addService.js';
 import * as QuestionnaireActions from '../QuestionnaireActions.js';
 
 const FormItem = Form.Item;
-const {Column, ColumnGroup,} = Table;
+const {Column, ColumnGroup} = Table;
 const Option = Select.Option;
 const {TextArea} = Input;
 //
@@ -46,11 +46,10 @@ class QuestionnairePage extends Component {
     this.state = {
       questionnaireVO: {
         questionnaireDTOList: [],
-        totalRecords: 0
+        totalRecords: 0,
       },
       tableLoading: false,
-      previewQuestionnaireModalVisible: false,
-
+      previewQuestionnaireModalVisible: false
     }
     //
     //
@@ -77,10 +76,11 @@ class QuestionnairePage extends Component {
     return (<div>
       <div style={{
           height: "34px",
-          margin: "0 0 20px 0",
+          margin: "0 0 20px 0"
         }}>
         <Button onClick={() => {
             store.dispatch(QuestionnaireActions.set_addServiceModalVisible(true));
+            store.dispatch(QuestionnaireActions.listUnitAll_toAddServiceModel());
           }}>
           <Icon type="plus"/>
           &nbsp;创建业务问卷
@@ -111,7 +111,7 @@ class QuestionnairePage extends Component {
       <div style={{
           margin: "20px auto 10px",
           width: "200px",
-          textAlign: "center"
+          textAlign: "center",
         }}>共{this.state.questionnaireVO.totalRecords}条记录</div>
       <Model_Questionnaire/>
       <Model_Question/>

@@ -65,7 +65,6 @@ class Routes extends Component {
       //
     } else {
       store.dispatch(RouteActions.updateStoreCurrentURL(this.context.router.history.location.pathname));
-      console.debug(this.context.router.history.location.pathname);
     }
 
     // console.debug(store.getState()["RouteReducer"]["currentNavbarMenuItem"]);

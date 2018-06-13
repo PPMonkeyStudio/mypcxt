@@ -133,6 +133,7 @@ const initialState = {
     },
     'Model_addService': {
       addServiceModalVisible: false,
+      unitList:[],
     },
   },
 };

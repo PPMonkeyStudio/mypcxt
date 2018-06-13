@@ -20,7 +20,7 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag
+  Tag,
 } from 'antd';
 //
 //
@@ -32,7 +32,7 @@ import * as QuestionActions from '../../QuestionActions.js';
 //
 //
 const FormItem = Form.Item;
-const {Column, ColumnGroup} = Table;
+const {Column, ColumnGroup,} = Table;
 const Option = Select.Option;
 //
 ////
@@ -45,7 +45,11 @@ class Model_addService extends Component {
 
     this.state = {
       addServiceModalVisible: false,
-      addServiceModelState: {},
+      addServiceModelState: {
+        service_definition_describe: "",
+        service_definition_unit: ""
+      },
+      unitList: []
     }
 
   }
@@ -61,6 +65,11 @@ class Model_addService extends Component {
         addServiceModalVisible: store.getState()["QuestionReducer"]["Model_addService"]["addServiceModalVisible"]
       });
     }
+    if (this.state.unitList !== store.getState()["QuestionReducer"]["Model_addService"]["unitList"]) {
+      this.setState({
+        unitList: store.getState()["QuestionReducer"]["Model_addService"]["unitList"]
+      });
+    }
   }
   //
   //
@@ -72,7 +81,9 @@ class Model_addService extends Component {
         <Button onClick={() => {
             store.dispatch(QuestionnaireActions.set_addServiceModalVisible(false));
           }}>返回</Button>,
-        <Button onClick={() => {}}>确认创建</Button>,
+        <Button onClick={() => {
+              store.dispatch(QuestionnaireActions.addServiceDefinition(this.state.addServiceModelState));
+          }}>确认创建</Button>,
       ]}>
       <Form>
         <FormItem label="业务名">
@@ -83,10 +94,17 @@ class Model_addService extends Component {
             }}/>
         </FormItem>
         <FormItem label="所属单位">
-          <Input onChange={(event) => {
+          <Select value={this.state.addServiceModelState.service_definition_unit} onChange={(value) => {
               let addServiceModelState = Object.assign({}, this.state.addServiceModelState);
+              addServiceModelState.service_definition_unit = value;
               this.setState({addServiceModelState: addServiceModelState});
-            }}/>
+            }}>
+            {
+              this.state.unitList.map(function(unit) {
+                return <Option value={unit.mypcxt_unit_id}>{unit.unit_name}</Option>
+              })
+            }
+          </Select>
         </FormItem>
       </Form>
     </Modal>);
