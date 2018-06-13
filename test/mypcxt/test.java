@@ -31,12 +31,12 @@ public class test {
 	@Test
 	public void addQuestion() {
 		mypcxt_question question = new mypcxt_question();
-		question.setQuestion_describe("你好");
+		question.setQuestion_describe("你hfhf好");
 		question.setQuestion_type("1");
 		// String
 		// question_service_definition="1aec59e9-f856-4cb3-b356-896d5b140c1d";
 		question.setQuestion_service_definition("1aec59e9-f856-4cb3-b356-896d5b140c1d");
-		question.setQuestion_father_question("none");
+		
 
 		questionService.saveQuestion(question);
 	}
