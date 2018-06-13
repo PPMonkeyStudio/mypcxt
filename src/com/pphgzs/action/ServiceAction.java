@@ -163,6 +163,14 @@ public class ServiceAction extends ActionSupport implements ServletResponseAware
 		this.serviceDistributionVO = serviceDistributionVO;
 	}
 
+	public mypcxt_service_definition getServiceDefinition() {
+		return ServiceDefinition;
+	}
+
+	public void setServiceDefinition(mypcxt_service_definition serviceDefinition) {
+		ServiceDefinition = serviceDefinition;
+	}
+
 	/*
 	 * 
 	 */
