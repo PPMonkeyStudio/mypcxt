@@ -59,15 +59,17 @@ public class LoginAndLogoutAction extends ActionSupport implements ServletRespon
 		 */
 	}
 
-	public void logout() {
+	public void logout() throws IOException {
 		http_response.setContentType("text/html;charset=utf-8");
-		/*
-		 * 
-		 */
-
-		/*
-		 * 
-		 */
+		if(ActionContext.getContext().getSession().get("currentUser.type")!=null && ActionContext.getContext().getSession().get("currentUser.pypcxt_user")!=null){
+			ActionContext.getContext().getSession().remove("currentUser.type");
+			ActionContext.getContext().getSession().remove("currentUser.pypcxt_user");
+			http_response.getWriter().write("1");
+		}else if(ActionContext.getContext().getSession().get("currentUser.type")!=null && ActionContext.getContext().getSession().get("currentUser.pypcxt_admin")!=null){
+			ActionContext.getContext().getSession().remove("currentUser.type");
+			ActionContext.getContext().getSession().remove("currentUser.pypcxt_admin");
+			http_response.getWriter().write("2");
+		}
 	}
 
 	public void getSession() {
