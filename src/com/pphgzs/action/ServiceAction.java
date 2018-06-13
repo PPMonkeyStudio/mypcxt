@@ -11,6 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.opensymphony.xwork2.ActionSupport;
+import com.pphgzs.domain.DO.mypcxt_service_definition;
 import com.pphgzs.domain.VO.ServiceDefinitionVO;
 import com.pphgzs.domain.VO.ServiceDistributionVO;
 import com.pphgzs.domain.VO.ServiceInstanceVO;
@@ -23,14 +24,14 @@ public class ServiceAction extends ActionSupport implements ServletResponseAware
 	private ServiceService serviceService;
 	private HttpServletResponse http_response;
 	private HttpServletRequest http_request;
-
+    private mypcxt_service_definition ServiceDefinition;
 	/* 
 	 * 
 	 */
 	ServiceDefinitionVO serviceDefinitionVO;
 	ServiceInstanceVO serviceInstanceVO;
 	ServiceDistributionVO serviceDistributionVO;
-
+    
 	/**
 	 * 查询业务定义VO类
 	 * 
@@ -100,7 +101,18 @@ public class ServiceAction extends ActionSupport implements ServletResponseAware
 		http_response.setContentType("text/html;charset=utf-8");
 		http_response.getWriter().write(gson.toJson("1"));
 	}
-
+	/*
+	 * 创建业务定义
+	 */
+	public void addServiceDefinition() throws IOException{
+		if(serviceService.addServiceDefinition(ServiceDefinition)){
+			http_response.setContentType("text/html;charset=utf-8");
+			http_response.getWriter().write("1");
+		}else{
+			http_response.setContentType("text/html;charset=utf-8");
+			http_response.getWriter().write("-1");
+		}
+	}
 	/*
 	 * 
 	 */

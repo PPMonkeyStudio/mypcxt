@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.pphgzs.domain.DO.mypcxt_answer_choice;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
 import com.pphgzs.service.QuestionService;
@@ -31,12 +32,12 @@ public class test {
 	@Test
 	public void addQuestion() {
 		mypcxt_question question = new mypcxt_question();
-		question.setQuestion_describe("你好");
+		question.setQuestion_describe("你hfhf好sssss");
 		question.setQuestion_type("1");
 		// String
 		// question_service_definition="1aec59e9-f856-4cb3-b356-896d5b140c1d";
 		question.setQuestion_service_definition("1aec59e9-f856-4cb3-b356-896d5b140c1d");
-		question.setQuestion_father_question("none");
+		
 
 		questionService.saveQuestion(question);
 	}
@@ -44,8 +45,8 @@ public class test {
 	@Test
 	public void addOption() {
 		mypcxt_option option = new mypcxt_option();
-		option.setOption_describe("HHHHH");
-		option.setOption_question("e8a96761-f190-47c1-ad13-92ffbf21b54e");
+		option.setOption_describe("我就想闪出sssssss");
+		option.setOption_question("484b1564-69dc-4721-be55-f269d6adf4b3");
 		option.setOption_grade("5");
 		questionService.addOption(option);
 	}
@@ -55,5 +56,17 @@ public class test {
 		question.setMypcxt_question_id("43fbbe80-05e8-4d24-9c19-2e6ea5391793");
 		question.setQuestion_describe("胡椒粉合格");
 		questionService.updateQuestion(question);
+	}
+	@Test
+	public void deleteQuestion(){
+		String QuestionId= "474516fe-498b-4542-b402-1283a8092256,484b1564-69dc-4721-be55-f269d6adf4b3";
+		questionService.deleteQuestion(QuestionId);
+	}
+	@Test
+	public void addAnswerChoice(){
+		mypcxt_answer_choice answer_choice = new mypcxt_answer_choice();
+		answer_choice.setAnswer_choice_option("06f4f8dd-d474-4db2-a433-8f5d1d08619b");
+		answer_choice.setAnswer_choice_question("484b1564-69dc-4721-be55-f269d6adf4b3");
+		questionService.addAnswerChoice(answer_choice);
 	}
 }

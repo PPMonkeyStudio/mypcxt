@@ -2,13 +2,17 @@ package com.pphgzs.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.pphgzs.dao.QuestionDao;
 import com.pphgzs.dao.ServiceDao;
 import com.pphgzs.dao.UnitDao;
+import com.pphgzs.domain.DO.mypcxt_answer_choice;
+import com.pphgzs.domain.DO.mypcxt_answer_open;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
 import com.pphgzs.domain.DO.mypcxt_service_definition;
+import com.pphgzs.domain.DO.mypcxt_unit;
 import com.pphgzs.domain.DTO.QuestionServiceDTO;
 import com.pphgzs.domain.DTO.QuestionnaireDTO;
 import com.pphgzs.domain.DTO.ServiceDefinitionDTO;
@@ -105,10 +109,6 @@ public class QuestionServiceImpl implements QuestionService {
 		String time = TimeUtil.getStringSecond();
 		question.setQuestion_gmt_create(time);
 		question.setQuestion_gmt_modified(time);
-		if (question.getQuestion_father_question() != "none") {
-			question.setQuestion_service_definition(
-					questionDao.getServiceDefinitionByFatherQuestion(question.getQuestion_father_question()));
-		}
 		if(questionDao.saveQuestion(question)){
 			return question.getQuestion_service_definition();
 		}else{
@@ -373,4 +373,59 @@ public class QuestionServiceImpl implements QuestionService {
 		String service_definition_id = question.getQuestion_service_definition();
 		return service_definition_id;
 	}
+
+	@Override
+	public boolean deleteQuestion(String QuestionId) {
+		System.out.println("进来了");
+		String[] arrayQuestionId = QuestionId.split(",");
+		for (int i=0 ; i<arrayQuestionId.length;i++){
+		mypcxt_question question = questionDao.get_Question_byID(arrayQuestionId[i]);
+		System.out.println("aaaaaaaaaaaaaaaaa"+question.toString());
+		if(question.getQuestion_type().equals("1")){
+			System.out.println("再进");
+		List<mypcxt_option> optionList = questionDao.list_Option_byQuestionID(question.getMypcxt_question_id());
+		System.out.println("optionList选择题列表"+optionList);
+		for(mypcxt_option option : optionList){
+		List<mypcxt_answer_choice> AnswerChoiceList = questionDao.getAnswerChoiceByOptionQuestion(option.getOption_question());
+		  System.out.println("AnswerChoiceList选择题回答表"+AnswerChoiceList);	
+		for(mypcxt_answer_choice AnswerChoice : AnswerChoiceList){
+			System.out.println("jin1");
+				questionDao.deleteAnswerChoice(AnswerChoice);
+			}
+		System.out.println("jin2");
+			questionDao.deleteOption(option);
+		}
+		System.out.println("jin3");
+		questionDao.deleteQuestion(question);
+		}else if(question.getQuestion_type()=="2"){
+		List<mypcxt_answer_open> AnswerOpenList = questionDao.getAnswerOpenByQuestionId(question.getMypcxt_question_id());
+		for(mypcxt_answer_open AnswerOpen : AnswerOpenList){
+			questionDao.deleteAnswerOpen(AnswerOpen);
+		}
+		questionDao.deleteQuestion(question);
+		}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean addAnswerChoice(mypcxt_answer_choice answerChoice) {
+		// TODO Auto-generated method stub
+		answerChoice.setMypcxt_answer_choice_id(uuidUtil.getUuid());
+		String time = TimeUtil.getStringSecond();
+		answerChoice.setAnswer_choice_gmt_create(time);
+		answerChoice.setAnswer_choice_gmt_modified(time);
+	    if(questionDao.addAnswerChoice(answerChoice)){
+	    	return true;
+	    }else{
+	    	return false;
+	    }
+	}
+
+	@Override
+	public mypcxt_option getOptionByID(String mypcxt_option_id) {
+		
+		return questionDao.getOptionByID(mypcxt_option_id);
+	}
+
 }

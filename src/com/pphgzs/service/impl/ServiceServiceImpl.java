@@ -19,6 +19,8 @@ import com.pphgzs.domain.VO.ServiceDefinitionVO;
 import com.pphgzs.domain.VO.ServiceDistributionVO;
 import com.pphgzs.domain.VO.ServiceInstanceVO;
 import com.pphgzs.service.ServiceService;
+import com.pphgzs.util.TimeUtil;
+import com.pphgzs.util.uuidUtil;
 
 public class ServiceServiceImpl implements ServiceService {
 
@@ -160,5 +162,19 @@ public class ServiceServiceImpl implements ServiceService {
 		//
 		return serviceDistributionDTO;
 	}
+
+	@Override
+	public boolean addServiceDefinition(mypcxt_service_definition serviceDefinition) {
+		serviceDefinition.setMypcxt_service_definition_id(uuidUtil.getUuid());
+		String time = TimeUtil.getStringSecond();
+		serviceDefinition.setService_definition_gmt_create(time);
+		serviceDefinition.setService_definition_gmt_modified(time);
+		if(serviceDao.addServiceDefinition(serviceDefinition)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 
 }

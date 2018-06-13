@@ -7,7 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
+import org.hibernate.mapping.Map;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.pphgzs.service.LoginAndLogoutService;
@@ -59,15 +62,17 @@ public class LoginAndLogoutAction extends ActionSupport implements ServletRespon
 		 */
 	}
 
-	public void logout() {
+	public void logout() throws IOException {
 		http_response.setContentType("text/html;charset=utf-8");
-		/*
-		 * 
-		 */
-
-		/*
-		 * 
-		 */
+		if(ActionContext.getContext().getSession().get("currentUser.type")!=null && ActionContext.getContext().getSession().get("currentUser.pypcxt_user")!=null){
+			ActionContext.getContext().getSession().remove("currentUser.type");
+			ActionContext.getContext().getSession().remove("currentUser.pypcxt_user");
+			http_response.getWriter().write("1");
+		}else if(ActionContext.getContext().getSession().get("currentUser.type")!=null && ActionContext.getContext().getSession().get("currentUser.pypcxt_admin")!=null){
+			ActionContext.getContext().getSession().remove("currentUser.type");
+			ActionContext.getContext().getSession().remove("currentUser.pypcxt_admin");
+			http_response.getWriter().write("2");
+		}
 	}
 
 	public void getSession() {
@@ -80,7 +85,17 @@ public class LoginAndLogoutAction extends ActionSupport implements ServletRespon
 		 * 
 		 */
 	}
-
+     /*
+      * 获取当前session信息的currentUser
+      */
+	public void getCurrentUser() throws IOException{
+		Map session = (Map) ActionContext.getContext().getSession();
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write(gson.toJson(session));
+	}
 	/*
 	 * 
 	 */
@@ -92,7 +107,7 @@ public class LoginAndLogoutAction extends ActionSupport implements ServletRespon
 	@Override
 	public void setServletResponse(HttpServletResponse http_response) {
 		this.http_response = http_response;
-
+      
 	}
 
 	public HttpServletResponse getHttp_response() {

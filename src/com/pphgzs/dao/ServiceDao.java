@@ -27,5 +27,9 @@ public interface ServiceDao {
 	public mypcxt_service_instance getServiceInstanceByID(String serviceInstanceID);
 
 	public mypcxt_service_distribution getServiceDistributionByID(String serviceDistributionID);
+     /*
+      * 创建业务定义
+      */
+	public boolean addServiceDefinition(mypcxt_service_definition serviceDefinition);
 
 }

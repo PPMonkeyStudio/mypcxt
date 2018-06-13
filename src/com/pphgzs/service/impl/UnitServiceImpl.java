@@ -93,4 +93,10 @@ public class UnitServiceImpl implements UnitService {
 
 	}
 
+	@Override
+	public List<mypcxt_unit> listUnitAll() {
+		List<mypcxt_unit> unitList = unitDao.listUnitAll();
+		return unitList;
+	}
+
 }

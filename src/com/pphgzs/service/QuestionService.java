@@ -2,9 +2,12 @@ package com.pphgzs.service;
 
 import java.util.List;
 
+
+import com.pphgzs.domain.DO.mypcxt_answer_choice;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
 import com.pphgzs.domain.DO.mypcxt_service_definition;
+import com.pphgzs.domain.DO.mypcxt_unit;
 import com.pphgzs.domain.DTO.QuestionServiceDTO;
 import com.pphgzs.domain.DTO.QuestionnaireDTO;
 import com.pphgzs.domain.DTO.ServiceDefinitionDTO;
@@ -64,5 +67,20 @@ public interface QuestionService {
       * 更新选择题选项
       */
 	public String updateOption(mypcxt_option option);
+    /*
+     * 删除问题
+     */
+	public boolean deleteQuestion(String QuestionId);
+     /*
+      * 添加选择题回答
+      */
+	public boolean addAnswerChoice(mypcxt_answer_choice answerChoice);
+     /*
+      * 通过ID得到相应的选项
+      */
+	public mypcxt_option getOptionByID(String mypcxt_option_id);
+    
+	
+	
 
 }
