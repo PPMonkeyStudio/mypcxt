@@ -207,12 +207,16 @@ public class QuestionDaoImpl implements QuestionDao {
 	}
 
 	@Override
-	public String getOptionByQuestion_describe(String option_describe) {
+	public mypcxt_option getOptionByQuestion_describe(String option_describe) {
 		Session session = getSession();
 		String hql = "from mypcxt_option where option_describe ='" + option_describe + "'";
 		Query query = session.createQuery(hql);
 		mypcxt_option option = (mypcxt_option) query.uniqueResult();
-		return null;
+		if(option==null){
+			return null;
+		}else{
+			return option;
+		}
 	}
 
 	@Override

@@ -75,7 +75,7 @@ public interface QuestionDao {
     /*
      * 根据选项描述判断问题是否已存在此选项
      */
-	public String getOptionByQuestion_describe(String option_describe);
+	public mypcxt_option getOptionByQuestion_describe(String option_describe);
        /*
         * 根据问题ID得到一条问题记录
         */

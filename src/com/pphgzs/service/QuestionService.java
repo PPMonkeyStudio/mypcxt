@@ -29,7 +29,7 @@ public interface QuestionService {
       /*
        * 创建选择题选项
        */
-	public boolean addOption(mypcxt_option option);
+	public String addOption(mypcxt_option option);
      /*
       *  移动选择题选项
       */

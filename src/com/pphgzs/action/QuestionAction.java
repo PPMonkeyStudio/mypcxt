@@ -93,9 +93,13 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 	 * 
 	 */
 	public void addOption() throws IOException {
-		if (questionService.addOption(option)) {
+		String QuestionId = questionService.addOption(option);
+		if (QuestionId!=null) {
+			GsonBuilder gsonBuilder = new GsonBuilder();
+			gsonBuilder.setPrettyPrinting();// 格式化json数据
+			Gson gson = gsonBuilder.create();
 			http_response.setContentType("text/html;charset=utf-8");
-			http_response.getWriter().write("1");
+			http_response.getWriter().write(gson.toJson(QuestionId));
 		} else {
 			http_response.setContentType("text/html;charset=utf-8");
 			http_response.getWriter().write("-1");

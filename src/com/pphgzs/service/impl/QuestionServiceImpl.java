@@ -137,13 +137,11 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
-	public boolean addOption(mypcxt_option option) {
+	public String addOption(mypcxt_option option) {
 		// TODO Auto-generated method stub
 		if (option.getOption_question() != null && option.getOption_describe() != null
 				&& option.getOption_grade() != null) {
-		String option_describe = questionDao.getOptionByQuestion_describe(option.getOption_describe());
-		System.out.println("s"+option_describe);	
-		if (option_describe == null) {
+		if (questionDao.getOptionByQuestion_describe(option.getOption_describe()) == null) {
 				System.out.println("aaa");
 				option.setMypcxt_option_id(uuidUtil.getUuid());
 				option.setOption_sort(questionDao.getMaxOption_Sort_byQuestionID(option.getOption_question()) + 1);
@@ -151,13 +149,13 @@ public class QuestionServiceImpl implements QuestionService {
 				option.setOption_gmt_create(time);
 				option.setOption_gmt_modified(time);
 				questionDao.addOption(option);
-				return true;
+				return option.getOption_question();
 			} else {
 				System.out.println("bbb");
-				return false;
+				return null;
 			}
 		} else {
-			return false;
+			return null;
 		}
 	}
 

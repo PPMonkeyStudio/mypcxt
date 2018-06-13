@@ -41,7 +41,7 @@ public class test {
 	@Test
 	public void addOption(){
 		mypcxt_option option = new mypcxt_option();
-		option.setOption_describe("HHHHH");
+		option.setOption_describe("HkkH");
 		option.setOption_question("e8a96761-f190-47c1-ad13-92ffbf21b54e");
 		option.setOption_grade("5");
 		questionService.addOption(option);
