@@ -26,6 +26,8 @@ import * as QuestionActions from '../QuestionActions.js';
 import * as UnitActions from '../../unit/UnitActions.js';
 import Model_Questionnaire from '../../question/views/model/Model_Questionnaire.js';
 import Model_Question from '../../question/views/model/Model_Question.js';
+import Model_previewQuestionnair from '../../question/views/model/Model_previewQuestionnair.js';
+
 import * as QuestionnaireActions from '../QuestionnaireActions.js';
 
 const FormItem = Form.Item;
@@ -83,6 +85,9 @@ class QuestionnairePage extends Component {
         <Column title="业务问卷" dataIndex="serviceDefinitionDTO" align="center" render={(text, record) => {
             return (<a onClick={() => {
                 //预览问卷
+                store.dispatch(QuestionnaireActions.set_previewQuestionnairModalVisible(true));
+                store.dispatch(QuestionnaireActions.set_previewQuestionnairState(record));
+
               }}>{record.serviceDefinitionDTO.serviceDefinition.service_definition_describe}</a>);
           }}/>
         <Column title="所属单位" dataIndex="serviceDefinitionDTO.unit.unit_name" align="center"/>
@@ -105,14 +110,7 @@ class QuestionnairePage extends Component {
         }}>共{this.state.questionnaireVO.totalRecords}条记录</div>
       <Model_Questionnaire/>
       <Model_Question/>
-      <Modal title="预览问卷" visible={this.state.previewQuestionnaireModalVisible} onCancel={() => {
-          store.dispatch(QuestionnaireActions.setPreviewQuestionnaireModalVisible(false));
-        }} footer={[
-          <Button onClick={() => {
-              store.dispatch(QuestionnaireActions.setPreviewQuestionnaireModalVisible(false));
-            }}>返回</Button>,
-        ]}></Modal>
-      {/* <Modal title="新增一个单位" visible={this.state.addUnitModalVisible} onOk={() => {
+      <Model_previewQuestionnair/> {/* <Modal title="新增一个单位" visible={this.state.addUnitModalVisible} onOk={() => {
           store.dispatch(UnitActions.addUnit(this.state.addUnitModelState.unit_name));
         }} onCancel={() => {
           store.dispatch(QuestionnaireActions.setAddUnitModalVisible(false));

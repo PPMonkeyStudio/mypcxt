@@ -64,12 +64,12 @@ export default(state = [], action) => {
         newState["Model_addOption"]["addOptionModalVisible"] = action.addOptionModalVisible;
         return newState;
       }
-      case 'set_addQuestionModalVisible':
-        {
-          const newState = Object.assign({}, state);
-          newState["Model_addQuestion"]["addQuestionModalVisible"] = action.addQuestionModalVisible;
-          return newState;
-        }
+    case 'set_addQuestionModalVisible':
+      {
+        const newState = Object.assign({}, state);
+        newState["Model_addQuestion"]["addQuestionModalVisible"] = action.addQuestionModalVisible;
+        return newState;
+      }
     case 'set_questionnaireModalState':
       {
 
@@ -91,11 +91,22 @@ export default(state = [], action) => {
         newState["Model_addOption"]["option_question"] = action.option_question;
         return newState;
       }
-      case 'set_addQuestionServiceDefinition':
+    case 'set_addQuestionServiceDefinition':
+      {
+        const newState = Object.assign({}, state);
+        newState["Model_addQuestion"]["question_service_definition"] = action.question_service_definition;
+        return newState;
+      }
+    case 'set_previewQuestionnairModalVisible':
+      {
+        const newState = Object.assign({}, state);
+        newState["Model_previewQuestionnair"]["previewQuestionnaireModalVisible"] = action.previewQuestionnaireModalVisible;
+        return newState;
+      }
+      case 'set_previewQuestionnairState':
         {
-
           const newState = Object.assign({}, state);
-          newState["Model_addQuestion"]["question_service_definition"] = action.question_service_definition;
+          newState["Model_previewQuestionnair"]["questionnaireDTO"] = action.questionnaireDTO;
           return newState;
         }
     default:

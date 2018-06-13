@@ -88,7 +88,7 @@ class Model_Questionnaire extends Component {
         <Button onClick={() => {
             store.dispatch(QuestionActions.set_addQuestionModalVisible(true));
 
-          }}>添加问题到此问卷</Button>,
+          }}>添加一个新问题到此问卷</Button>,
       ]}>
       {
         (typeof this.state.questionnaireDTO.serviceDefinitionDTO === "undefined")
@@ -103,15 +103,10 @@ class Model_Questionnaire extends Component {
       {
         (typeof this.state.questionnaireDTO.questionServiceDTOList === "undefined")
           ? <div></div>
-          : <Table width="1000px"  size="small" bordered={true} pagination={false} dataSource={this.state.questionnaireDTO.questionServiceDTOList}>
+          : <Table width="1000px" size="small" bordered={true} pagination={false} dataSource={this.state.questionnaireDTO.questionServiceDTOList}>
               <Column title="问题" dataIndex="question.question_describe" align="center" render={(text, record) => {
                   return (<div>
-                    <a onClick={() => {
-                        store.dispatch(QuestionnaireActions.set_questionModalVisible(true));
-                        store.dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(record.question.mypcxt_question_id));
-                        //将添加选项模态框中的所属问题赋值
-                        store.dispatch(QuestionActions.set_addOptionQuestion(record.question.mypcxt_question_id));
-                      }}>{text}</a>
+                    {text}
                   </div>);
                 }}/>
               <Column title="问题类型" dataIndex="question.question_type" align="center" render={(text, record) => {
@@ -125,6 +120,13 @@ class Model_Questionnaire extends Component {
                 }}/>
               <Column title="操作" dataIndex="question.mypcxt_question_id" align="center" render={(text, record) => {
                   return (<div>
+                    <a onClick={() => {
+                        store.dispatch(QuestionnaireActions.set_questionModalVisible(true));
+                        store.dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(record.question.mypcxt_question_id));
+                        //将添加选项模态框中的所属问题赋值
+                        store.dispatch(QuestionActions.set_addOptionQuestion(record.question.mypcxt_question_id));
+                      }}><Icon type="edit"/></a>
+                    <Divider type="vertical"/>
                     <a onClick={() => {
                         store.dispatch(QuestionActions.moveQuestion(text, 2));
                       }}><Icon type="arrow-up"/></a>
