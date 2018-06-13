@@ -77,8 +77,7 @@ class Model_Question extends Component {
   //
   //
   render() {
-    console.debug(this.state.questionDTO);
-    return (<Modal mask={false} width="960px" title="业务问题" visible={this.state.questionModalVisible} onCancel={() => {
+    return (<Modal mask={false} width="960px" title="问题详情" visible={this.state.questionModalVisible} onCancel={() => {
         store.dispatch(QuestionnaireActions.set_questionModalVisible(false));
       }} footer={[
         <Button onClick={() => {

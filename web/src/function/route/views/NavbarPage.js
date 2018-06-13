@@ -85,7 +85,8 @@ class NavbarPage extends Component {
             float: "left"
           }}>公安业务分析测评系统</div>
         <Menu mode="horizontal" selectedKeys={this.state.currentNavbarMenuItem} style={{
-            lineHeight: '64px'
+            lineHeight: '64px',
+            zIndex:'999999999',
           }}>
           <Menu.Item key="IndexPage" onClick={() => {
               this.context.router.history.push("/NavbarPage/IndexPage");

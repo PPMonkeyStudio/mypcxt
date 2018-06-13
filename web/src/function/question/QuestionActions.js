@@ -7,7 +7,11 @@ export const updateQuestionFatherList = (questionFatherList) => ({type: 'updateQ
 
 export const setQuestionDetailsModalVisible = (questionDetailsModalVisible) => ({type: 'setQuestionDetailsModalVisible', questionDetailsModalVisible: questionDetailsModalVisible,})
 export const set_addOptionModalVisible = (addOptionModalVisible) => ({type: 'set_addOptionModalVisible', addOptionModalVisible: addOptionModalVisible,})
+
 export const set_addOptionQuestion = (option_question) => ({type: 'set_addOptionQuestion', option_question: option_question,})
+export const set_addQuestionServiceDefinition = (question_service_definition) => ({type: 'set_addQuestionServiceDefinition', question_service_definition: question_service_definition,})
+
+
 export const set_addQuestionModalVisible = (addQuestionModalVisible) => ({type: 'set_addQuestionModalVisible', addQuestionModalVisible: addQuestionModalVisible,})
 
 
@@ -164,7 +168,7 @@ export const addQuestion = (addQuestionModelState) => {
         response.json().then((responseJson) => {
           dispatch(set_addQuestionModalVisible(false));
 
-          dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(responseJson));
+          dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(addQuestionModelState.question_service_definition));
 
           dispatch(getQuestionServiceVO());
         }).catch((error) => {
@@ -193,7 +197,7 @@ export const addOption = (addOptionModelState) => {
 
           dispatch(set_addOptionModalVisible(false));
 
-          dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(responseJson));
+          dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(addOptionModelState.option_question));
 
           dispatch(getQuestionServiceVO());
         }).catch((error) => {

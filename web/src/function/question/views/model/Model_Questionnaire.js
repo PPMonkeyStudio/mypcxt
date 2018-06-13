@@ -79,7 +79,7 @@ class Model_Questionnaire extends Component {
   //
   //
   render() {
-    return (<Modal mask={false} width="960px" title={() => (<h2>问题列表</h2>)} visible={this.state.questionnaireModalVisible} onCancel={() => {
+    return (<Modal mask={false} width="960px" title="问卷详情" visible={this.state.questionnaireModalVisible} onCancel={() => {
         store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(false));
       }} footer={[
         <Button onClick={() => {
@@ -94,21 +94,22 @@ class Model_Questionnaire extends Component {
         (typeof this.state.questionnaireDTO.serviceDefinitionDTO === "undefined")
           ? <div></div>
           : <div>
-              <h2>所属单位：{this.state.questionnaireDTO.serviceDefinitionDTO.unit.unit_name}</h2>
+              <div>所属单位：{this.state.questionnaireDTO.serviceDefinitionDTO.unit.unit_name}</div>
               <br/>
-              <h2>所属业务：{this.state.questionnaireDTO.serviceDefinitionDTO.serviceDefinition.service_definition_describe}</h2>
+              <div>所属业务：{this.state.questionnaireDTO.serviceDefinitionDTO.serviceDefinition.service_definition_describe}</div>
               <br/>
             </div>
       }
       {
         (typeof this.state.questionnaireDTO.questionServiceDTOList === "undefined")
           ? <div></div>
-          : <Table width="1000px" size="small" bordered={true} pagination={false} dataSource={this.state.questionnaireDTO.questionServiceDTOList}>
+          : <Table width="1000px"  size="small" bordered={true} pagination={false} dataSource={this.state.questionnaireDTO.questionServiceDTOList}>
               <Column title="问题" dataIndex="question.question_describe" align="center" render={(text, record) => {
                   return (<div>
                     <a onClick={() => {
                         store.dispatch(QuestionnaireActions.set_questionModalVisible(true));
                         store.dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(record.question.mypcxt_question_id));
+                        //将添加选项模态框中的所属问题赋值
                         store.dispatch(QuestionActions.set_addOptionQuestion(record.question.mypcxt_question_id));
                       }}>{text}</a>
                   </div>);

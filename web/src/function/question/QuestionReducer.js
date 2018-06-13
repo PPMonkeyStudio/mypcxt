@@ -19,7 +19,7 @@ export default(state = [], action) => {
     case 'updateServiceDefinitionList':
       {
         const newState = Object.assign({}, state);
-        newState["QuestionService"]["serviceDefinitionDTOList"] = action.serviceDefinitionDTOList;
+        newState["Model_addQuestion"]["serviceDefinitionDTOList"] = action.serviceDefinitionDTOList;
         return newState;
       }
     case 'updateQuestionFatherList':
@@ -34,7 +34,6 @@ export default(state = [], action) => {
         newState["QuestionService"]["questionDetailsModalVisible"] = action.questionDetailsModalVisible;
         return newState;
       }
-
     case 'setQuestionnaireTableLoading':
       {
         const newState = Object.assign({}, state);
@@ -92,6 +91,13 @@ export default(state = [], action) => {
         newState["Model_addOption"]["option_question"] = action.option_question;
         return newState;
       }
+      case 'set_addQuestionServiceDefinition':
+        {
+
+          const newState = Object.assign({}, state);
+          newState["Model_addQuestion"]["question_service_definition"] = action.question_service_definition;
+          return newState;
+        }
     default:
       {
         return state;

@@ -2,6 +2,8 @@ export const set_questionnaireModalVisible = (questionnaireModalVisible) => ({ty
 export const set_questionnaireModalState = (questionnaireDTO) => ({type: 'set_questionnaireModalState', questionnaireDTO: questionnaireDTO,})
 export const set_questionModalState = (questionDTO) => ({type: 'set_questionModalState', questionDTO: questionDTO,})
 export const set_questionModalVisible = (questionModalVisible) => ({type: 'set_questionModalVisible', questionModalVisible: questionModalVisible,})
+export const setPreviewQuestionnaireModalVisible = (previewQuestionnaireModalVisible) => ({type: 'setPreviewQuestionnaireModalVisible', previewQuestionnaireModalVisible: previewQuestionnaireModalVisible,})
+
 
 export const setQuestionnaireTableLoading = (tableLoading) => ({type: 'setQuestionnaireTableLoading', tableLoading: tableLoading,})
 export const updateQuestionnaireVO = (questionnaireVO) => ({type: 'updateQuestionnaireVO', questionnaireVO: questionnaireVO,})

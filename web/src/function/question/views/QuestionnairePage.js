@@ -20,15 +20,16 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag,
+  Tag
 } from 'antd';
 import * as QuestionActions from '../QuestionActions.js';
+import * as UnitActions from '../../unit/UnitActions.js';
 import Model_Questionnaire from '../../question/views/model/Model_Questionnaire.js';
 import Model_Question from '../../question/views/model/Model_Question.js';
 import * as QuestionnaireActions from '../QuestionnaireActions.js';
 
 const FormItem = Form.Item;
-const {Column, ColumnGroup,} = Table;
+const {Column, ColumnGroup} = Table;
 const Option = Select.Option;
 const {TextArea} = Input;
 //
@@ -42,9 +43,10 @@ class QuestionnairePage extends Component {
     this.state = {
       questionnaireVO: {
         questionnaireDTOList: [],
-        totalRecords: 0
+        totalRecords: 0,
       },
-      tableLoading: false
+      tableLoading: false,
+      previewQuestionnaireModalVisible: false,
     }
     //
     //
@@ -70,7 +72,7 @@ class QuestionnairePage extends Component {
     return (<div>
       <div style={{
           height: "34px",
-          margin: "0 0 20px 0",
+          margin: "0 0 20px 0"
         }}>
         <Button onClick={() => {}}>
           <Icon type="plus"/>
@@ -80,20 +82,52 @@ class QuestionnairePage extends Component {
       <Table dataSource={this.state.questionnaireVO.questionnaireDTOList} loading={this.state.tableLoading} bordered={true} title={() => (<h2>业务问卷列表</h2>)}>
         <Column title="业务问卷" dataIndex="serviceDefinitionDTO" align="center" render={(text, record) => {
             return (<a onClick={() => {
-                store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(true));
-                store.dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(record.serviceDefinitionDTO.serviceDefinition.mypcxt_service_definition_id));
-
-            }}>{record.serviceDefinitionDTO.serviceDefinition.service_definition_describe}</a>);
+                //预览问卷
+              }}>{record.serviceDefinitionDTO.serviceDefinition.service_definition_describe}</a>);
           }}/>
         <Column title="所属单位" dataIndex="serviceDefinitionDTO.unit.unit_name" align="center"/>
+        <Column title="操作" dataIndex="mypcxt_option_id" align="center" render={(text, record) => {
+            return (<div>
+              <a onClick={() => {
+                  //组卷
+                  store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(true));
+                  store.dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(record.serviceDefinitionDTO.serviceDefinition.mypcxt_service_definition_id));
+                  //将添加问题模态框中的所属定义赋值
+                  store.dispatch(QuestionActions.set_addQuestionServiceDefinition(record.serviceDefinitionDTO.serviceDefinition.mypcxt_service_definition_id));
+                }}><Icon type="edit"/></a>
+            </div>);
+          }}/>
       </Table>
       <div style={{
           margin: "20px auto 10px",
           width: "200px",
-          textAlign: "center"
+          textAlign: "center",
         }}>共{this.state.questionnaireVO.totalRecords}条记录</div>
       <Model_Questionnaire/>
       <Model_Question/>
+      <Modal title="预览问卷" visible={this.state.previewQuestionnaireModalVisible} onCancel={() => {
+          store.dispatch(QuestionnaireActions.setPreviewQuestionnaireModalVisible(false));
+        }} footer={[
+          <Button onClick={() => {
+              store.dispatch(QuestionnaireActions.setPreviewQuestionnaireModalVisible(false));
+            }}>返回</Button>,
+        ]}></Modal>
+      {/* <Modal title="新增一个单位" visible={this.state.addUnitModalVisible} onOk={() => {
+          store.dispatch(UnitActions.addUnit(this.state.addUnitModelState.unit_name));
+        }} onCancel={() => {
+          store.dispatch(QuestionnaireActions.setAddUnitModalVisible(false));
+        }} okText="确认添加" cancelText="取消">
+        <Form>
+          <FormItem label="单位名称">
+            <Input onChange={(event) => {
+                let addUnitModelState = Object.assign({}, this.state.addUnitModelState);
+                addUnitModelState.unit_name = event.target.value;
+                this.setState({addUnitModelState: addUnitModelState});
+              }}/>
+          </FormItem>
+        </Form>
+      </Modal> */
+      }
     </div>);
 
   }
