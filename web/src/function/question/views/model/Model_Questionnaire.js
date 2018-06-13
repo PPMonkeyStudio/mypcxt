@@ -20,7 +20,7 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag
+  Tag,
 } from 'antd';
 //
 //
@@ -34,7 +34,7 @@ import Model_addQuestion from './Model_addQuestion.js';
 //
 //
 const FormItem = Form.Item;
-const {Column, ColumnGroup} = Table;
+const {Column, ColumnGroup,} = Table;
 const Option = Select.Option;
 //
 ////
@@ -50,10 +50,10 @@ class Model_Questionnaire extends Component {
       questionnaireDTO: {
         serviceDefinitionDTO: {
           serviceDefinition: {},
-          unit: {}
+          unit: {},
         },
-        questionServiceDTOList: [],
-      },
+        questionServiceDTOList: []
+      }
     }
 
   }
@@ -79,24 +79,24 @@ class Model_Questionnaire extends Component {
   //
   //
   render() {
-    return (<Modal mask={false} width="960px" title={() => (<h2>问题列表</h2>)} visible={this.state.questionnaireModalVisible} onCancel={() => {
+    return (<Modal mask={false} width="960px" title="问卷详情" visible={this.state.questionnaireModalVisible} onCancel={() => {
         store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(false));
       }} footer={[
         <Button onClick={() => {
             store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(false));
           }}>返回</Button>,
-        <Button onClick={() => {
+        <Button icon="plus"  onClick={() => {
             store.dispatch(QuestionActions.set_addQuestionModalVisible(true));
 
-          }}>添加问题到此问卷</Button>,
+          }}>添加一个新问题到此问卷</Button>,
       ]}>
       {
         (typeof this.state.questionnaireDTO.serviceDefinitionDTO === "undefined")
           ? <div></div>
           : <div>
-              <h2>所属单位：{this.state.questionnaireDTO.serviceDefinitionDTO.unit.unit_name}</h2>
+              <div>所属单位：{this.state.questionnaireDTO.serviceDefinitionDTO.unit.unit_name}</div>
               <br/>
-              <h2>所属业务：{this.state.questionnaireDTO.serviceDefinitionDTO.serviceDefinition.service_definition_describe}</h2>
+              <div>所属业务：{this.state.questionnaireDTO.serviceDefinitionDTO.serviceDefinition.service_definition_describe}</div>
               <br/>
             </div>
       }
@@ -106,11 +106,7 @@ class Model_Questionnaire extends Component {
           : <Table width="1000px" size="small" bordered={true} pagination={false} dataSource={this.state.questionnaireDTO.questionServiceDTOList}>
               <Column title="问题" dataIndex="question.question_describe" align="center" render={(text, record) => {
                   return (<div>
-                    <a onClick={() => {
-                        store.dispatch(QuestionnaireActions.set_questionModalVisible(true));
-                        store.dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(record.question.mypcxt_question_id));
-                        store.dispatch(QuestionActions.set_addOptionQuestion(record.question.mypcxt_question_id));
-                      }}>{text}</a>
+                    {text}
                   </div>);
                 }}/>
               <Column title="问题类型" dataIndex="question.question_type" align="center" render={(text, record) => {
@@ -124,6 +120,13 @@ class Model_Questionnaire extends Component {
                 }}/>
               <Column title="操作" dataIndex="question.mypcxt_question_id" align="center" render={(text, record) => {
                   return (<div>
+                    <a onClick={() => {
+                        store.dispatch(QuestionnaireActions.set_questionModalVisible(true));
+                        store.dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(record.question.mypcxt_question_id));
+                        //将添加选项模态框中的所属问题赋值
+                        store.dispatch(QuestionActions.set_addOptionQuestion(record.question.mypcxt_question_id));
+                      }}><Icon type="edit"/></a>
+                    <Divider type="vertical"/>
                     <a onClick={() => {
                         store.dispatch(QuestionActions.moveQuestion(text, 2));
                       }}><Icon type="arrow-up"/></a>

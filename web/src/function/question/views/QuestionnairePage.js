@@ -23,8 +23,12 @@ import {
   Tag,
 } from 'antd';
 import * as QuestionActions from '../QuestionActions.js';
+import * as UnitActions from '../../unit/UnitActions.js';
 import Model_Questionnaire from '../../question/views/model/Model_Questionnaire.js';
 import Model_Question from '../../question/views/model/Model_Question.js';
+import Model_previewQuestionnair from '../../question/views/model/Model_previewQuestionnair.js';
+import Model_addService from '../../question/views/model/Model_addService.js';
+
 import * as QuestionnaireActions from '../QuestionnaireActions.js';
 
 const FormItem = Form.Item;
@@ -44,7 +48,9 @@ class QuestionnairePage extends Component {
         questionnaireDTOList: [],
         totalRecords: 0
       },
-      tableLoading: false
+      tableLoading: false,
+      previewQuestionnaireModalVisible: false,
+
     }
     //
     //
@@ -61,6 +67,7 @@ class QuestionnairePage extends Component {
         tableLoading: store.getState()["QuestionReducer"]["Questionnaire"]["tableLoading"]
       });
     }
+
   }
   componentDidMount() {
     store.subscribe(this.storeChanged);
@@ -72,7 +79,9 @@ class QuestionnairePage extends Component {
           height: "34px",
           margin: "0 0 20px 0",
         }}>
-        <Button onClick={() => {}}>
+        <Button onClick={() => {
+            store.dispatch(QuestionnaireActions.set_addServiceModalVisible(true));
+          }}>
           <Icon type="plus"/>
           &nbsp;创建业务问卷
         </Button>
@@ -80,12 +89,24 @@ class QuestionnairePage extends Component {
       <Table dataSource={this.state.questionnaireVO.questionnaireDTOList} loading={this.state.tableLoading} bordered={true} title={() => (<h2>业务问卷列表</h2>)}>
         <Column title="业务问卷" dataIndex="serviceDefinitionDTO" align="center" render={(text, record) => {
             return (<a onClick={() => {
-                store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(true));
-                store.dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(record.serviceDefinitionDTO.serviceDefinition.mypcxt_service_definition_id));
+                //预览问卷
+                store.dispatch(QuestionnaireActions.set_previewQuestionnairModalVisible(true));
+                store.dispatch(QuestionnaireActions.set_previewQuestionnairState(record));
 
-            }}>{record.serviceDefinitionDTO.serviceDefinition.service_definition_describe}</a>);
+              }}>{record.serviceDefinitionDTO.serviceDefinition.service_definition_describe}</a>);
           }}/>
         <Column title="所属单位" dataIndex="serviceDefinitionDTO.unit.unit_name" align="center"/>
+        <Column title="操作" dataIndex="mypcxt_option_id" align="center" render={(text, record) => {
+            return (<div>
+              <a onClick={() => {
+                  //组卷
+                  store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(true));
+                  store.dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(record.serviceDefinitionDTO.serviceDefinition.mypcxt_service_definition_id));
+                  //将添加问题模态框中的所属定义赋值
+                  store.dispatch(QuestionActions.set_addQuestionServiceDefinition(record.serviceDefinitionDTO.serviceDefinition.mypcxt_service_definition_id));
+                }}><Icon type="edit"/></a>
+            </div>);
+          }}/>
       </Table>
       <div style={{
           margin: "20px auto 10px",
@@ -94,6 +115,8 @@ class QuestionnairePage extends Component {
         }}>共{this.state.questionnaireVO.totalRecords}条记录</div>
       <Model_Questionnaire/>
       <Model_Question/>
+      <Model_previewQuestionnair/>
+      <Model_addService/>
     </div>);
 
   }

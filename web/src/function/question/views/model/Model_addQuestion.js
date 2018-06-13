@@ -20,7 +20,7 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag,
+  Tag
 } from 'antd';
 //
 //
@@ -32,8 +32,8 @@ import * as QuestionActions from '../../QuestionActions.js';
 //
 //
 const FormItem = Form.Item;
-const {Column, ColumnGroup,} = Table;
-const Question = Select.Question;
+const {Column, ColumnGroup} = Table;
+const Option = Select.Option;
 const {TextArea} = Input;
 //
 ////
@@ -49,17 +49,15 @@ class Model_addQuestion extends Component {
       addQuestionModelState: {
         question_describe: "",
         question_type: "",
-        question_service_definition: ""
+        question_service_definition: "",
       },
       question_service_definition: "",
-      serviceDefinitionDTOList: []
     }
 
   }
 
   componentDidMount() {
     store.subscribe(this.storeChanged);
-    store.dispatch(QuestionActions.getServiceDefinitionList());
   }
 
   storeChanged() {
@@ -85,9 +83,8 @@ class Model_addQuestion extends Component {
             store.dispatch(QuestionActions.set_addQuestionModalVisible(false));
           }}>返回</Button>,
         <Button onClick={() => {
-            this.state.addQuestionModelState.option_question = this.state.option_question;
+            this.state.addQuestionModelState.question_service_definition = this.state.question_service_definition;
             store.dispatch(QuestionActions.addQuestion(this.state.addQuestionModelState));
-
           }}>确认添加</Button>,
       ]}>
       <Form>
@@ -99,27 +96,13 @@ class Model_addQuestion extends Component {
             }}></TextArea>
         </FormItem>
         <FormItem label="类型">
-          <Select onChange={(value) => {
+          <Select  onChange={(value) => {
               let addQuestionModelState = this.state.addQuestionModelState;
               addQuestionModelState.question_type = value;
               this.setState({addQuestionModelState: addQuestionModelState});
             }}>
-            <Question value="1">选择题</Question>
-            <Question value="2">开放题</Question>
-          </Select>
-        </FormItem>
-        <FormItem label="所属业务">
-          <Select defaultValue="none" onChange={(value) => {
-              let addQuestionModelState = Object.assign({}, this.state.addQuestionModelState);
-              addQuestionModelState.question_service_definition = value;
-              this.setState({addQuestionModelState: addQuestionModelState});
-            }}>
-            <Question value="none">无</Question>
-            {
-              this.state.serviceDefinitionDTOList.map(function(serviceDefinitionDTO) {
-                return <Question value={serviceDefinitionDTO.serviceDefinition.mypcxt_service_definition_id}>{serviceDefinitionDTO.serviceDefinition.service_definition_describe}</Question>
-              })
-            }
+            <Option value="1">选择题</Option>
+            <Option value="2">开放题</Option>
           </Select>
         </FormItem>
 

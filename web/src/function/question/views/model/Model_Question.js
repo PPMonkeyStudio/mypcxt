@@ -20,7 +20,7 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag,
+  Tag
 } from 'antd';
 //
 //
@@ -34,7 +34,7 @@ import Model_addOption from './Model_addOption.js';
 //
 //
 const FormItem = Form.Item;
-const {Column, ColumnGroup,} = Table;
+const {Column, ColumnGroup} = Table;
 const Option = Select.Option;
 //
 ////
@@ -50,8 +50,8 @@ class Model_Question extends Component {
       questionDTO: {
         question: {},
         serviceDefinitionDTO: {},
-        optionList: [],
-      },
+        optionList: []
+      }
     }
 
   }
@@ -77,16 +77,21 @@ class Model_Question extends Component {
   //
   //
   render() {
-    console.debug(this.state.questionDTO);
-    return (<Modal mask={false} width="960px" title="业务问题" visible={this.state.questionModalVisible} onCancel={() => {
+    return (<Modal mask={false} width="960px" title="问题详情" visible={this.state.questionModalVisible} onCancel={() => {
         store.dispatch(QuestionnaireActions.set_questionModalVisible(false));
       }} footer={[
         <Button onClick={() => {
             store.dispatch(QuestionnaireActions.set_questionModalVisible(false));
           }}>返回</Button>,
-        <Button onClick={() => {
-            store.dispatch(QuestionActions.set_addOptionModalVisible(true));
-          }}>添加选项到此问题</Button>,
+        <span>
+          {
+            (typeof this.state.questionDTO.question !== "undefined" && this.state.questionDTO.question.question_type === "1")
+              ? <Button icon="plus"  onClick={() => {
+                    store.dispatch(QuestionActions.set_addOptionModalVisible(true));
+                  }}>添加一个新选项到此问题</Button>
+              : <div></div>
+          }
+        </span>,
       ]}>
       <div>
         {
@@ -111,20 +116,18 @@ class Model_Question extends Component {
             : <Table width="1000px" size="small" bordered={true} pagination={false} dataSource={this.state.questionDTO.optionList}>
                 <Column title="选项" dataIndex="option_describe" align="center" render={(text, record) => {
                     return (<div>
-                      <a onClick={() => {
-                          store.dispatch(QuestionnaireActions.set_questionModalVisible(true));
-                        }}>{text}</a>
+                      {text}
                     </div>);
                   }}/>
                 <Column title="分值" dataIndex="option_grade" align="center" render={(text, record) => {
                     return (<div>
-                      <a onClick={() => {
-                          store.dispatch(QuestionnaireActions.set_questionModalVisible(true));
-                        }}>{text}</a>
+                      {text}
                     </div>);
                   }}/>
                 <Column title="操作" dataIndex="mypcxt_option_id" align="center" render={(text, record) => {
                     return (<div>
+                      <a onClick={() => {}}><Icon type="edit"/></a>
+                      <Divider type="vertical"/>
                       <a onClick={() => {
                           store.dispatch(QuestionActions.moveOption(text, 2));
                         }}><Icon type="arrow-up"/></a>
