@@ -9,16 +9,23 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.pphgzs.domain.DO.mypcxt_answer_choice;
 import com.pphgzs.domain.DO.mypcxt_option;
 import com.pphgzs.domain.DO.mypcxt_question;
+import com.pphgzs.domain.DO.mypcxt_service_definition;
 import com.pphgzs.service.QuestionService;
+import com.pphgzs.service.ServiceService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext*.xml" })
 public class test {
 	@Resource
 	private QuestionService questionService;
-
+	@Resource
+    private  ServiceService serviceService;
 	public void setQuestionService(QuestionService questionService) {
 		this.questionService = questionService;
+	}
+    
+	public void setServiceService(ServiceService serviceService) {
+		this.serviceService = serviceService;
 	}
 
 	@Test
@@ -68,5 +75,10 @@ public class test {
 		answer_choice.setAnswer_choice_option("06f4f8dd-d474-4db2-a433-8f5d1d08619b");
 		answer_choice.setAnswer_choice_question("484b1564-69dc-4721-be55-f269d6adf4b3");
 		questionService.addAnswerChoice(answer_choice);
+	}
+	@Test
+	public void addServiceDefinition(){
+		mypcxt_service_definition service_definition= new mypcxt_service_definition();
+		serviceService.addServiceDefinition(service_definition);
 	}
 }
