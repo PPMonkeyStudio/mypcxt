@@ -53,10 +53,22 @@ export default(state = [], action) => {
         newState["Model_Questionnaire"]["questionnaireModalVisible"] = action.questionnaireModalVisible;
         return newState;
       }
-      case 'set_questionModalVisible':
+    case 'set_questionModalVisible':
+      {
+        const newState = Object.assign({}, state);
+        newState["Model_Question"]["questionModalVisible"] = action.questionModalVisible;
+        return newState;
+      }
+    case 'set_addOptionModalVisible':
+      {
+        const newState = Object.assign({}, state);
+        newState["Model_addOption"]["addOptionModalVisible"] = action.addOptionModalVisible;
+        return newState;
+      }
+      case 'set_addQuestionModalVisible':
         {
           const newState = Object.assign({}, state);
-          newState["Model_Question"]["questionModalVisible"] = action.questionModalVisible;
+          newState["Model_addQuestion"]["addQuestionModalVisible"] = action.addQuestionModalVisible;
           return newState;
         }
     case 'set_questionnaireModalState':
@@ -66,13 +78,20 @@ export default(state = [], action) => {
         newState["Model_Questionnaire"]["questionnaireDTO"] = action.questionnaireDTO;
         return newState;
       }
-      case 'set_questionModalState':
-        {
+    case 'set_questionModalState':
+      {
 
-          const newState = Object.assign({}, state);
-          newState["Model_Question"]["questionDTO"] = action.questionDTO;
-          return newState;
-        }
+        const newState = Object.assign({}, state);
+        newState["Model_Question"]["questionDTO"] = action.questionDTO;
+        return newState;
+      }
+    case 'set_addOptionQuestion':
+      {
+
+        const newState = Object.assign({}, state);
+        newState["Model_addOption"]["option_question"] = action.option_question;
+        return newState;
+      }
     default:
       {
         return state;

@@ -78,14 +78,14 @@ class QuestionnairePage extends Component {
         </Button>
       </div>
       <Table dataSource={this.state.questionnaireVO.questionnaireDTOList} loading={this.state.tableLoading} bordered={true} title={() => (<h2>业务问卷列表</h2>)}>
-        <Column title="业务问卷" dataIndex="questionnaireDTO" align="center" render={(text, record) => {
+        <Column title="业务问卷" dataIndex="serviceDefinitionDTO" align="center" render={(text, record) => {
             return (<a onClick={() => {
                 store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(true));
                 store.dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(record.serviceDefinitionDTO.serviceDefinition.mypcxt_service_definition_id));
 
             }}>{record.serviceDefinitionDTO.serviceDefinition.service_definition_describe}</a>);
           }}/>
-        <Column title="所属单位" dataIndex="questionnaireDTO.serviceDefinitionDTO.unit.unit_name" align="center"/>
+        <Column title="所属单位" dataIndex="serviceDefinitionDTO.unit.unit_name" align="center"/>
       </Table>
       <div style={{
           margin: "20px auto 10px",

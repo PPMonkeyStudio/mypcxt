@@ -20,7 +20,7 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag,
+  Tag
 } from 'antd';
 //
 //
@@ -29,11 +29,12 @@ import store from '../../../../Store.js';
 import * as UserActions from '../../../user/UserActions.js';
 import * as QuestionnaireActions from '../../../question/QuestionnaireActions.js';
 import * as QuestionActions from '../../../question/QuestionActions.js';
+import Model_addQuestion from './Model_addQuestion.js';
 //
 //
 //
 const FormItem = Form.Item;
-const {Column, ColumnGroup,} = Table;
+const {Column, ColumnGroup} = Table;
 const Option = Select.Option;
 //
 ////
@@ -49,10 +50,10 @@ class Model_Questionnaire extends Component {
       questionnaireDTO: {
         serviceDefinitionDTO: {
           serviceDefinition: {},
-          unit: {},
+          unit: {}
         },
-        questionServiceDTOList: []
-      }
+        questionServiceDTOList: [],
+      },
     }
 
   }
@@ -78,12 +79,16 @@ class Model_Questionnaire extends Component {
   //
   //
   render() {
-    return (<Modal width="960px" title={() => (<h2>问题列表</h2>)} visible={this.state.questionnaireModalVisible} onCancel={() => {
+    return (<Modal mask={false} width="960px" title={() => (<h2>问题列表</h2>)} visible={this.state.questionnaireModalVisible} onCancel={() => {
         store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(false));
       }} footer={[
         <Button onClick={() => {
             store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(false));
           }}>返回</Button>,
+        <Button onClick={() => {
+            store.dispatch(QuestionActions.set_addQuestionModalVisible(true));
+
+          }}>添加问题到此问卷</Button>,
       ]}>
       {
         (typeof this.state.questionnaireDTO.serviceDefinitionDTO === "undefined")
@@ -104,6 +109,7 @@ class Model_Questionnaire extends Component {
                     <a onClick={() => {
                         store.dispatch(QuestionnaireActions.set_questionModalVisible(true));
                         store.dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(record.question.mypcxt_question_id));
+                        store.dispatch(QuestionActions.set_addOptionQuestion(record.question.mypcxt_question_id));
                       }}>{text}</a>
                   </div>);
                 }}/>
@@ -131,6 +137,7 @@ class Model_Questionnaire extends Component {
                 }}/>
             </Table>
       }
+      <Model_addQuestion/>
     </Modal>);
   }
 }

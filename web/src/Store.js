@@ -115,8 +115,15 @@ const initialState = {
     'Model_Question': {
       questionModalVisible: false,
       questionDTO: {},
+    },
+    'Model_addOption': {
+      addOptionModalVisible: false,
+      option_question: "",
+    },
+    'Model_addQuestion': {
+      addQuestionModalVisible: false,
+      question_service_definition: "",
     }
-
   }
 };
 
