@@ -18,6 +18,8 @@ export default(state = [], action) => {
           newState["currentNavbarMenuItem"] = 'IndexPage';
         } else if (action.currentURL.startsWith("/NavbarPage/ManagePage")) {
           newState["currentNavbarMenuItem"] = 'ManagePage';
+        } else if (action.currentURL.startsWith("/NavbarPage/EvaluationPage")) {
+          newState["currentNavbarMenuItem"] = 'EvaluationPage';
         }
 
         return newState;

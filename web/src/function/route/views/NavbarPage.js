@@ -7,20 +7,14 @@ import {
   BrowserRouter,
   Router,
   Redirect,
-  withRouter
+  withRouter,
 } from 'react-router-dom';
 import PropTypes from 'prop-types'
 /**
  * antd
  * @type {[type]}
  */
-import {
-  Button,
-  Menu,
-  Layout,
-  Breadcrumb,
-  Icon,
-} from 'antd';
+import {Button, Menu, Layout, Breadcrumb, Icon} from 'antd';
 
 //
 //
@@ -31,13 +25,14 @@ import ManagePage from '../../manage/views/ManagePage.js';
 import EvaluationPage from '../../evaluation/views/EvaluationPage.js';
 
 import * as RouteActions from '../RouteActions.js';
+import * as LoginActions from '../../login/LoginActions.js';
 //
 //
 //
 //
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
-const {Header, Content, Footer} = Layout;
+const {Header, Content, Footer,} = Layout;
 //
 //
 const title_my = (<span>
@@ -78,38 +73,42 @@ class NavbarPage extends Component {
     return (<Layout >
       <Header style={{
           position: 'fixed',
-          width: '100%'
+          width: '100%',
         }}>
         <div style={{
             margin: "0 50px 0 0",
-            float: "left"
-          }}>公安业务分析测评系统</div>
+            float: "left",
+          }}>公安警务分析测评系统</div>
         <Menu mode="horizontal" selectedKeys={this.state.currentNavbarMenuItem} style={{
             lineHeight: '64px',
-            zIndex:'999999999',
+            zIndex: '999999999'
           }}>
           <Menu.Item key="IndexPage" onClick={() => {
               this.context.router.history.push("/NavbarPage/IndexPage");
             }}><Icon type="home"/>首页</Menu.Item>
           <Menu.Item key="EvaluationPage" onClick={() => {
-              if (this.context.router.history.location.pathname.includes("/NavbarPage/EvaluationPage")) {} else {
-                this.context.router.history.push("/NavbarPage/EvaluationPage");
-              }
-            }}><Icon type="global"/>测评业务</Menu.Item>
+              this.context.router.history.push("/NavbarPage/EvaluationPage");
+            }}><Icon type="global"/>测评警务</Menu.Item>
           <Menu.Item key="3"><Icon type="pie-chart"/>统计数据</Menu.Item>
           <Menu.Item key="ManagePage" onClick={() => {
               if (this.context.router.history.location.pathname.includes("/NavbarPage/ManagePage")) {} else {
                 this.context.router.history.push("/NavbarPage/ManagePage");
               }
             }}><Icon type="setting"/>管理数据</Menu.Item>
-          <Menu.Item key="5" style={{
+          <SubMenu title={<span> < Icon type = "user" /> 管理员</span>} key="5" style={{
               float: "right"
-            }}><Icon type="user"/>管理员</Menu.Item>
+            }}>
+            <Menu.Item key="6"><Icon type="key"/>修改密码</Menu.Item>
+            <Menu.Item key="7" onClick={() => {
+                // store.dispatch(LoginActions.logout());
+                this.context.router.history.push("/LoginPage");
+              }}><Icon type="logout"/>退出登录</Menu.Item>
+          </SubMenu>
         </Menu>
       </Header>
       <Content style={{
           padding: '50px 50px 0',
-          margin: "64px 0 0 0"
+          margin: "64px 0 0 0",
         }}>
 
         {/************************************************/}
@@ -121,7 +120,7 @@ class NavbarPage extends Component {
       <Footer style={{
           textAlign: 'center'
         }}>
-        萍乡市公安局业务评测系统 ©2016 Created by 萍乡学院信息与计算机工程学院
+        萍乡市公安局警务测评系统 ©2016 Created by 萍乡学院信息与计算机工程学院
       </Footer>
     </Layout>);
   }

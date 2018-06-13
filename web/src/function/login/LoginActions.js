@@ -8,9 +8,6 @@ export const login_fail = () => ({type: LOGIN_FAIL})
 
 export const login = (account, password) => {
   return(dispatch) => {
-    //
-    //
-    //
     let formData = new FormData();
     formData.append("account", account);
     formData.append("password", password);
@@ -21,10 +18,6 @@ export const login = (account, password) => {
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
-          //
-          //
-          //
-          console.debug(responseJson);
           if (responseJson === 1) {
             //用户
             dispatch(login_success(account, password));
@@ -35,12 +28,8 @@ export const login = (account, password) => {
             dispatch(RouteActions.updateStoreCurrentURL("/NavbarPage/IndexPage"));
           } else {
             //登录失败
-            alert("登录失败");
             dispatch(login_fail());
           }
-          //
-          //
-          //
         }).catch((error) => {
           alert(error);
         });
@@ -50,8 +39,24 @@ export const login = (account, password) => {
     }).catch((error) => {
       alert(error);
     });
-    //
-    //
-    //
+  };
+}
+export const logout = () => {
+  return(dispatch) => {
+    fetch('/mypcxt/LoginAndLogout/logout', {
+      method: 'POST',
+    }).then((response) => {
+      if (response.status === 200) {
+        response.json().then((responseJson) => {
+
+        }).catch((error) => {
+          alert(error);
+        });
+      } else {
+        alert(response.status);
+      }
+    }).catch((error) => {
+      alert(error);
+    });
   };
 }
