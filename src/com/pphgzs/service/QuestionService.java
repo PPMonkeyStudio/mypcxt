@@ -19,7 +19,7 @@ public interface QuestionService {
     /*
      * 创建问题
      */
-	public boolean saveQuestion(mypcxt_question question);
+	public String saveQuestion(mypcxt_question question);
 
 	public List<mypcxt_service_definition> getDefinitionList();
    /*

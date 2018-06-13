@@ -96,7 +96,7 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
-	public boolean saveQuestion(mypcxt_question question) {
+	public String saveQuestion(mypcxt_question question) {
 
 		question.setMypcxt_question_id(uuidUtil.getUuid());
 		List<mypcxt_question> questionList = new ArrayList<mypcxt_question>();
@@ -109,9 +109,11 @@ public class QuestionServiceImpl implements QuestionService {
 			question.setQuestion_service_definition(
 					questionDao.getServiceDefinitionByFatherQuestion(question.getQuestion_father_question()));
 		}
-		questionDao.saveQuestion(question);
-		return true;
-
+		if(questionDao.saveQuestion(question)){
+			return question.getQuestion_service_definition();
+		}else{
+			return null;
+		}
 	} 
 
 	@Override

@@ -72,10 +72,16 @@ public class QuestionDaoImpl implements QuestionDao {
 	}
 
 	@Override
-	public void saveQuestion(mypcxt_question question) {
+	public boolean saveQuestion(mypcxt_question question) {
 		Session session = getSession();
-		session.save(question);
-		session.flush();
+		try{
+			session.save(question);
+			session.flush();
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override

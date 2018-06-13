@@ -49,4 +49,11 @@ public class test {
 		option.setOption_grade("5");
 		questionService.addOption(option);
 	}
+	@Test
+	public void updateQuestion(){
+		mypcxt_question question = new mypcxt_question();
+		question.setMypcxt_question_id("43fbbe80-05e8-4d24-9c19-2e6ea5391793");
+		question.setQuestion_describe("胡椒粉合格");
+		questionService.updateQuestion(question);
+	}
 }

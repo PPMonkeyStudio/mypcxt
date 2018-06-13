@@ -27,7 +27,7 @@ public interface QuestionDao {
     /*
      * 保存一条问题记录
      */
-	public void saveQuestion(mypcxt_question question);
+	public boolean saveQuestion(mypcxt_question question);
      /*
       * 通过业务ID得到该业务下的问题，问题排序的最大值
       */
