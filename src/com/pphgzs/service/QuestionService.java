@@ -75,6 +75,10 @@ public interface QuestionService {
       * 添加选择题回答
       */
 	public boolean addAnswerChoice(mypcxt_answer_choice answerChoice);
+     /*
+      * 通过ID得到相应的选项
+      */
+	public mypcxt_option getOptionByID(String mypcxt_option_id);
     
 	
 	

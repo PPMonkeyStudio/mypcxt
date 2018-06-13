@@ -422,4 +422,10 @@ public class QuestionServiceImpl implements QuestionService {
 	    }
 	}
 
+	@Override
+	public mypcxt_option getOptionByID(String mypcxt_option_id) {
+		
+		return questionDao.getOptionByID(mypcxt_option_id);
+	}
+
 }

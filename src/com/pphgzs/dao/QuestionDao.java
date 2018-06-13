@@ -120,6 +120,7 @@ public void deleteOption(mypcxt_option option);
 public void deleteQuestion(mypcxt_question question);
 public void deleteAnswerOpen(mypcxt_answer_open answerOpen);
 public boolean addAnswerChoice(mypcxt_answer_choice answerChoice);
+public mypcxt_option getOptionByID(String mypcxt_option_id);
 	
 	
 

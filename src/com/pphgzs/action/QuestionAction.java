@@ -246,8 +246,17 @@ public class QuestionAction extends ActionSupport implements ServletResponseAwar
 			http_response.getWriter().write("-1");
 		}
 	}
-
-
+   /*
+    * 通过ID得到相应的选项
+    */
+     public void getOptionByID() throws IOException{
+    	 GsonBuilder gsonBuilder = new GsonBuilder();
+ 		gsonBuilder.setPrettyPrinting();// 格式化json数据
+ 		Gson gson = gsonBuilder.create();
+ 		option = questionService.getOptionByID(option.getMypcxt_option_id());
+ 		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write(gson.toJson(option));
+     }
 	/*
 	 */
 	@Override

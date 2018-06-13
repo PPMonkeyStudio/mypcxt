@@ -400,4 +400,13 @@ public class QuestionDaoImpl implements QuestionDao {
 		return true;
 	}
 
+	@Override
+	public mypcxt_option getOptionByID(String mypcxt_option_id) {
+		Session session = getSession();
+		String hql = "from mypcxt_option where mypcxt_option_id='"+mypcxt_option_id+"'";
+		Query query = session.createQuery(hql);
+		mypcxt_option option = (mypcxt_option) query.uniqueResult();
+		return option;
+	}
+
 }
