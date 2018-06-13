@@ -108,7 +108,7 @@ const initialState = {
       },
       'tableLoading': false,
       previewQuestionnaireModalVisible: false,
-      previewQuestionnaireDTO: {}
+      previewQuestionnaireDTO: {},
     },
     'Model_Questionnaire': {
       questionnaireModalVisible: false,
@@ -130,6 +130,9 @@ const initialState = {
     'Model_previewQuestionnair': {
       previewQuestionnaireModalVisible: false,
       questionnaireDTO: {}
+    },
+    'Model_addService': {
+      addServiceModalVisible: false,
     },
   },
 };

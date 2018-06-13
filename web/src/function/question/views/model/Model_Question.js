@@ -86,7 +86,7 @@ class Model_Question extends Component {
         <span>
           {
             (typeof this.state.questionDTO.question !== "undefined" && this.state.questionDTO.question.question_type === "1")
-              ? <Button onClick={() => {
+              ? <Button icon="plus"  onClick={() => {
                     store.dispatch(QuestionActions.set_addOptionModalVisible(true));
                   }}>添加一个新选项到此问题</Button>
               : <div></div>

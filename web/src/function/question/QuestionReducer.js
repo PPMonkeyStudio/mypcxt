@@ -103,12 +103,18 @@ export default(state = [], action) => {
         newState["Model_previewQuestionnair"]["previewQuestionnaireModalVisible"] = action.previewQuestionnaireModalVisible;
         return newState;
       }
-      case 'set_previewQuestionnairState':
-        {
-          const newState = Object.assign({}, state);
-          newState["Model_previewQuestionnair"]["questionnaireDTO"] = action.questionnaireDTO;
-          return newState;
-        }
+    case 'set_previewQuestionnairState':
+      {
+        const newState = Object.assign({}, state);
+        newState["Model_previewQuestionnair"]["questionnaireDTO"] = action.questionnaireDTO;
+        return newState;
+      }
+    case 'set_addServiceModalVisible':
+      {
+        const newState = Object.assign({}, state);
+        newState["Model_addService"]["addServiceModalVisible"] = action.addServiceModalVisible;
+        return newState;
+      }
     default:
       {
         return state;

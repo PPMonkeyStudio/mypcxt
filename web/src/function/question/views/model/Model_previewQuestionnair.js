@@ -21,7 +21,7 @@ import {
   Pagination,
   Select,
   Tag,
-  Radio,
+  Radio
 } from 'antd';
 //
 //
@@ -35,7 +35,7 @@ import Model_addOption from './Model_addOption.js';
 //
 //
 const FormItem = Form.Item;
-const {Column, ColumnGroup,} = Table;
+const {Column, ColumnGroup} = Table;
 const Option = Select.Option;
 const {TextArea} = Input;
 const RadioGroup = Radio.Group;
@@ -57,18 +57,18 @@ class Model_previewQuestionnair extends Component {
             service_definition_describe: "",
             service_definition_unit: "",
             service_definition_gmt_create: "",
-            service_definition_gmt_modified: ""
+            service_definition_gmt_modified: "",
           },
           unit: {
             mypcxt_unit_id: "",
             unit_name: "",
             unit_correction_man: "",
             unit_gmt_create: "",
-            unit_gmt_modified: ""
-          }
+            unit_gmt_modified: "",
+          },
         },
-        questionServiceDTOList: [],
-      },
+        questionServiceDTOList: []
+      }
     }
 
   }
@@ -124,10 +124,12 @@ class Model_previewQuestionnair extends Component {
                             {
                               //遍历选择题选项
                               questionServiceDTO.optionList.map(function(option) {
-                                return (<Radio style={{
-                                    height: '30px',
-                                    lineHeight: '30px'
-                                  }} value={option.mypcxt_option_id}>{option.option_describe}</Radio>);
+                                return (<div>
+                                  <Radio style={{
+                                      height: '30px',
+                                      lineHeight: '30px',
+                                    }} value={option.mypcxt_option_id}>{option.option_describe}</Radio>
+                                </div>);
                               })
                             }
                           </RadioGroup>

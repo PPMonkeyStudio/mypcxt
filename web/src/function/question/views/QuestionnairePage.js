@@ -20,18 +20,19 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag
+  Tag,
 } from 'antd';
 import * as QuestionActions from '../QuestionActions.js';
 import * as UnitActions from '../../unit/UnitActions.js';
 import Model_Questionnaire from '../../question/views/model/Model_Questionnaire.js';
 import Model_Question from '../../question/views/model/Model_Question.js';
 import Model_previewQuestionnair from '../../question/views/model/Model_previewQuestionnair.js';
+import Model_addService from '../../question/views/model/Model_addService.js';
 
 import * as QuestionnaireActions from '../QuestionnaireActions.js';
 
 const FormItem = Form.Item;
-const {Column, ColumnGroup} = Table;
+const {Column, ColumnGroup,} = Table;
 const Option = Select.Option;
 const {TextArea} = Input;
 //
@@ -45,10 +46,11 @@ class QuestionnairePage extends Component {
     this.state = {
       questionnaireVO: {
         questionnaireDTOList: [],
-        totalRecords: 0,
+        totalRecords: 0
       },
       tableLoading: false,
       previewQuestionnaireModalVisible: false,
+
     }
     //
     //
@@ -65,6 +67,7 @@ class QuestionnairePage extends Component {
         tableLoading: store.getState()["QuestionReducer"]["Questionnaire"]["tableLoading"]
       });
     }
+
   }
   componentDidMount() {
     store.subscribe(this.storeChanged);
@@ -74,9 +77,11 @@ class QuestionnairePage extends Component {
     return (<div>
       <div style={{
           height: "34px",
-          margin: "0 0 20px 0"
+          margin: "0 0 20px 0",
         }}>
-        <Button onClick={() => {}}>
+        <Button onClick={() => {
+            store.dispatch(QuestionnaireActions.set_addServiceModalVisible(true));
+          }}>
           <Icon type="plus"/>
           &nbsp;创建业务问卷
         </Button>
@@ -106,26 +111,12 @@ class QuestionnairePage extends Component {
       <div style={{
           margin: "20px auto 10px",
           width: "200px",
-          textAlign: "center",
+          textAlign: "center"
         }}>共{this.state.questionnaireVO.totalRecords}条记录</div>
       <Model_Questionnaire/>
       <Model_Question/>
-      <Model_previewQuestionnair/> {/* <Modal title="新增一个单位" visible={this.state.addUnitModalVisible} onOk={() => {
-          store.dispatch(UnitActions.addUnit(this.state.addUnitModelState.unit_name));
-        }} onCancel={() => {
-          store.dispatch(QuestionnaireActions.setAddUnitModalVisible(false));
-        }} okText="确认添加" cancelText="取消">
-        <Form>
-          <FormItem label="单位名称">
-            <Input onChange={(event) => {
-                let addUnitModelState = Object.assign({}, this.state.addUnitModelState);
-                addUnitModelState.unit_name = event.target.value;
-                this.setState({addUnitModelState: addUnitModelState});
-              }}/>
-          </FormItem>
-        </Form>
-      </Modal> */
-      }
+      <Model_previewQuestionnair/>
+      <Model_addService/>
     </div>);
 
   }

@@ -20,7 +20,7 @@ import {
   Tooltip,
   Pagination,
   Select,
-  Tag
+  Tag,
 } from 'antd';
 //
 //
@@ -34,7 +34,7 @@ import Model_addQuestion from './Model_addQuestion.js';
 //
 //
 const FormItem = Form.Item;
-const {Column, ColumnGroup} = Table;
+const {Column, ColumnGroup,} = Table;
 const Option = Select.Option;
 //
 ////
@@ -50,10 +50,10 @@ class Model_Questionnaire extends Component {
       questionnaireDTO: {
         serviceDefinitionDTO: {
           serviceDefinition: {},
-          unit: {}
+          unit: {},
         },
-        questionServiceDTOList: [],
-      },
+        questionServiceDTOList: []
+      }
     }
 
   }
@@ -85,7 +85,7 @@ class Model_Questionnaire extends Component {
         <Button onClick={() => {
             store.dispatch(QuestionnaireActions.set_questionnaireModalVisible(false));
           }}>返回</Button>,
-        <Button onClick={() => {
+        <Button icon="plus"  onClick={() => {
             store.dispatch(QuestionActions.set_addQuestionModalVisible(true));
 
           }}>添加一个新问题到此问卷</Button>,
