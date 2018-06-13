@@ -134,4 +134,12 @@ public class ServiceDaoImpl implements ServiceDao {
 		return serviceDistributionList;
 	}
 
+	@Override
+	public boolean addServiceDefinition(mypcxt_service_definition serviceDefinition) {
+		Session session = getSession();
+		session.save(serviceDefinition);
+		session.flush();
+		return true;
+	}
+
 }
