@@ -1,20 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link, withRouter, Route, Switch,} from 'react-router-dom';
-// import {
-//   Panel,
-//   ButtonToolbar,
-//   FormGroup,
-//   FormControl,
-//   Image,
-//   Jumbotron,
-//   Table,
-//   Nav,
-//   NavItem,
-//   Navbar,
-//   Checkbox
-//
-// } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -34,7 +20,7 @@ import ErrorPage from '../../route/views/ErrorPage.js';
 import UserPage from '../../user/views/UserPage.js';
 import QuestionPage from '../../question/views/QuestionPage.js';
 
-import * as ManageActions from '../ManageActions.js';
+import * as ManageActions from '../../manage/ManageActions.js';
 //
 //
 //
@@ -158,7 +144,7 @@ class ManagePage extends Component {
 
         }}>
         <TabPane tab="管理" key="1"></TabPane>
-        <TabPane tab="问题" key="5"></TabPane>
+        <TabPane tab="问卷" key="5"></TabPane>
         <TabPane tab="业务" key="3"></TabPane>
         <TabPane tab="警员" key="4"></TabPane>
         <TabPane tab="单位" key="2"></TabPane>

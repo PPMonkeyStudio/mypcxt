@@ -19,8 +19,8 @@ const IndexPage = () => {
       textAlign: "center",
     }}>
     <h1>欢迎使用</h1>
-  <h1>萍乡市公安局业务评测系统</h1>
+  <h1>萍乡市公安局警务分析测评系统</h1>
   </Card>);
 };
 
-export default withRouter(connect()(IndexPage));
+export default withRouter(IndexPage);

@@ -1,5 +1,8 @@
 package com.pphgzs.service;
 
+import java.util.List;
+
+import com.pphgzs.domain.DO.mypcxt_service_definition;
 import com.pphgzs.domain.DTO.ServiceDefinitionDTO;
 import com.pphgzs.domain.DTO.ServiceDistributionDTO;
 import com.pphgzs.domain.DTO.ServiceInstanceDTO;
@@ -24,4 +27,10 @@ public interface ServiceService {
 	public ServiceInstanceDTO getServiceInstanceDTO_byServiceInstanceID(String serviceInstanceID);
 
 	public ServiceDistributionDTO getServiceDistributionDTO_byServiceDistributionID(String serviceDistributionID);
+
+	public List<ServiceDefinitionDTO> listServiceDefinitionDTO_all();
+    /*
+     * 创建业务定义
+     */
+	public boolean addServiceDefinition(mypcxt_service_definition serviceDefinition);
 }

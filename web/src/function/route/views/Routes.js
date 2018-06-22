@@ -54,8 +54,7 @@ class Routes extends Component {
     this.setState({
       currentURL: currentURL
     }, () => {
-      if (this.context.router.history.location.pathname === this.state.currentURL) {
-      } else {
+      if (this.context.router.history.location.pathname === this.state.currentURL) {} else {
         this.context.router.history.push(this.state.currentURL);
       }
     })
@@ -66,9 +65,9 @@ class Routes extends Component {
       //
     } else {
       store.dispatch(RouteActions.updateStoreCurrentURL(this.context.router.history.location.pathname));
-
     }
 
+    // console.debug(store.getState()["RouteReducer"]["currentNavbarMenuItem"]);
     if (this.context.router.history.location.pathname !== store.getState()["RouteReducer"]["currentNavbarMenuItem"]) {
       store.dispatch(RouteActions.updateCurrentNavbarMenuItem(this.context.router.history.location.pathname));
     }

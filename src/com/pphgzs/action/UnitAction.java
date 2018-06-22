@@ -1,6 +1,7 @@
 package com.pphgzs.action;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -69,7 +70,18 @@ public class UnitAction extends ActionSupport implements ServletResponseAware, S
 		http_response.getWriter().write("1");
 
 	}
-
+	/*
+	 * 获取所有单位列表
+	 */
+	public void listUnitAll() throws IOException{
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		List<mypcxt_unit> unitList = unitService.listUnitAll();
+		http_response.setContentType("text/html;charset=utf-8");
+		http_response.getWriter().write(gson.toJson(unitList));
+		
+	}
 	/*
 	 * 
 	 */

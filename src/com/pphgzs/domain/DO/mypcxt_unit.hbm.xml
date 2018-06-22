@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2018-6-1 8:09:50 by Hibernate Tools 3.5.0.Final -->
+<!-- Generated 2018-6-13 9:00:29 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="com.pphgzs.domain.DO.mypcxt_unit" table="MYPCXT_UNIT">
         <id name="mypcxt_unit_id" type="java.lang.String">
@@ -11,14 +11,14 @@
         <property name="unit_name" type="java.lang.String">
             <column name="UNIT_NAME" />
         </property>
+        <property name="unit_correction_man" type="java.lang.String">
+            <column name="UNIT_CORRECTION_MAN" />
+        </property>
         <property name="unit_gmt_create" type="java.lang.String">
             <column name="UNIT_GMT_CREATE" />
         </property>
         <property name="unit_gmt_modified" type="java.lang.String">
             <column name="UNIT_GMT_MODIFIED" />
-        </property>
-        <property name="unit_correction_man" type="java.lang.String">
-            <column name="UNIT_CORRECTION_MAN" />
         </property>
     </class>
 </hibernate-mapping>

@@ -22,7 +22,10 @@ import {Button, Menu, Layout, Breadcrumb, Icon} from 'antd';
 import IndexPage from './IndexPage.js';
 import store from '../../../Store.js';
 import ManagePage from '../../manage/views/ManagePage.js';
+import EvaluationPage from '../../evaluation/views/EvaluationPage.js';
+
 import * as RouteActions from '../RouteActions.js';
+import * as LoginActions from '../../login/LoginActions.js';
 //
 //
 //
@@ -75,23 +78,32 @@ class NavbarPage extends Component {
         <div style={{
             margin: "0 50px 0 0",
             float: "left",
-          }}>公安业务评测系统</div>
+          }}>公安警务分析测评系统</div>
         <Menu mode="horizontal" selectedKeys={this.state.currentNavbarMenuItem} style={{
-            lineHeight: '64px'
+            lineHeight: '64px',
+            zIndex: '999999999'
           }}>
           <Menu.Item key="IndexPage" onClick={() => {
               this.context.router.history.push("/NavbarPage/IndexPage");
             }}><Icon type="home"/>首页</Menu.Item>
-          <Menu.Item key="2"><Icon type="global"/>业务评测</Menu.Item>
-          <Menu.Item key="3"><Icon type="pie-chart"/>数据统计</Menu.Item>
+          <Menu.Item key="EvaluationPage" onClick={() => {
+              this.context.router.history.push("/NavbarPage/EvaluationPage");
+            }}><Icon type="global"/>测评警务</Menu.Item>
+          <Menu.Item key="3"><Icon type="pie-chart"/>统计数据</Menu.Item>
           <Menu.Item key="ManagePage" onClick={() => {
               if (this.context.router.history.location.pathname.includes("/NavbarPage/ManagePage")) {} else {
                 this.context.router.history.push("/NavbarPage/ManagePage");
               }
-            }}><Icon type="setting"/>管理</Menu.Item>
-          <Menu.Item key="5" style={{
+            }}><Icon type="setting"/>管理数据</Menu.Item>
+          <SubMenu title={<span> < Icon type = "user" /> 管理员</span>} key="5" style={{
               float: "right"
-            }}><Icon type="user"/>管理员</Menu.Item>
+            }}>
+            <Menu.Item key="6"><Icon type="key"/>修改密码</Menu.Item>
+            <Menu.Item key="7" onClick={() => {
+                // store.dispatch(LoginActions.logout());
+                this.context.router.history.push("/LoginPage");
+              }}><Icon type="logout"/>退出登录</Menu.Item>
+          </SubMenu>
         </Menu>
       </Header>
       <Content style={{
@@ -100,6 +112,7 @@ class NavbarPage extends Component {
         }}>
 
         {/************************************************/}
+        <Route path="/NavbarPage/EvaluationPage" component={EvaluationPage}></Route>
         <Route path="/NavbarPage/ManagePage" component={ManagePage}></Route>
         <Route path="/NavbarPage/IndexPage" component={IndexPage}></Route>
         {/************************************************/}
@@ -107,7 +120,7 @@ class NavbarPage extends Component {
       <Footer style={{
           textAlign: 'center'
         }}>
-        萍乡市公安局业务评测系统 ©2016 Created by 萍乡学院信息与计算机工程学院
+        萍乡市公安局警务测评系统 ©2016 Created by 萍乡学院信息与计算机工程学院
       </Footer>
     </Layout>);
   }

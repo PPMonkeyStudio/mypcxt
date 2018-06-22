@@ -104,8 +104,9 @@ class QuestionServicePage extends Component {
   }
   storeChanged() {
     if (this.state.questionServiceVO !== store.getState()["QuestionReducer"]["QuestionService"]["questionServiceVO"]) {
+
       this.setState({
-        questionServiceVO: store.getState()["QuestionReducer"]["QuestionService"]["questionServiceVO"]
+        questionServiceVO: store.getState()["QuestionReducer"]["QuestionService"]["questionServiceVO"],
       });
     }
     if (this.state.questionDetailsModalVisible !== store.getState()["QuestionReducer"]["QuestionService"]["questionDetailsModalVisible"]) {
@@ -153,10 +154,12 @@ class QuestionServicePage extends Component {
         <Column title="问题" dataIndex="question.question_describe" align="center" render={(text, record) => {
             return (<Tooltip title="查看">
               <a onClick={() => {
-                  this.setState({questionDetailsModalVisible: true});
+                  store.dispatch(QuestionActions.setQuestionDetailsModalVisible(true));
+                  //
                   let questionDetails = Object.assign({}, this.state.questionDetails);
                   questionDetails = record;
                   this.setState({questionDetails: questionDetails});
+                  //
                   this.setState({updateQuestionState: questionDetails.question});
                 }}>{record.question.question_describe}</a>
             </Tooltip>);
@@ -185,15 +188,20 @@ class QuestionServicePage extends Component {
         }}>共{this.state.questionServiceVO.totalRecords}条记录</div>
 
       <Modal title="问题详情" visible={this.state.questionDetailsModalVisible} onCancel={() => {
-          this.setState({questionDetailsModalVisible: false});
+          store.dispatch(QuestionActions.setQuestionDetailsModalVisible(false));
         }} footer={(
           this.state.questionDetails.question.question_type === "1")
           ? [
             <Button onClick={() => {
-                this.setState({questionDetailsModalVisible: false});
+                store.dispatch(QuestionActions.setQuestionDetailsModalVisible(false));
               }}>返回</Button>,
             <Button icon="plus" onClick={() => {
                 this.setState({addOptionModalVisible: true});
+                //设置所属问题
+                let addOptionModelState = Object.assign({}, this.state.addOptionModelState);
+                addOptionModelState.option_question = this.state.questionDetails.question.mypcxt_question_id;
+                addOptionModelState.option_grade = 1;
+                this.setState({addOptionModelState: addOptionModelState});
               }}>
               创建新的选项
             </Button>,
@@ -233,13 +241,13 @@ class QuestionServicePage extends Component {
                           <Divider type="vertical"/>
                           <Tooltip title="上移">
                             <a onClick={() => {
-                                store.dispatch(QuestionActions.moveOption(text, "1"));
+                                store.dispatch(QuestionActions.moveOption(record.mypcxt_option_id, "2"));
                               }}><Icon type="arrow-up"/></a>
                           </Tooltip>
                           <Divider type="vertical"/>
                           <Tooltip title="下移">
                             <a onClick={() => {
-                                store.dispatch(QuestionActions.moveOption(text, "2"));
+                                store.dispatch(QuestionActions.moveOption(record.mypcxt_option_id, "1"));
                               }}><Icon type="arrow-down"/></a>
                           </Tooltip>
                           <Divider type="vertical"/>
@@ -339,9 +347,9 @@ class QuestionServicePage extends Component {
               }}/>
           </FormItem>
           <FormItem label="分值">
-            <InputNumber defaultValue={1} onChange={(event) => {
+            <InputNumber value={this.state.addOptionModelState.option_grade} onChange={(value) => {
                 let addOptionModelState = Object.assign({}, this.state.addOptionModelState);
-                addOptionModelState.option_grade = event.target.value;
+                addOptionModelState.option_grade = value;
                 this.setState({addOptionModelState: addOptionModelState});
               }}/>
           </FormItem>

@@ -31,6 +31,7 @@ import {
   Pagination,
 } from 'antd';
 import QuestionServicePage from '../../question/views/QuestionServicePage.js';
+import QuestionnairePage from '../../question/views/QuestionnairePage.js';
 //
 //
 //
@@ -80,7 +81,6 @@ class QuestionPage extends Component {
 
   }
   render() {
-    console.debug(this.context.router.history.location.pathname);
     return (<div>
       <Card activeTabKey={this.state.key} tabList={tabList} onTabChange={(key) => {
           this.setState({
@@ -101,7 +101,7 @@ class QuestionPage extends Component {
           });
         }}>
         <Switch>
-          <WelcomeQuestionPage path="/NavbarPage/ManagePage/QuestionPage/QuestionnairePage"/>
+          <QuestionnairePage path="/NavbarPage/ManagePage/QuestionPage/QuestionnairePage"/>
           <QuestionServicePage path="/NavbarPage/ManagePage/QuestionPage/QuestionServicePage"/>
         </Switch>
       </Card>

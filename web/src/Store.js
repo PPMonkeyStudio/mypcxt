@@ -1,4 +1,4 @@
-import {createStore, applyMiddleware, compose, combineReducers,} from 'redux';
+import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import thunkMiddleware from 'redux-thunk'
 //
 //
@@ -26,40 +26,40 @@ const initialState = {
         'user_Jurisdiction_evaluate': '',
         'user_Jurisdiction_statistics': '',
         'user_gmt_create': '',
-        'user_gmt_modified': '',
+        'user_gmt_modified': ''
       },
       'pypcxt_admin': {
         'pypcxt_admin_id': '',
         'admin_account': '',
         'admin_password': '',
         'admin_gmt_create': '',
-        'admin_gmt_modified': '',
-      },
+        'admin_gmt_modified': ''
+      }
     }
   },
   'RouteReducer': {
     'currentURL': '',
-    'currentNavbarMenuItem': ''
+    'currentNavbarMenuItem': '',
   },
   'UnitReducer': {
     'unitVO': {
       'unitDTOList': [],
-      'totalRecords': 0
+      'totalRecords': 0,
     },
 
     'addUnitModalVisible': false,
     'updateUnitModalVisible': false,
-    'unitTableLoading': false
+    'unitTableLoading': false,
   },
   'UserReducer': {
     'userVO': {
       'user_List': [],
-      'totalRecords': 0,
+      'totalRecords': 0
     },
     'userList': [],
     'addUserModalVisible': false,
     'updateUserModalVisible': false,
-    'userTableLoading': false,
+    'userTableLoading': false
   },
   'ManageReducer': {
     'ManageCardLoading': true
@@ -68,40 +68,74 @@ const initialState = {
     'serviceDefinition': {
       'serviceDefinitionVO': {
         serviceDefinitionDTOList: [],
-        totalRecords: 0
+        totalRecords: 0,
       },
-      serviceDefinitionTableLoading: false
+      serviceDefinitionTableLoading: false,
     },
 
     'serviceInstance': {
       'serviceInstanceVO': {
         serviceInstanceDTOList: [],
-        totalRecords: 0
+        totalRecords: 0,
       },
-      serviceInstanceTableLoading: false
+      serviceInstanceTableLoading: false,
     },
 
     'serviceDistribution': {
       'serviceDistributionVO': {
         serviceDistributionDTOList: [],
-        totalRecords: 0
+        totalRecords: 0,
       },
       serviceDistributionTableLoading: false,
-      serviceDistributionThreadState: false
-    },
+      serviceDistributionThreadState: false,
+    }
   },
   'QuestionReducer': {
     'QuestionService': {
       'questionServiceVO': {
         'questionServiceDTOList': [],
-        'totalRecords': 0
+        'totalRecords': 0,
       },
       'questionDetailsModalVisible': false,
       'serviceDefinitionDTOList': [],
       'questionFatherList': [],
-      'tableLoading': false
-    }
-  }
+      'tableLoading': false,
+    },
+    'Questionnaire': {
+      'questionnaireVO': {
+        'questionnaireDTOList': [],
+        'totalRecords': 0,
+      },
+      'tableLoading': false,
+      previewQuestionnaireModalVisible: false,
+      previewQuestionnaireDTO: {},
+    },
+    'Model_Questionnaire': {
+      questionnaireModalVisible: false,
+      questionnaireDTO: {}
+    },
+    'Model_Question': {
+      questionModalVisible: false,
+      questionDTO: {}
+    },
+    'Model_addOption': {
+      addOptionModalVisible: false,
+      option_question: ""
+    },
+    'Model_addQuestion': {
+      addQuestionModalVisible: false,
+      question_service_definition: "",
+      serviceDefinitionDTOList: []
+    },
+    'Model_previewQuestionnair': {
+      previewQuestionnaireModalVisible: false,
+      questionnaireDTO: {}
+    },
+    'Model_addService': {
+      addServiceModalVisible: false,
+      unitList:[],
+    },
+  },
 };
 
 const middlewares = [thunkMiddleware];
@@ -115,7 +149,7 @@ const reducer = combineReducers({
   UserReducer: UserReducer,
   ManageReducer: ManageReducer,
   ServiceReducer: ServiceReducer,
-  QuestionReducer: QuestionReducer
+  QuestionReducer: QuestionReducer,
 });
 
 const store = createStore(reducer, initialState, storeEnhancers);

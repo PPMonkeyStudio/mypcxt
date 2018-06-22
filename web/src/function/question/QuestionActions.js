@@ -1,17 +1,28 @@
-export const updateQuestionVO = (questionServiceVO) => ({type: 'updateQuestionVO', questionServiceVO: questionServiceVO})
-export const updateServiceDefinitionList = (serviceDefinitionDTOList) => ({type: 'updateServiceDefinitionList', serviceDefinitionDTOList: serviceDefinitionDTOList})
-export const updateQuestionFatherList = (questionFatherList) => ({type: 'updateQuestionFatherList', questionFatherList: questionFatherList})
+import * as QuestionnaireActions from '../question/QuestionnaireActions.js';
+
+export const updateQuestionVO = (questionServiceVO) => ({type: 'updateQuestionVO', questionServiceVO: questionServiceVO,})
+
+export const updateServiceDefinitionList = (serviceDefinitionDTOList) => ({type: 'updateServiceDefinitionList', serviceDefinitionDTOList: serviceDefinitionDTOList,})
+export const updateQuestionFatherList = (questionFatherList) => ({type: 'updateQuestionFatherList', questionFatherList: questionFatherList,})
+
+export const setQuestionDetailsModalVisible = (questionDetailsModalVisible) => ({type: 'setQuestionDetailsModalVisible', questionDetailsModalVisible: questionDetailsModalVisible,})
+export const set_addOptionModalVisible = (addOptionModalVisible) => ({type: 'set_addOptionModalVisible', addOptionModalVisible: addOptionModalVisible,})
+
+export const set_addOptionQuestion = (option_question) => ({type: 'set_addOptionQuestion', option_question: option_question,})
+export const set_addQuestionServiceDefinition = (question_service_definition) => ({type: 'set_addQuestionServiceDefinition', question_service_definition: question_service_definition,})
 
 
-export const setQuestionDetailsModalVisible = (questionDetailsModalVisible) => ({type: 'setQuestionDetailsModalVisible', questionDetailsModalVisible: questionDetailsModalVisible})
-export const setQuestionServiceTableLoading = (tableLoading) => ({type: 'setQuestionServiceTableLoading', tableLoading: tableLoading})
+export const set_addQuestionModalVisible = (addQuestionModalVisible) => ({type: 'set_addQuestionModalVisible', addQuestionModalVisible: addQuestionModalVisible,})
 
+
+
+export const setQuestionServiceTableLoading = (tableLoading) => ({type: 'setQuestionServiceTableLoading', tableLoading: tableLoading,})
 
 export const getQuestionFatherList = () => {
   return(dispatch) => {
     fetch('/mypcxt/Question/getQuestionFatherList', {
       method: 'POST',
-      headers: {},
+      headers: {}
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
@@ -31,7 +42,7 @@ export const getServiceDefinitionList = () => {
   return(dispatch) => {
     fetch('/mypcxt/Question/getServiceDefinitionList', {
       method: 'POST',
-      headers: {},
+      headers: {}
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
@@ -47,16 +58,18 @@ export const getServiceDefinitionList = () => {
     });
   };
 }
+
 export const getQuestionServiceVO = () => {
   return(dispatch) => {
     dispatch(setQuestionServiceTableLoading(true));
     fetch('/mypcxt/Question/getQuestionServiceVO', {
       method: 'POST',
-      headers: {},
+      headers: {}
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
           dispatch(updateQuestionVO(responseJson));
+
           dispatch(setQuestionServiceTableLoading(false));
         }).catch((error) => {
           console.error(error);
@@ -76,7 +89,7 @@ export const updateQuestion = (updateQuestionState) => {
     formData.append("question.question_describe", updateQuestionState.question_describe);
     fetch('/mypcxt/Question/updateQuestion', {
       method: 'POST',
-      body: formData
+      body: formData,
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
@@ -99,11 +112,36 @@ export const moveOption = (moveOptionID, moveOptionAction) => {
     formData.append("moveOptionAction", moveOptionAction);
     fetch('/mypcxt/Question/moveOption', {
       method: 'POST',
-      body: formData
+      body: formData,
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
-          dispatch(getQuestionServiceVO());
+          dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(responseJson));
+          dispatch(QuestionnaireActions.getQuestionnaireVO());
+        }).catch((error) => {
+          console.error(error);
+        });
+      } else {
+        console.error(response.status);
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  };
+}
+export const moveQuestion = (moveQuestionID, moveQuestionAction) => {
+  return(dispatch) => {
+    let formData = new FormData();
+    formData.append("question.mypcxt_question_id", moveQuestionID);
+    formData.append("moveQuestionAction", moveQuestionAction);
+    fetch('/mypcxt/Question/moveQuestion', {
+      method: 'POST',
+      body: formData,
+    }).then((response) => {
+      if (response.status === 200) {
+        response.json().then((responseJson) => {
+          dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(responseJson));
+          dispatch(QuestionnaireActions.getQuestionnaireVO());
         }).catch((error) => {
           console.error(error);
         });
@@ -124,10 +162,14 @@ export const addQuestion = (addQuestionModelState) => {
     formData.append("question.question_father_question", "none");
     fetch('/mypcxt/Question/addQuestion', {
       method: 'POST',
-      body: formData
+      body: formData,
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
+          dispatch(set_addQuestionModalVisible(false));
+
+          dispatch(QuestionnaireActions.getquestionnaireDTO_byServiceDefinitionID(addQuestionModelState.question_service_definition));
+
           dispatch(getQuestionServiceVO());
         }).catch((error) => {
           console.error(error);
@@ -148,10 +190,12 @@ export const addOption = (addOptionModelState) => {
     formData.append("option.option_grade", addOptionModelState.option_grade);
     fetch('/mypcxt/Question/addOption', {
       method: 'POST',
-      body: formData
+      body: formData,
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((responseJson) => {
+          dispatch(set_addOptionModalVisible(false));
+          dispatch(QuestionnaireActions.getquestionServiceDTO_byQuestionID(addOptionModelState.option_question));
           dispatch(getQuestionServiceVO());
         }).catch((error) => {
           console.error(error);
